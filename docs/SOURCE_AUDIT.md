@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：8 / 32（PASS 0 / FIXED 2 / SKIP 6）；排除：1。
-- 当前：第 10 项 `zh.dogemanga`。
-- 下一项：`zh.godamanga`；先完成当前源再继续。
+- 已处理：9 / 32（PASS 0 / FIXED 2 / SKIP 7）；排除：1。
+- 当前：第 11 项 `zh.godamanga`。
+- 下一项：`zh.gufengmh`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -31,8 +31,8 @@
 | 7    | 哔哩漫画   | `src/rust/zh.bilicomic`       | 未弃用 | FIXED       | 修复筛选 URL 新增参数；v5 构建/回归通过，浏览器全链路与真实 AVIF 加载通过         |
 | 8    | 动漫狂     | `src/rust/zh.cartoonmad`      | 未弃用 | SKIP        | 确认原域名已出售，新增弃用并移出当前索引；保留源码与旧包                          |
 | 9    | 拷贝漫画   | `src/rust/zh.copymanga`       | 未弃用 | SKIP        | 局部修复 APP 版本与密钥兼容、v13 回归通过；上游风险限制导致空目录，完整阅读未验证 |
-| 10   | 漫画狗     | `src/as/zh.dogemanga`         | 已弃用 | IN_PROGRESS | 正在排查                                                                          |
-| 11   | G站漫画    | `src/rust/zh.godamanga`       | 未弃用 | PENDING     | 待检查                                                                            |
+| 10   | 漫画狗     | `src/as/zh.dogemanga`         | 已弃用 | SKIP        | 主页和原 JSON API 均 403，普通浏览器明确被 Cloudflare 阻止；保留原弃用状态        |
+| 11   | G站漫画    | `src/rust/zh.godamanga`       | 未弃用 | IN_PROGRESS | 正在排查                                                                          |
 | 12   | 古风漫画   | `src/rust/zh.gufengmh`        | 未弃用 | PENDING     | 待检查                                                                            |
 | 13   | Hanime1.me | `src/rust/zh.hanime1`         | 未弃用 | PENDING     | 待检查                                                                            |
 | 14   | 嗨皮漫画   | `src/rust/zh.happymh`         | 未弃用 | PENDING     | 待检查                                                                            |
@@ -119,6 +119,14 @@
 - 已生成 v13 部分修复包并同步两份索引、图标；release 构建和 4 组实际 WASM 离线回归通过，覆盖 APP 版本头、新旧密钥、AES 图片解析、异常数据不崩溃。
 - 结论：SKIP（已修复可证实的兼容问题，但完整真实阅读链路被上游限制阻断）。保持未弃用状态，不将短期风控当成永久关闭；未验证的阅读流程需在正常环境复测，不能宣称 v13 整体可用。
 - 开源参考仅用于核对公开协议：[copymanga-nasdownloader](https://github.com/misaka10843/copymanga-nasdownloader)、[第三方客户端 API 说明](https://github.com/Animuses/Copymanga-Downloader)。
+
+### 10. 漫画狗 — SKIP
+
+- 起始状态：已弃用，AssemblyScript 实现，版本 1；本轮没有恢复发布。
+- 逐项核对原源码依赖的 `https://dogemanga.com/_search?p=&s=` 与首页，均返回 HTTP 403 和 Cloudflare 拦截页，而非 JSON 漫画列表。
+- 普通浏览器交叉验证，页面明确显示“Sorry, you have been blocked / You are unable to access dogemanga.com”；这不是只等自动验证即可通过的正常页面。
+- 搜索服务可看到站点缓存内容，不能据此认定站点永久关闭；也没有获得当前详情、章节和图片的合法有效响应，无法验证旧选择器或恢复弃用源。
+- 结论：SKIP（当前环境被上游阻止）。不盲改源码、不把缓存页面当成实站可用，不尝试绕过访问限制。完整阅读链路未验证，保留原 deprecated。
 
 ## 可复用检查工具
 
