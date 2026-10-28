@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：12 / 32（PASS 0 / FIXED 2 / SKIP 10）；排除：1。
-- 当前：第 14 项 `zh.happymh`。
-- 下一项：`zh.ho5ho`；先完成当前源再继续。
+- 已处理：13 / 32（PASS 0 / FIXED 2 / SKIP 11）；排除：1。
+- 当前：第 15 项 `zh.ho5ho`。
+- 下一项：`zh.isekai`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -35,8 +35,8 @@
 | 11   | G站漫画    | `src/rust/zh.godamanga`       | 未弃用 | SKIP        | v10 修复现站 v2 API、图片编码与线路；列表/搜索/详情实测通过，章节 API 被 Cloudflare 阻止 |
 | 12   | 古风漫画   | `src/rust/zh.gufengmh`        | 未弃用 | SKIP        | 原域名与插件请求连接超时，未确认官方迁移；保留版本与发布状态                             |
 | 13   | Hanime1.me | `src/rust/zh.hanime1`         | 未弃用 | SKIP        | 实际列表及漫画首页均为 Cloudflare 403 拦截页，完整阅读无法验证                           |
-| 14   | 嗨皮漫画   | `src/rust/zh.happymh`         | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 15   | HO5HO      | `src/rust/zh.ho5ho`           | 未弃用 | PENDING     | 待检查                                                                                   |
+| 14   | 嗨皮漫画   | `src/rust/zh.happymh`         | 未弃用 | SKIP        | 列表 API、移动站与主站均连接超时，未取得当前有效响应                                     |
+| 15   | HO5HO      | `src/rust/zh.ho5ho`           | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
 | 16   | ISEKAI     | `src/as/zh.isekai`            | 已弃用 | PENDING     | 待检查                                                                                   |
 | 17   | Komiic漫画 | `src/rust/zh.komiic`          | 未弃用 | PENDING     | 待检查                                                                                   |
 | 18   | 哔咔漫画   | `src/rust/zh.manhuabika`      | 未弃用 | PENDING     | 待检查                                                                                   |
@@ -150,6 +150,13 @@
 - 实际发布 WASM 请求 `/comics/search?query=&page=1` 返回 HTTP 403，得到空列表；另核对 `/comics`，同样返回 403，页面标题为 `Attention Required! | Cloudflare`，正文包含 blocked/challenge。
 - 已区分上游拦截与插件解析：没有取得正常漫画页面，不能仅因列表为空就修改选择器。当前普通浏览器工具不可用，未做浏览器交叉验证。
 - 结论：SKIP（当前环境受站点访问限制）。没有恢复列表、搜索、详情或图片的有效响应，不声称整体可用；保留版本 3 和原发布状态，不自动处理人工验证。
+
+### 14. 嗨皮漫画 — SKIP
+
+- 起始版本 1。实际 WASM 按现有默认筛选请求 `/apis/c/index`，连接 25 秒超时，尚未收到 HTTP 响应。
+- 另检查移动站 `/latest`，同样 25 秒连接超时；主站 `www.happymh.com` 也在 TLS 连接阶段超时。未取得正常页面或迁移重定向。
+- [原站联系页面](https://m.happymh.com/aboutus)与首页仍能被搜索服务索引；缓存不能代替本机实站验证，也不足以断言永久关闭。未发现可靠官方迁移地址。
+- 结论：SKIP（当前网络无法连接上游）。没有正常 API 数据可用来核对列表/搜索、详情、章节与图片协议，不盲改版本号、接口或域名；保留 v1 与现有未弃用状态。普通浏览器工具不可用，设备端尚未验证。
 
 ## 可复用检查工具
 
