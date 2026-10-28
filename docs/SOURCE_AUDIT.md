@@ -1,6 +1,6 @@
 # 图源逐项审计与修复
 
-更新时间：2026-10-28（北京时间）。用户授权按 README 顺序逐源处理，当前长期任务进行中。
+更新时间：2026-10-28（北京时间）。用户授权按 README 顺序逐源处理；现按用户因额度不足的要求，在完成 HO5HO 后暂停，等待重新授权。
 
 ## 范围与验收
 
@@ -15,46 +15,46 @@
 ## 当前接续位置
 
 - 已处理：14 / 32（PASS 0 / FIXED 3 / SKIP 11）；排除：1。
-- 当前：第 16 项 `zh.isekai`。
-- 下一项：`zh.komiic`；先完成当前源再继续。
+- 当前：已暂停；最后完成第 15 项 HO5HO（`zh.ho5ho`）。
+- 接续位置：第 16 项 `zh.isekai` 尚未开始；用户要求继续后再检查，之后为 `zh.komiic`。
 
 ## 逐源结果
 
-| 顺序 | 图源       | ID / 源码目录                 | 原状态 | 本轮结果    | 说明                                                                                     |
-| ---- | ---------- | ----------------------------- | ------ | ----------- | ---------------------------------------------------------------------------------------- |
-| 1    | 18漫画     | `src/rust/zh.18mh`            | 未弃用 | SKIP        | 站点及插件列表请求均触发 Cloudflare；缺少合法可用响应，无法安全修复或验证                |
-| 2    | 139漫画    | `src/rust/zh.139mh`           | 已弃用 | SKIP        | 主页 TLS 失效；原 API 与 HTTP 主页跳转到疑似域名停放地址，未发现可验证的官方迁移         |
-| 3    | 无敌漫画   | `src/rust/zh.55dmh`           | 已弃用 | SKIP        | HTTPS 无法连接；HTTP 为混淆广告跳转，旧移动站超时，无可信迁移地址                        |
-| 4    | 巴卡漫画   | `src/rust/zh.bakamh`          | 未弃用 | SKIP        | 已修复标题/章节解析并生成 v3；真实阅读仍受 Cloudflare 和登录标记限制，整体未验证         |
-| 5    | 包子漫画1  | `src/rust/zh.baozimh1`        | 未弃用 | FIXED       | 修复封面选择器与零基页序，v6 构建/回归通过；浏览器全链路及真实图片响应通过               |
-| 6    | 包子漫画2  | `src/rust/zh.baozimh2`        | 未弃用 | EXCLUDED    | 用户已确认 v7 可读，本轮忽略                                                             |
-| 7    | 哔哩漫画   | `src/rust/zh.bilicomic`       | 未弃用 | FIXED       | 修复筛选 URL 新增参数；v5 构建/回归通过，浏览器全链路与真实 AVIF 加载通过                |
-| 8    | 动漫狂     | `src/rust/zh.cartoonmad`      | 未弃用 | SKIP        | 确认原域名已出售，新增弃用并移出当前索引；保留源码与旧包                                 |
-| 9    | 拷贝漫画   | `src/rust/zh.copymanga`       | 未弃用 | SKIP        | 局部修复 APP 版本与密钥兼容、v13 回归通过；上游风险限制导致空目录，完整阅读未验证        |
-| 10   | 漫画狗     | `src/as/zh.dogemanga`         | 已弃用 | SKIP        | 主页和原 JSON API 均 403，普通浏览器明确被 Cloudflare 阻止；保留原弃用状态               |
-| 11   | G站漫画    | `src/rust/zh.godamanga`       | 未弃用 | SKIP        | v10 修复现站 v2 API、图片编码与线路；列表/搜索/详情实测通过，章节 API 被 Cloudflare 阻止 |
-| 12   | 古风漫画   | `src/rust/zh.gufengmh`        | 未弃用 | SKIP        | 原域名与插件请求连接超时，未确认官方迁移；保留版本与发布状态                             |
-| 13   | Hanime1.me | `src/rust/zh.hanime1`         | 未弃用 | SKIP        | 实际列表及漫画首页均为 Cloudflare 403 拦截页，完整阅读无法验证                           |
-| 14   | 嗨皮漫画   | `src/rust/zh.happymh`         | 未弃用 | SKIP        | 列表 API、移动站与主站均连接超时，未取得当前有效响应                                     |
-| 15   | HO5HO      | `src/rust/zh.ho5ho`           | 未弃用 | FIXED       | v2 兼容新列表卡片与详情结构；实际 WASM 全链路、首张 JPEG 响应及 3 组回归通过             |
-| 16   | ISEKAI     | `src/as/zh.isekai`            | 已弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 17   | Komiic漫画 | `src/rust/zh.komiic`          | 未弃用 | PENDING     | 待检查                                                                                   |
-| 18   | 哔咔漫画   | `src/rust/zh.manhuabika`      | 未弃用 | PENDING     | 待检查                                                                                   |
-| 19   | 漫画DB     | `src/rust/zh.manhuadb`        | 未弃用 | PENDING     | 待检查                                                                                   |
-| 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | PENDING     | 待检查                                                                                   |
-| 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | PENDING     | 待检查                                                                                   |
-| 22   | 漫客栈     | `src/rust/zh.mkzhan`          | 未弃用 | PENDING     | 待检查                                                                                   |
-| 23   | 漫小肆韩漫 | `src/rust/zh.mxshm`           | 未弃用 | PENDING     | 待检查                                                                                   |
-| 24   | Nico       | `src/rust/zh.nicohub`         | 已弃用 | PENDING     | 待检查                                                                                   |
-| 25   | MYCOMIC    | `src/rust/zh.mycomic`         | 未弃用 | PENDING     | 待检查                                                                                   |
-| 26   | NoyAcg     | `src/rust/zh.noy1`            | 未弃用 | PENDING     | 待检查                                                                                   |
-| 27   | 韩漫库     | `src/rust/zh.se8`             | 未弃用 | PENDING     | 待检查                                                                                   |
-| 28   | vomic漫画  | `src/rust/zh.vomicmh`         | 已弃用 | PENDING     | 待检查                                                                                   |
-| 29   | 绅士漫画   | `src/rust/zh.wnacg`           | 未弃用 | PENDING     | 待检查                                                                                   |
-| 30   | 言耽社     | `src/rust/zh.yandanshe`       | 未弃用 | PENDING     | 待检查                                                                                   |
-| 31   | 野蛮漫画   | `src/rust/zh.yemancomic`      | 已弃用 | PENDING     | 待检查                                                                                   |
-| 32   | 再漫画     | `src/rust/zh.zaimanhua`       | 未弃用 | PENDING     | 待检查                                                                                   |
-| 33   | zero搬运网 | `src/rust/zh.zerobywns`       | 未弃用 | PENDING     | 待检查                                                                                   |
+| 顺序 | 图源       | ID / 源码目录                 | 原状态 | 本轮结果 | 说明                                                                                     |
+| ---- | ---------- | ----------------------------- | ------ | -------- | ---------------------------------------------------------------------------------------- |
+| 1    | 18漫画     | `src/rust/zh.18mh`            | 未弃用 | SKIP     | 站点及插件列表请求均触发 Cloudflare；缺少合法可用响应，无法安全修复或验证                |
+| 2    | 139漫画    | `src/rust/zh.139mh`           | 已弃用 | SKIP     | 主页 TLS 失效；原 API 与 HTTP 主页跳转到疑似域名停放地址，未发现可验证的官方迁移         |
+| 3    | 无敌漫画   | `src/rust/zh.55dmh`           | 已弃用 | SKIP     | HTTPS 无法连接；HTTP 为混淆广告跳转，旧移动站超时，无可信迁移地址                        |
+| 4    | 巴卡漫画   | `src/rust/zh.bakamh`          | 未弃用 | SKIP     | 已修复标题/章节解析并生成 v3；真实阅读仍受 Cloudflare 和登录标记限制，整体未验证         |
+| 5    | 包子漫画1  | `src/rust/zh.baozimh1`        | 未弃用 | FIXED    | 修复封面选择器与零基页序，v6 构建/回归通过；浏览器全链路及真实图片响应通过               |
+| 6    | 包子漫画2  | `src/rust/zh.baozimh2`        | 未弃用 | EXCLUDED | 用户已确认 v7 可读，本轮忽略                                                             |
+| 7    | 哔哩漫画   | `src/rust/zh.bilicomic`       | 未弃用 | FIXED    | 修复筛选 URL 新增参数；v5 构建/回归通过，浏览器全链路与真实 AVIF 加载通过                |
+| 8    | 动漫狂     | `src/rust/zh.cartoonmad`      | 未弃用 | SKIP     | 确认原域名已出售，新增弃用并移出当前索引；保留源码与旧包                                 |
+| 9    | 拷贝漫画   | `src/rust/zh.copymanga`       | 未弃用 | SKIP     | 局部修复 APP 版本与密钥兼容、v13 回归通过；上游风险限制导致空目录，完整阅读未验证        |
+| 10   | 漫画狗     | `src/as/zh.dogemanga`         | 已弃用 | SKIP     | 主页和原 JSON API 均 403，普通浏览器明确被 Cloudflare 阻止；保留原弃用状态               |
+| 11   | G站漫画    | `src/rust/zh.godamanga`       | 未弃用 | SKIP     | v10 修复现站 v2 API、图片编码与线路；列表/搜索/详情实测通过，章节 API 被 Cloudflare 阻止 |
+| 12   | 古风漫画   | `src/rust/zh.gufengmh`        | 未弃用 | SKIP     | 原域名与插件请求连接超时，未确认官方迁移；保留版本与发布状态                             |
+| 13   | Hanime1.me | `src/rust/zh.hanime1`         | 未弃用 | SKIP     | 实际列表及漫画首页均为 Cloudflare 403 拦截页，完整阅读无法验证                           |
+| 14   | 嗨皮漫画   | `src/rust/zh.happymh`         | 未弃用 | SKIP     | 列表 API、移动站与主站均连接超时，未取得当前有效响应                                     |
+| 15   | HO5HO      | `src/rust/zh.ho5ho`           | 未弃用 | FIXED    | v2 兼容新列表卡片与详情结构；实际 WASM 全链路、首张 JPEG 响应及 3 组回归通过             |
+| 16   | ISEKAI     | `src/as/zh.isekai`            | 已弃用 | PENDING  | 尚未开始，按用户要求暂停                                                                 |
+| 17   | Komiic漫画 | `src/rust/zh.komiic`          | 未弃用 | PENDING  | 待检查                                                                                   |
+| 18   | 哔咔漫画   | `src/rust/zh.manhuabika`      | 未弃用 | PENDING  | 待检查                                                                                   |
+| 19   | 漫画DB     | `src/rust/zh.manhuadb`        | 未弃用 | PENDING  | 待检查                                                                                   |
+| 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | PENDING  | 待检查                                                                                   |
+| 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | PENDING  | 待检查                                                                                   |
+| 22   | 漫客栈     | `src/rust/zh.mkzhan`          | 未弃用 | PENDING  | 待检查                                                                                   |
+| 23   | 漫小肆韩漫 | `src/rust/zh.mxshm`           | 未弃用 | PENDING  | 待检查                                                                                   |
+| 24   | Nico       | `src/rust/zh.nicohub`         | 已弃用 | PENDING  | 待检查                                                                                   |
+| 25   | MYCOMIC    | `src/rust/zh.mycomic`         | 未弃用 | PENDING  | 待检查                                                                                   |
+| 26   | NoyAcg     | `src/rust/zh.noy1`            | 未弃用 | PENDING  | 待检查                                                                                   |
+| 27   | 韩漫库     | `src/rust/zh.se8`             | 未弃用 | PENDING  | 待检查                                                                                   |
+| 28   | vomic漫画  | `src/rust/zh.vomicmh`         | 已弃用 | PENDING  | 待检查                                                                                   |
+| 29   | 绅士漫画   | `src/rust/zh.wnacg`           | 未弃用 | PENDING  | 待检查                                                                                   |
+| 30   | 言耽社     | `src/rust/zh.yandanshe`       | 未弃用 | PENDING  | 待检查                                                                                   |
+| 31   | 野蛮漫画   | `src/rust/zh.yemancomic`      | 已弃用 | PENDING  | 待检查                                                                                   |
+| 32   | 再漫画     | `src/rust/zh.zaimanhua`       | 未弃用 | PENDING  | 待检查                                                                                   |
+| 33   | zero搬运网 | `src/rust/zh.zerobywns`       | 未弃用 | PENDING  | 待检查                                                                                   |
 
 ## 详细记录
 
@@ -164,6 +164,7 @@
 - v2 列表兼容新旧卡片、封面 src/data-src 和标题 title/aria-label；标识使用路径末段以保留现有条目格式；详情在旧字段缺失时使用页面 og 元信息，并支持新简介区域。
 - 真实 v2 发布 WASM 网络检查：列表 16 项、按代表性标题搜索 1 项、详情标题与封面非空、目录 1 章、预加载图片 60 项；首张图片 Range 返回 HTTP 206、image/jpeg，文件头确认为 JPEG。仅探测首图，不批量下载。
 - release 构建、3 组实际 WASM 回归通过，覆盖新旧卡片、详情、章节/页序/图片 Referer；v2 包、图标和两份索引同步。
+- 发布：提交 `9a3ec02` 已推送，[Actions 发布成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40655056360)。完成本项后按用户要求暂停，未开始 ISEKAI。
 - 结论：FIXED（默认列表、搜索与代表性阅读链路通过）。没有用户设备复测；未逐一覆盖全部筛选与全部作品，不将代表性检查扩大为每个条目可用。后续如出现筛选或个别作品问题应单独复核。
 
 ## 可复用检查工具
