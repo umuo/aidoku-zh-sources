@@ -19,6 +19,7 @@ name = "aidoku-baozimh2"
 version = "0.1.0"
 dependencies = [
  "aidoku",
+ "base64",
 ]
 
 [[package]]
@@ -48,6 +49,12 @@ dependencies = [
  "quote",
  "syn",
 ]
+
+[[package]]
+name = "base64"
+version = "0.21.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9d297deb1925b89f2ccc13d7635fa0714f12c87adce1c75356b39ca9b7178567"
 
 [[package]]
 name = "cfg-if"
