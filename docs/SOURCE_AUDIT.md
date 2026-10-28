@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：13 / 32（PASS 0 / FIXED 2 / SKIP 11）；排除：1。
-- 当前：第 15 项 `zh.ho5ho`。
-- 下一项：`zh.isekai`；先完成当前源再继续。
+- 已处理：14 / 32（PASS 0 / FIXED 3 / SKIP 11）；排除：1。
+- 当前：第 16 项 `zh.isekai`。
+- 下一项：`zh.komiic`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -36,8 +36,8 @@
 | 12   | 古风漫画   | `src/rust/zh.gufengmh`        | 未弃用 | SKIP        | 原域名与插件请求连接超时，未确认官方迁移；保留版本与发布状态                             |
 | 13   | Hanime1.me | `src/rust/zh.hanime1`         | 未弃用 | SKIP        | 实际列表及漫画首页均为 Cloudflare 403 拦截页，完整阅读无法验证                           |
 | 14   | 嗨皮漫画   | `src/rust/zh.happymh`         | 未弃用 | SKIP        | 列表 API、移动站与主站均连接超时，未取得当前有效响应                                     |
-| 15   | HO5HO      | `src/rust/zh.ho5ho`           | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 16   | ISEKAI     | `src/as/zh.isekai`            | 已弃用 | PENDING     | 待检查                                                                                   |
+| 15   | HO5HO      | `src/rust/zh.ho5ho`           | 未弃用 | FIXED       | v2 兼容新列表卡片与详情结构；实际 WASM 全链路、首张 JPEG 响应及 3 组回归通过             |
+| 16   | ISEKAI     | `src/as/zh.isekai`            | 已弃用 | IN_PROGRESS | 正在排查                                                                                 |
 | 17   | Komiic漫画 | `src/rust/zh.komiic`          | 未弃用 | PENDING     | 待检查                                                                                   |
 | 18   | 哔咔漫画   | `src/rust/zh.manhuabika`      | 未弃用 | PENDING     | 待检查                                                                                   |
 | 19   | 漫画DB     | `src/rust/zh.manhuadb`        | 未弃用 | PENDING     | 待检查                                                                                   |
@@ -157,6 +157,14 @@
 - 另检查移动站 `/latest`，同样 25 秒连接超时；主站 `www.happymh.com` 也在 TLS 连接阶段超时。未取得正常页面或迁移重定向。
 - [原站联系页面](https://m.happymh.com/aboutus)与首页仍能被搜索服务索引；缓存不能代替本机实站验证，也不足以断言永久关闭。未发现可靠官方迁移地址。
 - 结论：SKIP（当前网络无法连接上游）。没有正常 API 数据可用来核对列表/搜索、详情、章节与图片协议，不盲改版本号、接口或域名；保留 v1 与现有未弃用状态。普通浏览器工具不可用，设备端尚未验证。
+
+### 15. HO5HO — FIXED
+
+- 起始版本 1。真实列表返回 HTTP 200 但解析为 0 项；原始 HTML 显示站点已切换到 `ho5ho-v2-card-cover` 和 v3 详情结构，旧选择器无法取到列表、封面和标题。
+- v2 列表兼容新旧卡片、封面 src/data-src 和标题 title/aria-label；标识使用路径末段以保留现有条目格式；详情在旧字段缺失时使用页面 og 元信息，并支持新简介区域。
+- 真实 v2 发布 WASM 网络检查：列表 16 项、按代表性标题搜索 1 项、详情标题与封面非空、目录 1 章、预加载图片 60 项；首张图片 Range 返回 HTTP 206、image/jpeg，文件头确认为 JPEG。仅探测首图，不批量下载。
+- release 构建、3 组实际 WASM 回归通过，覆盖新旧卡片、详情、章节/页序/图片 Referer；v2 包、图标和两份索引同步。
+- 结论：FIXED（默认列表、搜索与代表性阅读链路通过）。没有用户设备复测；未逐一覆盖全部筛选与全部作品，不将代表性检查扩大为每个条目可用。后续如出现筛选或个别作品问题应单独复核。
 
 ## 可复用检查工具
 

@@ -92,11 +92,11 @@
   {
     "id": "zh.ho5ho",
     "name": "HO5HO",
-    "file": "zh.ho5ho-v1.aix",
-    "icon": "zh.ho5ho-v1.png",
     "lang": "zh",
-    "version": 1,
-    "nsfw": 2
+    "version": 2,
+    "nsfw": 2,
+    "file": "zh.ho5ho-v2.aix",
+    "icon": "zh.ho5ho-v2.png"
   },
   {
     "id": "zh.komiic",

@@ -110,7 +110,10 @@ fn get_manga_list(filters: Vec<Filter>, page: i32) -> Result<MangaPageResult> {
 	let has_more = true;
 	let mut mangas: Vec<Manga> = Vec::new();
 
-	for item in html.select("div[class*='c-image-hover']>a").array() {
+	for item in html
+		.select("div[class*='c-image-hover']>a, .ho5ho-v2-card-cover")
+		.array()
+	{
 		let item = match item.as_node() {
 			Ok(node) => node,
 			Err(_) => continue,
@@ -122,9 +125,16 @@ fn get_manga_list(filters: Vec<Filter>, page: i32) -> Result<MangaPageResult> {
 			.filter(|a| !a.is_empty())
 			.map(|a| a.to_string())
 			.collect::<Vec<String>>();
-		let id = (&list[3]).to_string();
-		let cover = item.select("img").attr("data-src").read();
-		let title = item.attr("title").read();
+		let id = list.last().cloned().unwrap_or_default();
+		let image = item.select("img");
+		let mut cover = image.attr("data-src").read();
+		if cover.is_empty() {
+			cover = image.attr("src").read();
+		}
+		let mut title = item.attr("title").read();
+		if title.is_empty() {
+			title = item.attr("aria-label").read();
+		}
 		mangas.push(Manga {
 			id,
 			cover: encode_uri(cover),
@@ -143,12 +153,24 @@ fn get_manga_list(filters: Vec<Filter>, page: i32) -> Result<MangaPageResult> {
 fn get_manga_details(id: String) -> Result<Manga> {
 	let url = format!("{}/{}/", MANGA_URL, id.clone());
 	let html = Request::new(url.clone(), HttpMethod::Get).html()?;
-	let cover = html
+	let mut cover = html
 		.select(".summary_image>a>img")
 		.attr("data-src")
 		.read()
 		.replace("193x278", "175x238");
-	let title = html.select(".post-title>h1").text().read();
+	if cover.is_empty() {
+		cover = html
+			.select("meta[property='og:image']")
+			.attr("content")
+			.read();
+	}
+	let mut title = html.select(".post-title>h1").text().read();
+	if title.is_empty() {
+		title = html
+			.select("meta[property='og:title']")
+			.attr("content")
+			.read();
+	}
 	let author = html
 		.select(".author-content>a")
 		.array()
@@ -157,7 +179,7 @@ fn get_manga_details(id: String) -> Result<Manga> {
 		.join(", ");
 	let artist = String::new();
 	let description = html
-		.select(".description-summary>div>p")
+		.select(".description-summary>div>p, .ho5ho-v3-story p")
 		.array()
 		.map(|a| a.as_node().unwrap().text().read())
 		.collect::<Vec<String>>()
