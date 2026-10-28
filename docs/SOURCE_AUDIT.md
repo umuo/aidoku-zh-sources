@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：10 / 32（PASS 0 / FIXED 2 / SKIP 8）；排除：1。
-- 当前：第 12 项 `zh.gufengmh`。
-- 下一项：`zh.hanime1`；先完成当前源再继续。
+- 已处理：11 / 32（PASS 0 / FIXED 2 / SKIP 9）；排除：1。
+- 当前：第 13 项 `zh.hanime1`。
+- 下一项：`zh.happymh`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -33,8 +33,8 @@
 | 9    | 拷贝漫画   | `src/rust/zh.copymanga`       | 未弃用 | SKIP        | 局部修复 APP 版本与密钥兼容、v13 回归通过；上游风险限制导致空目录，完整阅读未验证        |
 | 10   | 漫画狗     | `src/as/zh.dogemanga`         | 已弃用 | SKIP        | 主页和原 JSON API 均 403，普通浏览器明确被 Cloudflare 阻止；保留原弃用状态               |
 | 11   | G站漫画    | `src/rust/zh.godamanga`       | 未弃用 | SKIP        | v10 修复现站 v2 API、图片编码与线路；列表/搜索/详情实测通过，章节 API 被 Cloudflare 阻止 |
-| 12   | 古风漫画   | `src/rust/zh.gufengmh`        | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 13   | Hanime1.me | `src/rust/zh.hanime1`         | 未弃用 | PENDING     | 待检查                                                                                   |
+| 12   | 古风漫画   | `src/rust/zh.gufengmh`        | 未弃用 | SKIP        | 原域名与插件请求连接超时，未确认官方迁移；保留版本与发布状态                             |
+| 13   | Hanime1.me | `src/rust/zh.hanime1`         | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
 | 14   | 嗨皮漫画   | `src/rust/zh.happymh`         | 未弃用 | PENDING     | 待检查                                                                                   |
 | 15   | HO5HO      | `src/rust/zh.ho5ho`           | 未弃用 | PENDING     | 待检查                                                                                   |
 | 16   | ISEKAI     | `src/as/zh.isekai`            | 已弃用 | PENDING     | 待检查                                                                                   |
@@ -136,6 +136,13 @@
 - Rust release 构建及 3 组实际 WASM 离线回归通过；发布包、图标及两份索引同步为 v10。
 - 新包真实网络检查再次通过列表、搜索、详情，但目录 API 仍为 HTTP 403，明确含 Cloudflare challenge。当前浏览器工具不可用，未获得浏览器对新接口的交叉验证；不能把工具不可用描述成浏览器访问失败。
 - 结论：SKIP（可证实兼容问题已修复，完整章节和真实图片响应未验证）。保留未弃用状态，不声称 v10 整体可读，不绕过访问限制；正常网络或设备端仍需复测。
+
+### 12. 古风漫画 — SKIP
+
+- 起始版本 3，站点 `https://www.gufengmh.com`；列表、详情与阅读均依赖该域名，图片依赖固定旧域名。
+- 实际 v3 WASM 列表请求连接超时；另核对 www HTTPS 首页、HTTP 首页及不带 www 的 HTTPS 域名，也未取得可解析响应。HTTPS 连接阶段超时，HTTP 请求在超时前没有收到数据。
+- 定向查找出现 gfmh.app、gfmh888.com 等多个同名候选，但未发现原站官方重定向或迁移公告，不能仅凭名称将源替换为另一站。旧源资料仍指向原域名。
+- 结论：SKIP（当前网络无法取得原站响应，无法确认停站或可靠迁移）。不盲改接口，不将超时认定为永久关闭；未验证列表结构、搜索、详情、章节和实际图片，维持原版本与未弃用状态。
 
 ## 可复用检查工具
 
