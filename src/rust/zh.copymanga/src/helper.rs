@@ -1,4 +1,5 @@
 use aidoku::{
+	error::{AidokuError, AidokuErrorKind, Result},
 	helpers::uri::encode_uri,
 	prelude::*,
 	std::{
@@ -12,48 +13,85 @@ use crate::crypto;
 
 const WWW_URL: &str = "https://www.mangacopy.com";
 const API_URL: &str = "https://api.mangacopy.com/api/v3";
+const APP_VERSION: &str = "3.0.0";
 const UA: &str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36";
 
-pub fn decrypt(text: String, key: String) -> String {
-	let text = text.as_bytes();
-	let key = key.as_bytes();
-	let key: &[u8; 16] = key.try_into().unwrap();
-	let iv = &text[..16];
-	let cipher = &text[16..];
-	let cipher = hex::decode(cipher).unwrap();
-	let pt = crypto::decrypt(&cipher, key, iv).unwrap();
-	String::from_utf8_lossy(&pt).replace("", "")
+pub fn decode_error() -> AidokuError {
+	AidokuError {
+		reason: AidokuErrorKind::JsonParseError,
+	}
 }
 
-pub fn get_text(url: String) -> String {
+pub fn chapter_key(text: &str, preferred: &str) -> Result<String> {
+	for name in [preferred, "ccz"] {
+		for (start, _) in text.match_indices(name) {
+			if text[..start]
+				.chars()
+				.next_back()
+				.map(|character| character.is_ascii_alphanumeric() || character == '_')
+				.unwrap_or(false)
+			{
+				continue;
+			}
+			let value = text[start + name.len()..].trim_start();
+			let Some(value) = value.strip_prefix('=').map(str::trim_start) else {
+				continue;
+			};
+			let Some(quote @ ('\'' | '"')) = value.chars().next() else {
+				continue;
+			};
+			let key = value[1..].split(quote).next().unwrap_or_default();
+			if key.len() == 16 {
+				return Ok(String::from(key));
+			}
+		}
+	}
+	Err(decode_error())
+}
+
+pub fn decrypt(text: String, key: String) -> Result<String> {
+	let text = text.as_bytes();
+	let key = key.as_bytes();
+	let key: &[u8; 16] = key.try_into().map_err(|_| decode_error())?;
+	if text.len() < 16 {
+		return Err(decode_error());
+	}
+	let iv = &text[..16];
+	let cipher = &text[16..];
+	let cipher = hex::decode(cipher).map_err(|_| decode_error())?;
+	let pt = crypto::decrypt(&cipher, key, iv).map_err(|_| decode_error())?;
+	String::from_utf8(pt).map_err(|error| AidokuError::from(error.utf8_error()))
+}
+
+pub fn get_text(url: String) -> Result<String> {
 	Request::new(url.clone(), HttpMethod::Get)
 		.header("User-Agent", UA)
 		.string()
-		.unwrap()
 }
 
-pub fn get_html(url: String) -> Node {
+pub fn get_html(url: String) -> Result<Node> {
 	Request::new(url.clone(), HttpMethod::Get)
 		.header("User-Agent", UA)
 		.html()
-		.unwrap()
 }
 
-pub fn get_json(url: String) -> ObjectRef {
+pub fn json_request(url: String) -> Request {
 	let request = Request::new(url.clone(), HttpMethod::Get);
 
-	let request = if url.starts_with(WWW_URL) {
+	if url.starts_with(WWW_URL) {
 		request.header("User-Agent", UA)
 	} else {
 		request
-			.header("User-Agent", "COPY/2.3.1")
-			.header("version", "2.3.1")
+			.header("User-Agent", &format!("COPY/{}", APP_VERSION))
+			.header("version", APP_VERSION)
 			.header("platform", "3")
 			.header("region", "1")
 			.header("webp", "1")
-	};
+	}
+}
 
-	request.json().unwrap().as_object().unwrap()
+pub fn get_json(url: String) -> Result<ObjectRef> {
+	json_request(url).json()?.as_object()
 }
 
 pub fn gen_explore_url(theme: String, top: String, ordering: String, page: i32) -> String {

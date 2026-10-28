@@ -47,11 +47,11 @@
   {
     "id": "zh.copymanga",
     "name": "拷贝漫画",
-    "file": "zh.copymanga-v12.aix",
-    "icon": "zh.copymanga-v12.png",
     "lang": "zh",
-    "version": 12,
-    "nsfw": 1
+    "version": 13,
+    "nsfw": 1,
+    "file": "zh.copymanga-v13.aix",
+    "icon": "zh.copymanga-v13.png"
   },
   {
     "id": "zh.godamanga",

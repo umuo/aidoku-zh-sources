@@ -125,7 +125,7 @@ fn get_manga_list(filters: Vec<Filter>, page: i32) -> Result<MangaPageResult> {
 		helper::gen_search_url(query, page)
 	};
 
-	let json = helper::get_json(url);
+	let json = helper::get_json(url)?;
 	let data = json.get("results").as_object()?;
 	let list = data.get("list").as_array()?;
 
@@ -173,7 +173,7 @@ fn get_manga_listing(listing: Listing, page: i32) -> Result<MangaPageResult> {
 		String::new()
 	};
 
-	let json = helper::get_json(url);
+	let json = helper::get_json(url)?;
 	let data = json.get("results").as_object()?;
 	let list = data.get("list").as_array()?;
 
@@ -186,7 +186,7 @@ fn get_manga_listing(listing: Listing, page: i32) -> Result<MangaPageResult> {
 #[get_manga_details]
 fn get_manga_details(id: String) -> Result<Manga> {
 	let url = helper::gen_manga_url(id.clone());
-	let html = helper::get_html(url.clone());
+	let html = helper::get_html(url.clone())?;
 	let cover = html
 		.select(".comicParticulars-left-img>img")
 		.attr("data-src")
@@ -234,40 +234,38 @@ fn get_manga_details(id: String) -> Result<Manga> {
 #[get_chapter_list]
 fn get_chapter_list(id: String) -> Result<Vec<Chapter>> {
 	let manga_url = helper::gen_manga_url(id.clone());
-	let text = helper::get_text(manga_url);
-	let key = text
-		.substring_after("var ccx = '")
-		.unwrap()
-		.substring_before("'")
-		.unwrap()
-		.to_string();
+	let text = helper::get_text(manga_url)?;
+	let key = helper::chapter_key(&text, "ccx")?;
 	let url = helper::gen_chapter_list_url(id);
-	let json = helper::get_json(url);
+	let json = helper::get_json(url)?;
 	let data = json.get("results").as_string()?.read();
-	let data = helper::decrypt(data, key);
+	let data = helper::decrypt(data, key)?;
 	let data = json::parse(data)?.as_object()?;
 
-	Ok(parser::parse_chapter_list(data))
+	let chapters = parser::parse_chapter_list(data);
+	if chapters.is_empty() {
+		return Err(helper::decode_error());
+	}
+	Ok(chapters)
 }
 
 #[get_page_list]
 fn get_page_list(manga_id: String, chapter_id: String) -> Result<Vec<Page>> {
 	let url = helper::gen_page_list_url(manga_id, chapter_id);
-	let text = helper::get_text(url);
-	let key = text
-		.substring_after("var ccy = '")
-		.unwrap()
-		.substring_before("'")
-		.unwrap()
-		.to_string();
+	let text = helper::get_text(url)?;
+	let key = helper::chapter_key(&text, "ccy")?;
 	let data = text
 		.substring_after("contentKey=\"")
-		.unwrap()
+		.ok_or_else(helper::decode_error)?
 		.substring_before("\"")
-		.unwrap()
+		.ok_or_else(helper::decode_error)?
 		.to_string();
-	let data = helper::decrypt(data, key);
+	let data = helper::decrypt(data, key)?;
 	let data = json::parse(data)?.as_array()?;
 
-	Ok(parser::parse_page_list(data))
+	let pages = parser::parse_page_list(data);
+	if pages.is_empty() {
+		return Err(helper::decode_error());
+	}
+	Ok(pages)
 }
