@@ -54,7 +54,12 @@ if (process.argv[3]) {
   }
   wasm = result.stdout;
 }
-const report = { source: id, version: entry?.version, checkedAt: new Date().toISOString(), checks: {} };
+const report = {
+  source: id,
+  version: process.argv[3] ? metadata?.info.version : entry?.version,
+  checkedAt: new Date().toISOString(),
+  checks: {},
+};
 let host;
 try {
   host = createHost(wasm, { defaults });
@@ -87,7 +92,12 @@ try {
   if (pages[0].url) {
     const response = curlRequest(host.imageRequest(pages[0].url), { imageProbe: true });
     const signature = response.body.subarray(0, 16).toString("hex");
-    const image = /^(ffd8ff|89504e470d0a1a0a|47494638|52494646)/.test(signature);
+    const avif =
+      response.body.subarray(4, 8).toString() === "ftyp" && /avif|avis/.test(response.body.subarray(8, 40).toString());
+    const image =
+      /^(ffd8ff|89504e470d0a1a0a|47494638)/.test(signature) ||
+      (signature.startsWith("52494646") && response.body.subarray(8, 12).toString() === "WEBP") ||
+      avif;
     if (![200, 206].includes(response.status) || !image) {
       throw new Error(`Image probe did not return recognized image bytes (HTTP ${response.status})`);
     }

@@ -59,3 +59,17 @@ test("宿主保留 HTTP 失败状态供插件处理，检查器不能把空列�
   assert.equal(host.requests[0].status, 403);
   assert.equal(host.requests[0].challenge, "challenge");
 });
+
+test("宿主按页面声明识别 Big5，避免将编码差异误判为图源故障", () => {
+  const body = Buffer.concat([
+    Buffer.from('<meta charset="big5"><div class="pb-2"><a href="/manga/sample"><div><img src="cover.png"><h3>'),
+    Buffer.from("a4a4a4e5", "hex"),
+    Buffer.from("</h3></div></a></div>"),
+  ]);
+  const host = createHost(result.stdout, {
+    transport(request) {
+      return { status: 200, url: request.url, headers: { "content-type": "text/html" }, body };
+    },
+  });
+  assert.equal(host.call("get_manga_list", []).manga[0].title, "中文");
+});

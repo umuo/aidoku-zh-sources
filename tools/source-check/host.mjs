@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { load } from "cheerio";
+import { load, loadBuffer } from "cheerio";
 
 // 只模拟旧版 Aidoku 宿主 ABI；网络和图片仍走真实 HTTP，不模拟可用结果。
 export function curlRequest(request, { imageProbe = false } = {}) {
@@ -184,7 +184,14 @@ export function createHost(wasm, { transport = curlRequest, defaults = {} } = {}
       get_header: (id, pointer, length) => put(get(id).response?.headers[read(pointer, length).toLowerCase()]),
       get_data_size: (id) => get(id).response.body.length,
       get_data: (id, pointer, length) => bytes(pointer, length).set(get(id).response.body),
-      html: (id) => put(parseHtml(get(id).response.body.toString("utf8"), get(id).response.url)),
+      html: (id) => {
+        const response = get(id).response;
+        const charset = /charset\s*=\s*([^;\s]+)/i.exec(response.headers["content-type"] ?? "")?.[1];
+        const document = loadBuffer(response.body, {
+          encoding: { defaultEncoding: "utf-8", transportLayerEncodingLabel: charset },
+        });
+        return put(node(document.root(), response.url));
+      },
       json: (id) => parseJson(get(id).response.body.toString("utf8")),
       set_rate_limit: () => {},
       set_rate_limit_period: () => {},
@@ -266,8 +273,15 @@ export function createHost(wasm, { transport = curlRequest, defaults = {} } = {}
         put({ index, url: read(url, urlLength), base64: read(base64, base64Length) }),
     },
     env: {
-      abort: (message) => {
-        throw new Error(`WASM abort at ${message}`);
+      abort: (message, file, line, column) => {
+        const panicText = (pointer) => {
+          if (pointer < 4 || pointer >= instance.exports.memory.buffer.byteLength) {
+            return String(pointer);
+          }
+          const length = new DataView(instance.exports.memory.buffer).getUint32(pointer - 4, true);
+          return length < 4096 ? read(pointer, length) : String(pointer);
+        };
+        throw new Error(`WASM abort: ${panicText(message)} at ${panicText(file)}:${line}:${column}`);
       },
       print: () => {},
     },

@@ -38,20 +38,11 @@
   {
     "id": "zh.bilicomic",
     "name": "哔哩漫画",
-    "file": "zh.bilicomic-v4.aix",
-    "icon": "zh.bilicomic-v4.png",
     "lang": "zh",
-    "version": 4,
-    "nsfw": 0
-  },
-  {
-    "id": "zh.cartoonmad",
-    "name": "动漫狂",
-    "file": "zh.cartoonmad-v2.aix",
-    "icon": "zh.cartoonmad-v2.png",
-    "lang": "zh",
-    "version": 2,
-    "nsfw": 0
+    "version": 5,
+    "nsfw": 0,
+    "file": "zh.bilicomic-v5.aix",
+    "icon": "zh.bilicomic-v5.png"
   },
   {
     "id": "zh.copymanga",
