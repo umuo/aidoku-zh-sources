@@ -5,7 +5,10 @@ import test from "node:test";
 // 先构建图源，再使用 Node.js 20+ 运行 node tests/reader.test.mjs。
 // 使用实际 WASM 导出和模拟宿主验证阅读流程，不访问网络。
 const wasm = new WebAssembly.Module(
-  readFileSync(new URL("../target/wasm32-unknown-unknown/release/aidoku_baozimh2.wasm", import.meta.url)),
+  readFileSync(
+    process.env.BAOZIMH2_WASM_PATH ??
+      new URL("../target/wasm32-unknown-unknown/release/aidoku_baozimh2.wasm", import.meta.url),
+  ),
 );
 // 固定编码样本已与站点 chapter-decoder.js 的输出交叉核对。
 const fixtures = JSON.parse(readFileSync(new URL("fixtures/images.json", import.meta.url), "utf8"));

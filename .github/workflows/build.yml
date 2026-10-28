@@ -1,61 +1,74 @@
-name: Build and Deploy Sources
+name: Validate and Deploy Sources
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  build-and-deploy:
+  validate-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 1. 配置 Rust 环境，并明确添加 wasm32 目标
-      - name: Setup Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          targets: wasm32-unknown-unknown
+          node-version: "22"
 
-      # 2. 缓存 Cargo (加快后续构建)
-      - name: Cache Cargo registry
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
-
-      # 3. 安装 aidoku-cli 工具 (这是修复 "aidoku: command not found" 的关键)
-      - name: Install aidoku-cli
+      # 旧版 .aix 使用数组索引；直接校验已提交的发布包，避免新版 CLI 生成空列表。
+      - name: Validate published packages and indexes
         run: |
-          # 从官方最新的 aidoku-rs 仓库安装 cli 工具
-          cargo install --git https://github.com/Aidoku/aidoku-rs aidoku-cli
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from zipfile import ZipFile
 
-      # 4. 执行构建脚本
-      - name: Build Sources
-        run: |
-          chmod +x build.sh
-          ./build.sh
+          public = Path("public")
+          index = json.loads((public / "index.json").read_text())
+          compact = json.loads((public / "index.min.json").read_text())
+          if not isinstance(index, list) or not index or index != compact:
+              raise ValueError("Source indexes must be nonempty, identical arrays")
+          if len({entry["id"] for entry in index}) != len(index):
+              raise ValueError("Duplicate source IDs")
 
-      # 5. 验证构建结果 (调试用)
-      - name: List Output Files
-        run: ls -R public || echo "Public folder not found"
+          for entry in index:
+              if Path(entry["file"]).name != entry["file"] or Path(entry["icon"]).name != entry["icon"]:
+                  raise ValueError("Invalid package or icon filename")
+              icon = public / "icons" / entry["icon"]
+              if not icon.is_file():
+                  raise ValueError(f"Missing icon: {icon}")
+              with ZipFile(public / "sources" / entry["file"]) as package:
+                  if package.testzip() is not None:
+                      raise ValueError(f"Corrupt package: {entry['file']}")
+                  info = json.loads(package.read("Payload/source.json"))["info"]
+                  for field in ("id", "version", "lang"):
+                      if info[field] != entry[field]:
+                          raise ValueError(f"Package metadata mismatch: {entry['id']} {field}")
+                  wasm = package.read("Payload/main.wasm")
+                  if not wasm.startswith(b"\x00asm\x01\x00\x00\x00"):
+                      raise ValueError(f"Invalid WebAssembly: {entry['id']}")
+                  if entry["id"] == "zh.baozimh2":
+                      (Path(os.environ["RUNNER_TEMP"]) / "baozimh2-test.wasm").write_bytes(wasm)
+          print(f"Validated {len(index)} source packages")
+          PY
 
-      # 6. 部署到 gh-pages
+      - name: Test published Baozimh2 plugin
+        env:
+          BAOZIMH2_WASM_PATH: ${{ runner.temp }}/baozimh2-test.wasm
+        run: node --test src/rust/zh.baozimh2/tests/reader.test.mjs
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           force_orphan: true
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"

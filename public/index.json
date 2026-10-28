@@ -38,10 +38,10 @@
   {
     "id": "zh.bilicomic",
     "name": "哔哩漫画",
-    "file": "zh.bilicomic-v3.aix",
-    "icon": "zh.bilicomic-v3.png",
+    "file": "zh.bilicomic-v4.aix",
+    "icon": "zh.bilicomic-v4.png",
     "lang": "zh",
-    "version": 3,
+    "version": 4,
     "nsfw": 0
   },
   {
@@ -110,10 +110,10 @@
   {
     "id": "zh.komiic",
     "name": "Komiic漫画",
-    "file": "zh.komiic-v2.aix",
-    "icon": "zh.komiic-v2.png",
+    "file": "zh.komiic-v3.aix",
+    "icon": "zh.komiic-v3.png",
     "lang": "zh",
-    "version": 2,
+    "version": 3,
     "nsfw": 0
   },
   {
@@ -164,10 +164,10 @@
   {
     "id": "zh.mycomic",
     "name": "MYCOMIC",
-    "file": "zh.mycomic-v1.aix",
-    "icon": "zh.mycomic-v1.png",
+    "file": "zh.mycomic-v2.aix",
+    "icon": "zh.mycomic-v2.png",
     "lang": "zh",
-    "version": 1,
+    "version": 2,
     "nsfw": 1
   },
   {
