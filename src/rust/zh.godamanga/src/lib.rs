@@ -2,10 +2,11 @@
 extern crate alloc;
 
 use aidoku::{
-	error::Result,
+	error::{AidokuError, AidokuErrorKind, Result},
 	helpers::uri::encode_uri,
 	prelude::*,
 	std::{
+		json,
 		net::{HttpMethod, Request},
 		String, Vec,
 	},
@@ -14,9 +15,34 @@ use aidoku::{
 };
 use alloc::string::ToString;
 
+// 与已验证的同上游图源复用相同解码实现；该文件须随完整仓库一起检出。
+#[path = "../../zh.baozimh2/src/decoder.rs"]
+mod decoder;
+
 const WWW_URL: &str = "https://godamh.com";
-const API_URL: &str = "https://api-get-v2.mgsearcher.com";
-const IMG_URL: &str = "https://f40-1-4.g-mh.online";
+const API_URL: &str = "https://v2.apikk.top";
+
+fn parse_error() -> AidokuError {
+	AidokuError {
+		reason: AidokuErrorKind::JsonParseError,
+	}
+}
+
+fn manga_mid(id: &str) -> Result<String> {
+	if let Some((_, mid)) = id.split_once('/') {
+		if !mid.is_empty() && mid.bytes().all(|byte| byte.is_ascii_digit()) {
+			return Ok(mid.to_string());
+		}
+	}
+	// 兼容尚未刷新详情、只保存了站点 slug 的旧书架条目。
+	let slug = id.split('/').next().ok_or_else(parse_error)?;
+	let html = Request::new(format!("{}/manga/{}", WWW_URL, slug), HttpMethod::Get).html()?;
+	let mid = html.select("#mangachapters").attr("data-mid").read();
+	if mid.is_empty() || !mid.bytes().all(|byte| byte.is_ascii_digit()) {
+		return Err(parse_error());
+	}
+	Ok(mid)
+}
 
 const FILTER_CATEGORY: [&str; 35] = [
 	"",
@@ -252,7 +278,11 @@ fn get_manga_details(id: String) -> Result<Manga> {
 #[get_chapter_list]
 fn get_chapter_list(id: String) -> Result<Vec<Chapter>> {
 	let ids = id.split("/").collect::<Vec<&str>>();
-	let url = format!("{}/api/manga/get?mid={}&mode=all", API_URL, ids[1]);
+	let url = format!(
+		"{}/api/v2/manga/get?mid={}&mode=all",
+		API_URL,
+		manga_mid(&id)?
+	);
 	let json = Request::new(url.clone(), HttpMethod::Get)
 		.header("Origin", &WWW_URL)
 		.header("Referer", &WWW_URL)
@@ -288,11 +318,10 @@ fn get_chapter_list(id: String) -> Result<Vec<Chapter>> {
 
 #[get_page_list]
 fn get_page_list(manga_id: String, chapter_id: String) -> Result<Vec<Page>> {
-	let ids = manga_id.split("/").collect::<Vec<&str>>();
 	let url = format!(
-		"{}/api/chapter/getinfo?m={}&c={}",
+		"{}/api/v2/chapter/getinfo?m={}&c={}",
 		API_URL,
-		ids[1],
+		manga_mid(&manga_id)?,
 		chapter_id.clone()
 	);
 	let json = Request::new(url.clone(), HttpMethod::Get)
@@ -303,24 +332,34 @@ fn get_page_list(manga_id: String, chapter_id: String) -> Result<Vec<Page>> {
 	let data = data.get("data").as_object()?;
 	let info = data.get("info").as_object()?;
 	let images = info.get("images").as_object()?;
-	let list = images.get("images").as_array()?;
+	let line = images.get("line").as_int().unwrap_or(1);
+	let image_data = images.get("images");
+	let image_data = if let Ok(encoded) = image_data.clone().as_string() {
+		let decoded = decoder::decode_images(&encoded.read()).map_err(|_| parse_error())?;
+		json::parse(decoded.as_bytes())?
+	} else {
+		image_data
+	};
+	let list = image_data.as_array()?;
 	let mut pages: Vec<Page> = Vec::new();
 
 	for (index, item) in list.enumerate() {
-		let item = match item.as_object() {
-			Ok(item) => item,
-			Err(_) => continue,
-		};
+		let item = item.as_object()?;
 		let index = index as i32;
-		let url = match item.get("url").as_string() {
-			Ok(url) => format!("{}{}", IMG_URL, url.read()),
-			Err(_) => continue,
-		};
+		let path = item.get("url").as_string()?.read();
+		if path.trim().is_empty() {
+			return Err(parse_error());
+		}
+		let url = decoder::image_url(&path, line);
 		pages.push(Page {
 			index,
 			url,
 			..Default::default()
 		})
+	}
+
+	if pages.is_empty() {
+		return Err(parse_error());
 	}
 
 	Ok(pages)
