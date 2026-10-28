@@ -2,7 +2,7 @@
 extern crate alloc;
 
 use aidoku::{
-	error::Result,
+	error::{AidokuError, AidokuErrorKind, Result},
 	helpers::uri::encode_uri,
 	prelude::*,
 	std::{
@@ -42,7 +42,12 @@ fn get_manga_list(filters: Vec<Filter>, page: i32) -> Result<MangaPageResult> {
 	}
 
 	let url = if query.is_empty() {
-		format!("{}/{}/page/{}/", WWW_URL, finish, page)
+		let path = if finish.is_empty() {
+			String::new()
+		} else {
+			format!("{}/", finish)
+		};
+		format!("{}/{}page/{}/", WWW_URL, path, page)
 	} else {
 		format!(
 			"{}/page/{}/?s={}&post_type=wp-manga",
@@ -183,7 +188,10 @@ fn get_manga_details(id: String) -> Result<Manga> {
 		.select("meta[property='og:image']")
 		.attr("content")
 		.read();
-	let title = html.select("meta[property='og:title']").text().read();
+	let title = html
+		.select("meta[property='og:title']")
+		.attr("content")
+		.read();
 	let author = html
 		.select(".author-content>a")
 		.array()
@@ -238,8 +246,14 @@ fn get_manga_details(id: String) -> Result<Manga> {
 fn get_chapter_list(id: String) -> Result<Vec<Chapter>> {
 	let url = format!("{}/manga/{}/", WWW_URL, id.clone());
 	let html = Request::new(url.clone(), HttpMethod::Get).html()?;
-	let list = html.select(".wp-manga-chapter>a").array();
+	// 站点已将章节节点改为 mkjp-chapter，保留旧类名兼容历史页面。
+	let list = html.select(".wp-manga-chapter>a, .mkjp-chapter>a").array();
 	let len = list.len();
+	if len == 0 {
+		return Err(AidokuError {
+			reason: AidokuErrorKind::NodeError(aidoku::error::NodeError::ParseError),
+		});
+	}
 	let mut chapters: Vec<Chapter> = Vec::new();
 
 	for (index, item) in list.enumerate() {

@@ -169,7 +169,7 @@ fn get_manga_details(id: String) -> Result<Manga> {
 		.collect::<Vec<String>>()
 		.pop()
 		.unwrap();
-	let cover = html.select("meta[name='og:image'").attr("content").read();
+	let cover = html.select("meta[name='og:image']").attr("content").read();
 	let title = html
 		.select("meta[name='og:novel:book_name']")
 		.attr("content")
@@ -268,7 +268,7 @@ fn get_chapter_list(id: String) -> Result<Vec<Chapter>> {
 #[get_page_list]
 fn get_page_list(manga_id: String, chapter_id: String) -> Result<Vec<Page>> {
 	let mut pages: Vec<Page> = Vec::new();
-	let mut page = 1;
+	let mut page = 0;
 	let mut current_chapter_id = chapter_id.clone();
 
 	loop {

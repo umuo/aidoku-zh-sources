@@ -64,6 +64,12 @@ jobs:
           BAOZIMH2_WASM_PATH: ${{ runner.temp }}/baozimh2-test.wasm
         run: node --test src/rust/zh.baozimh2/tests/reader.test.mjs
 
+      - name: Install source verification tools
+        run: npm ci --prefix tools/source-check --ignore-scripts --no-audit --no-fund
+
+      - name: Test source host and published fixes
+        run: node --test tools/source-check/*.test.mjs
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

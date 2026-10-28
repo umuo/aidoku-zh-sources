@@ -10,3 +10,6 @@ src/as/*/build
 src/as/*/node_modules
 
 src/rust/*/target
+
+tools/**/node_modules
+tools/**/__pycache__

@@ -6,6 +6,8 @@ Aidoku 中文图源
 
 跨电脑接续开发前，请先阅读 [仓库协作规则](AGENTS.md) 和 [当前进度与交接](docs/HANDOFF.md)。每次推送前更新交接文档，并随本次变更一起提交。
 
+当前长期任务及逐源结果见 [图源审计与修复记录](docs/SOURCE_AUDIT.md)。
+
 ## 如何使用
 
 点击 [这里](https://aidoku.app/add-source-list/?url=https://raw.githubusercontent.com/suiyuran/aidoku-zh-sources/main/public/) 将图源添加到 Aidoku 中。

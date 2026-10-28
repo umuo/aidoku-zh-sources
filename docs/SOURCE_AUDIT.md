@@ -1,0 +1,123 @@
+# 图源逐项审计与修复
+
+更新时间：2026-10-28（北京时间）。用户授权按 README 顺序逐源处理，当前长期任务进行中。
+
+## 范围与验收
+
+- 共 33 个源码图源，含原先已弃用的 8 个；包子漫画 2（`zh.baozimh2`）由用户确认 v7 可读，本轮按要求排除，其余 32 个逐项处理。
+- 按顺序完成当前源的排查、可行修复和验证后再处理下一个，不用批量首页探活代替完整检查。
+- 检查列表或推荐、搜索、详情、章节、图片地址及至少一张图片响应；不批量下载漫画。
+- PASS：代表性链路与现有图源实现相符，并有实际请求证据；FIXED：问题修复后完成相关验证；SKIP：经排查仍无法恢复，明确原因与缺失的验证。
+- 首页 200、单独编译通过或离线模拟通过均不能单独算作可用。Cloudflare、账号限制、站点关闭和本机网络问题分别记录。
+- 原先弃用的图源只有通过验证后才考虑恢复发布；不能仅因旧域名不可访问就猜测新域名或替换成无关网站。
+- 修复同步源码、资源版本、已编译发布包与两份索引；每次推送前更新本表和 `HANDOFF.md`。
+
+## 当前接续位置
+
+- 已处理：5 / 32（PASS 0 / FIXED 1 / SKIP 4）；排除：1。
+- 当前：第 7 项 `zh.bilicomic`。
+- 下一项：`zh.cartoonmad`；先完成当前源再继续。
+
+## 逐源结果
+
+| 顺序 | 图源       | ID / 源码目录                 | 原状态 | 本轮结果    | 说明                                                                             |
+| ---- | ---------- | ----------------------------- | ------ | ----------- | -------------------------------------------------------------------------------- |
+| 1    | 18漫画     | `src/rust/zh.18mh`            | 未弃用 | SKIP        | 站点及插件列表请求均触发 Cloudflare；缺少合法可用响应，无法安全修复或验证        |
+| 2    | 139漫画    | `src/rust/zh.139mh`           | 已弃用 | SKIP        | 主页 TLS 失效；原 API 与 HTTP 主页跳转到疑似域名停放地址，未发现可验证的官方迁移 |
+| 3    | 无敌漫画   | `src/rust/zh.55dmh`           | 已弃用 | SKIP        | HTTPS 无法连接；HTTP 为混淆广告跳转，旧移动站超时，无可信迁移地址                |
+| 4    | 巴卡漫画   | `src/rust/zh.bakamh`          | 未弃用 | SKIP        | 已修复标题/章节解析并生成 v3；真实阅读仍受 Cloudflare 和登录标记限制，整体未验证 |
+| 5    | 包子漫画1  | `src/rust/zh.baozimh1`        | 未弃用 | FIXED       | 修复封面选择器与零基页序，v6 构建/回归通过；浏览器全链路及真实图片响应通过       |
+| 6    | 包子漫画2  | `src/rust/zh.baozimh2`        | 未弃用 | EXCLUDED    | 用户已确认 v7 可读，本轮忽略                                                     |
+| 7    | 哔哩漫画   | `src/rust/zh.bilicomic`       | 未弃用 | IN_PROGRESS | 正在排查                                                                         |
+| 8    | 动漫狂     | `src/rust/zh.cartoonmad`      | 未弃用 | PENDING     | 待检查                                                                           |
+| 9    | 拷贝漫画   | `src/rust/zh.copymanga`       | 未弃用 | PENDING     | 待检查                                                                           |
+| 10   | 漫画狗     | `src/as/zh.dogemanga`         | 已弃用 | PENDING     | 待检查                                                                           |
+| 11   | G站漫画    | `src/rust/zh.godamanga`       | 未弃用 | PENDING     | 待检查                                                                           |
+| 12   | 古风漫画   | `src/rust/zh.gufengmh`        | 未弃用 | PENDING     | 待检查                                                                           |
+| 13   | Hanime1.me | `src/rust/zh.hanime1`         | 未弃用 | PENDING     | 待检查                                                                           |
+| 14   | 嗨皮漫画   | `src/rust/zh.happymh`         | 未弃用 | PENDING     | 待检查                                                                           |
+| 15   | HO5HO      | `src/rust/zh.ho5ho`           | 未弃用 | PENDING     | 待检查                                                                           |
+| 16   | ISEKAI     | `src/as/zh.isekai`            | 已弃用 | PENDING     | 待检查                                                                           |
+| 17   | Komiic漫画 | `src/rust/zh.komiic`          | 未弃用 | PENDING     | 待检查                                                                           |
+| 18   | 哔咔漫画   | `src/rust/zh.manhuabika`      | 未弃用 | PENDING     | 待检查                                                                           |
+| 19   | 漫画DB     | `src/rust/zh.manhuadb`        | 未弃用 | PENDING     | 待检查                                                                           |
+| 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | PENDING     | 待检查                                                                           |
+| 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | PENDING     | 待检查                                                                           |
+| 22   | 漫客栈     | `src/rust/zh.mkzhan`          | 未弃用 | PENDING     | 待检查                                                                           |
+| 23   | 漫小肆韩漫 | `src/rust/zh.mxshm`           | 未弃用 | PENDING     | 待检查                                                                           |
+| 24   | Nico       | `src/rust/zh.nicohub`         | 已弃用 | PENDING     | 待检查                                                                           |
+| 25   | MYCOMIC    | `src/rust/zh.mycomic`         | 未弃用 | PENDING     | 待检查                                                                           |
+| 26   | NoyAcg     | `src/rust/zh.noy1`            | 未弃用 | PENDING     | 待检查                                                                           |
+| 27   | 韩漫库     | `src/rust/zh.se8`             | 未弃用 | PENDING     | 待检查                                                                           |
+| 28   | vomic漫画  | `src/rust/zh.vomicmh`         | 已弃用 | PENDING     | 待检查                                                                           |
+| 29   | 绅士漫画   | `src/rust/zh.wnacg`           | 未弃用 | PENDING     | 待检查                                                                           |
+| 30   | 言耽社     | `src/rust/zh.yandanshe`       | 未弃用 | PENDING     | 待检查                                                                           |
+| 31   | 野蛮漫画   | `src/rust/zh.yemancomic`      | 已弃用 | PENDING     | 待检查                                                                           |
+| 32   | 再漫画     | `src/rust/zh.zaimanhua`       | 未弃用 | PENDING     | 待检查                                                                           |
+| 33   | zero搬运网 | `src/rust/zh.zerobywns`       | 未弃用 | PENDING     | 待检查                                                                           |
+
+## 详细记录
+
+### 1. 18漫画 — SKIP（当前环境无法验证）
+
+- 起始版本：1；站点：`https://18mh.org`。
+- 当前实现：网页列表/详情；章节走 `/manga/get`；阅读走 `/chapter/getcontent`。
+- 实际请求：站点首页、具体详情页、www 域名和发布 v1 插件调用的 `/manga/page/1` 均返回 HTTP 403，响应明确含 `cf-mitigated: challenge`。普通浏览器同样停留在安全验证页。
+- 搜索服务能够看到缓存首页，说明不能把上述限制认定为站点关闭。
+- 原因与处理：无法获得当前章节和图片响应，未证明存在可直接修复的解析错误；不盲改接口、不自动处理人工安全验证，按用户允许的异常路径暂时跳过。维持原发布状态与版本，不标记 PASS。
+- 未验证：当前页面结构、章节/阅读接口和图片响应。后续有正常访问环境或用户提供有效响应时可重试。
+
+### 2. 139漫画 — SKIP
+
+- 起始状态：已弃用，版本 1；保留弃用状态，不重新发布。
+- 源码依赖：`139mh.com`、`api.139mh.com`、`i.139img.com`。
+- 实际结果：HTTPS 主页证书链校验失败；原列表 API 和 HTTP 主页均返回 302，目标为 `http://ww80.139mh.com/` 并带 `subid1` 广告追踪参数，之后服务器空响应。没有返回漫画 API 数据。
+- 恢复调查：定向搜索仍主要指向原域名，未找到可验证的站点官方迁移地址；不能将同名第三方网站当成原站替换。
+- 跳过原因：上游服务与域名异常，缺少可用内容和接口，无法仅靠本仓库修复。详情、章节与图片未能验证。
+
+### 3. 无敌漫画 — SKIP
+
+- 起始状态：已弃用，版本 2；维持弃用状态。
+- 实际结果：`https://www.55dmh.com` TLS 握手失败；已知移动站 `m.55dmh.com` 连接超时。HTTP 首页虽然返回 200，但只有混淆 JavaScript 跳转，没有漫画列表或章节结构。
+- 对 HTTP 脚本做隔离、无网络解码，跳转指向与漫画无关的第三方广告域名；不跟随广告或将其当作官方迁移。
+- 定向查找没有找到可验证的原站官方新地址。上游服务不可用，无法靠修改解析逻辑恢复；详情、章节和图片未验证，保留 SKIP。
+
+### 4. 巴卡漫画 — SKIP
+
+- 起始版本 2；源码中存在三处已证实问题：默认列表 URL 产生双斜杠；详情标题对 meta 节点取 text，结果为空；章节仅匹配旧 `.wp-manga-chapter`，当前站点实际使用 `.mkjp-chapter`。
+- 通过普通浏览器检查到列表和真实详情页：meta 的 content 非空、text 为空；旧章节选择器匹配 0 项，新类名匹配 60 项。以上是实际页面证据，不是猜测接口。
+- 已修复上述三点，保留新旧章节类名兼容，并将空章节结果改为明确错误；编译通过，已生成 v3 发布包并同步图标与两份索引。3 组实际 WASM 离线回归测试通过。
+- 真实请求仍受限制：命令行插件列表请求返回 Cloudflare 403；普通浏览器可打开首页与详情，但阅读页持续停留在安全验证。详情还显示章节需登录标记，不能将认证限制当作解析问题绕过。
+- 本轮结论：SKIP（局部修复完成，完整阅读链路无法验证）。未将 v3 声称为整体可用，后续需正常访问环境/用户设备复测。没有自动注册、登录或处理人工验证。
+
+## 可复用检查工具
+
+`tools/source-check/` 使用实际发布 WASM、模拟旧版 Aidoku 宿主 ABI，并通过真实 HTTP 请求检查解析结果。HTML/CSS 解析复用 Cheerio；与 Aidoku 的 SwiftSoup 实现可能有细节差异，发生解析异常时必须核对原响应和真实浏览器，不能直接把工具差异判作站点故障。
+
+需要 Node.js 22 和 Python 3.11+；在仓库根目录运行：
+
+```sh
+npm ci --prefix tools/source-check --ignore-scripts --no-audit --no-fund
+node tools/source-check/host.test.mjs
+node tools/source-check/bakamh.test.mjs
+node tools/source-check/audit.mjs zh.source
+```
+
+最后一条是网络检查入口，`zh.source` 替换为当前待审计源；默认使用 `public` 内该源的当前安装包。已弃用/未发布源需先构建，并以第三个参数显式传入其 WASM 文件。不要同时批量执行其他图源，遵守逐项排查顺序。
+
+需要重新打包已编译的修复时：
+
+```sh
+python3 tools/source-check/package.py zh.source
+```
+
+先递增 `res/source.json` 版本并完成构建；打包工具不会代替构建或实站验证，也不会自动恢复已弃用源。工具不依赖个人绝对路径，不保存站点 Cookie 到仓库。网络响应失败或遇到安全验证会中止本次检查，不会将空结果算作 PASS。
+
+### 5. 包子漫画1 — FIXED
+
+- 起始版本 5；发现并修复：封面 CSS 选择器缺少闭合 `]`；阅读页的 `Page.index` 从 1 起算，改为符合 SDK 约定的零基页序。
+- 真实浏览器检查：列表 API（默认筛选 all）返回 20 条；搜索代表性漫画得到 1 条；详情选择器匹配 236 个章节；插件生成的章节 URL 正常打开并匹配 6 个 `amp-img[id^=chapter-img]`。
+- 图片验证：从实际阅读页取得首张图片地址，Range 请求返回 HTTP 206、`image/jpeg`、512 字节，文件头为 JPEG；没有下载整章。
+- 两组实际 v6 WASM 回归测试通过，覆盖封面解析以及同章节分页合并、零基页序和不越界追到下一章。release 构建通过，v6 包、图标与两份索引已同步。
+- 限制：命令行 API/主页遇到自建 Gatekeeper 的 `challenge_required` JSON；普通浏览器可正常访问。浏览器真实链路与插件离线解析分别验证，尚未得到用户设备端实测，不能将此次结果扩大为所有漫画/所有网络环境均正常。
+- 本轮结论：FIXED，代表性链路通过；若用户设备仍受 Gatekeeper 影响，需进一步单独排查，未实现或尝试绕过安全验证。

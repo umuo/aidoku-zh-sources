@@ -1,0 +1,12 @@
+{
+  "name": "aidoku-source-check",
+  "private": true,
+  "type": "module",
+  "description": "Aidoku legacy WASM source verification tools",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "cheerio": "1.0.0"
+  }
+}

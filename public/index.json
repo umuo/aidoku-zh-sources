@@ -11,20 +11,20 @@
   {
     "id": "zh.bakamh",
     "name": "巴卡漫画",
-    "file": "zh.bakamh-v2.aix",
-    "icon": "zh.bakamh-v2.png",
     "lang": "zh",
-    "version": 2,
-    "nsfw": 2
+    "version": 3,
+    "nsfw": 2,
+    "file": "zh.bakamh-v3.aix",
+    "icon": "zh.bakamh-v3.png"
   },
   {
     "id": "zh.baozimh1",
     "name": "包子漫画1",
-    "file": "zh.baozimh1-v5.aix",
-    "icon": "zh.baozimh1-v5.png",
     "lang": "zh",
-    "version": 5,
-    "nsfw": 0
+    "version": 6,
+    "nsfw": 0,
+    "file": "zh.baozimh1-v6.aix",
+    "icon": "zh.baozimh1-v6.png"
   },
   {
     "id": "zh.baozimh2",
