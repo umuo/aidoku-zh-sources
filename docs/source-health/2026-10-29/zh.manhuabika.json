@@ -1,0 +1,31 @@
+{
+  "source": "zh.manhuabika",
+  "directory": "zh.manhuabika",
+  "name": "哔咔漫画",
+  "version": 1,
+  "published": true,
+  "deprecated": false,
+  "checkedAt": "2026-10-29T14:24:26.031Z",
+  "checks": {
+    "anonymous": {
+      "status": "PASS",
+      "httpStatus": 401,
+      "hints": [
+        "要求登录/认证"
+      ]
+    }
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://picaapi.picacomic.com/comics?page=1&s=dd",
+      "status": 401,
+      "contentType": "application/json; charset=utf-8",
+      "hints": [
+        "要求登录/认证"
+      ]
+    }
+  ],
+  "result": "AUTH_REQUIRED",
+  "reason": "现有源要求账号/会话；未使用默认示例账号或用户凭据，登录后的完整阅读未验证"
+}
