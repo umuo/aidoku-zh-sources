@@ -182,11 +182,11 @@
   {
     "id": "zh.wnacg",
     "name": "绅士漫画",
-    "file": "zh.wnacg-v4.aix",
-    "icon": "zh.wnacg-v4.png",
     "lang": "zh",
-    "version": 4,
-    "nsfw": 2
+    "version": 5,
+    "nsfw": 2,
+    "file": "zh.wnacg-v5.aix",
+    "icon": "zh.wnacg-v5.png"
   },
   {
     "id": "zh.yandanshe",
