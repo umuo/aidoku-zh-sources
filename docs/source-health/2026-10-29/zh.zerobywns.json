@@ -146,7 +146,7 @@
     "sha256": "526cd38cf888af00dfef928a8f49a460d8fbf66552209c02fbe3518e304365ff"
   },
   "result": "READING_FAILED",
-  "reason": "网页可读、Aidoku v9 阅读失败。v10 修正图源强制桌面 UA 与客户端图片 UA 不一致，并规范图片 Referer、保留客户端 Cookie；待用户设备复测。命令行断连不能解释为站点图片服务不可用。",
+  "reason": "用户确认网页可读，但 Aidoku 阅读器首章在 v9 与 v10 均无法加载；v10 请求兼容修正未解决用户问题，仍待修复。",
   "priorAttempt": {
     "source": "zh.zerobywns",
     "directory": "zh.zerobywns",
@@ -355,7 +355,7 @@
   "followUp": {
     "updatedAt": "2026-10-29 23:37 +08:00",
     "sourceVersion": 10,
-    "status": "PENDING_DEVICE_VERIFICATION",
+    "status": "USER_RETEST_FAILED",
     "userConfirmedBrowserReadable": true,
     "userInstalledSourceVersion": 9,
     "changes": [
@@ -399,6 +399,16 @@
       "image": {
         "error": "HTTP request failed: curl: (52) Empty reply from server"
       }
-    }
+    },
+    "userRetest": {
+      "reportedAt": "2026-10-29 23:48 +08:00",
+      "message": "已测试，没有用",
+      "resolved": false
+    },
+    "nextEvidenceNeeded": [
+      "网页中能正常显示的公开图片 URL，用于对比实际域名与 HTTP/HTTPS",
+      "阅读器是否已有页数，还是获取章节/页面阶段失败",
+      "Aidoku 客户端版本（用户只提供过图源版本）"
+    ]
   }
 }
