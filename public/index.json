@@ -146,11 +146,11 @@
   {
     "id": "zh.msxhm",
     "name": "漫小肆韩漫",
-    "file": "zh.msxhm-v6.aix",
-    "icon": "zh.msxhm-v6.png",
     "lang": "zh",
-    "version": 6,
-    "nsfw": 2
+    "version": 7,
+    "nsfw": 2,
+    "file": "zh.msxhm-v7.aix",
+    "icon": "zh.msxhm-v7.png"
   },
   {
     "id": "zh.mycomic",

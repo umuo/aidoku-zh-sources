@@ -123,17 +123,23 @@ fn get_manga_list(filters: Vec<Filter>, page: i32) -> Result<MangaPageResult> {
 fn get_manga_details(id: String) -> Result<Manga> {
 	let url = format!("{}/book/{}", get_url(), id.clone());
 	let html = gen_request(url.clone(), HttpMethod::Get).html()?;
-	let cover = html
+	let mut cover = html
 		.select(".banner_detail_form>.cover>img")
 		.attr("src")
 		.read();
+	if cover.is_empty() {
+		cover = html
+			.select(".detail-main-cover>img")
+			.attr("data-original")
+			.read();
+	}
 	let title = html
-		.select(".banner_detail_form>.info>h1")
+		.select(".banner_detail_form>.info>h1, .detail-main-info-title")
 		.text()
 		.read()
 		.trim()
 		.to_string();
-	let author = html
+	let mut author = html
 		.select(".banner_detail_form>.info>p:nth-child(3)")
 		.text()
 		.read()
@@ -143,15 +149,25 @@ fn get_manga_details(id: String) -> Result<Manga> {
 		.map(|a| a.to_string())
 		.collect::<Vec<String>>()
 		.join(", ");
+	if author.is_empty() {
+		for item in html.select(".detail-main-info-author").array() {
+			let item = item.as_node()?;
+			let text = item.text().read();
+			if let Some(name) = text.trim().strip_prefix("作者：") {
+				author = name.trim().replace("&", ", ");
+				break;
+			}
+		}
+	}
 	let artist = String::new();
 	let description = html
-		.select(".banner_detail_form>.info>.content")
+		.select(".banner_detail_form>.info>.content, .detail-desc")
 		.text()
 		.read()
 		.trim()
 		.to_string();
 	let categories = html
-		.select(".banner_detail_form>.info>p:nth-child(5)>span>a")
+		.select(".banner_detail_form>.info>p:nth-child(5)>span>a, .detail-main-info-class a")
 		.array()
 		.map(|a| a.as_node().unwrap().text().read().trim().to_string())
 		.filter(|a| !a.is_empty())

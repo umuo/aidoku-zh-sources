@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：21 / 32（PASS 3 / FIXED 3 / SKIP 15）；排除：1。
-- 当前：第 23 项 `zh.mxshm`。
-- 下一项：`zh.nicohub`；先完成当前源再继续。
+- 已处理：22 / 32（PASS 3 / FIXED 4 / SKIP 15）；排除：1。
+- 当前：第 24 项 `zh.nicohub`。
+- 下一项：`zh.mycomic`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -44,8 +44,8 @@
 | 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | PASS        | v2 实际列表/搜索各 20 项、180 章、39 页及首图 JPEG 206 通过                              |
 | 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | SKIP        | 原首页和列表 TLS 失败，HTTP 空响应，未发现可信迁移；维持弃用                             |
 | 22   | 漫客栈     | `src/rust/zh.mkzhan`          | 未弃用 | PASS        | v1 列表15/搜索1、972章、免费首章14页及首图 WebP 206 实测通过                             |
-| 23   | 漫小肆韩漫 | `src/rust/zh.mxshm`           | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 24   | Nico       | `src/rust/zh.nicohub`         | 已弃用 | PENDING     | 待检查                                                                                   |
+| 23   | 漫小肆韩漫 | `src/rust/zh.mxshm`           | 未弃用 | FIXED       | v7 修复新详情结构；实站列表28/搜索20、5章、143页及首图 JPEG 通过                         |
+| 24   | Nico       | `src/rust/zh.nicohub`         | 已弃用 | IN_PROGRESS | 正在排查                                                                                 |
 | 25   | MYCOMIC    | `src/rust/zh.mycomic`         | 未弃用 | PENDING     | 待检查                                                                                   |
 | 26   | NoyAcg     | `src/rust/zh.noy1`            | 未弃用 | PENDING     | 待检查                                                                                   |
 | 27   | 韩漫库     | `src/rust/zh.se8`             | 未弃用 | PENDING     | 待检查                                                                                   |
@@ -217,6 +217,15 @@
 - 选取免费首章，图片接口返回 14 页，首张图片 Range 为 HTTP 206、image/webp，RIFF/WEBP 文件头正确。不批量下载图片，不尝试付费或受限章节。
 - 源使用仓库既有默认设置，没有读取用户 App 配置或登录；保留原源码、版本、设置和发布包，结论 PASS（代表性免费阅读链路通过），不声称付费章节可读或所有作品均正常。
 - 本项发现 URL 查询可能含设置中的账号标识与签名，检查工具报告现已对相应参数脱敏；真实请求不变，新增实际 WASM 测试确认日志隐藏值而网络请求保留值。宿主 5 组回归通过，不在文档公开设置内容。
+
+### 23. 漫小肆韩漫 — FIXED
+
+- 起始版本 6；源码目录为 `zh.mxshm`，实际图源 ID 为 `zh.msxhm`，本轮保持 ID 不变以兼容既有安装和书架。实际默认站点由设置决定，为 `https://www.mxs13.cc`，不以元信息 URL 代替设置。
+- 旧包列表 28 项、搜索 20 项正常，但详情为空。原始 HTML 显示移动详情采用 `.detail-main-cover`、`.detail-main-info-title`、`.detail-desc`，不再使用旧 `.banner_detail_form`。
+- v7 兼容新旧标题、封面、简介和分类区域；新布局封面使用 data-original。作者按明确“作者：”标签识别，避免将同类的别名、地区节点混入作者。
+- 实际 v7 发布 WASM 网络检查全部通过：列表 28 项、搜索 20 项、代表性详情 `1257` 标题/封面有效、目录 5 章、首章解析 143 个图片地址；仅探测首张，HTTP 200、image/jpeg、JPEG 文件头有效，没有下载整章。
+- Rust release 构建、2 组新旧详情实际 WASM 回归、24 个发布包一致性校验、Rustfmt 和差异检查通过。同步 v7 包、图标和两份索引，不修改用户自定义地址设置。
+- 结论：FIXED（代表性完整链路通过），没有设备端复测，不声称所有作品或网络环境已验证。元信息中的 freexcomic 页面是地址发布页，未擅自替换到第三方同名站。
 
 ## 可复用检查工具
 
