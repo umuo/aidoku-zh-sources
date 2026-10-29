@@ -63,6 +63,15 @@
     "icon": "zh.godamanga-v10.png"
   },
   {
+    "id": "zh.guazimanhua",
+    "name": "瓜子漫画",
+    "lang": "zh",
+    "version": 1,
+    "nsfw": 0,
+    "file": "zh.guazimanhua-v1.aix",
+    "icon": "zh.guazimanhua-v1.png"
+  },
+  {
     "id": "zh.gufengmh",
     "name": "古风漫画",
     "file": "zh.gufengmh-v3.aix",

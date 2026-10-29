@@ -257,6 +257,12 @@ export function createHost(wasm, { transport = curlRequest, defaults = {} } = {}
         descriptionLength,
         url,
         urlLength,
+        categories,
+        categoryLengths,
+        categoryCount,
+        status,
+        nsfw,
+        viewer,
       ) =>
         put({
           id: read(id, idLength),
@@ -266,6 +272,16 @@ export function createHost(wasm, { transport = curlRequest, defaults = {} } = {}
           artist: read(artist, artistLength),
           description: read(description, descriptionLength),
           url: read(url, urlLength),
+          categories: Array.from({ length: categoryCount }, (_, index) => {
+            const memory = new DataView(instance.exports.memory.buffer);
+            return read(
+              memory.getUint32(categories + index * 4, true),
+              memory.getUint32(categoryLengths + index * 4, true),
+            );
+          }),
+          status,
+          nsfw,
+          viewer,
         }),
       create_manga_result: (id, hasMore) => put({ manga: get(id), hasMore: Boolean(hasMore) }),
       create_chapter: (

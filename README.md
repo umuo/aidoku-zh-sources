@@ -35,6 +35,7 @@ GitHub 原始地址无法访问时，可使用 [本仓库 jsDelivr 备用入口]
 - [拷贝漫画](https://www.mangacopy.com)
 - ~~[漫画狗](https://dogemanga.com)~~
 - [G站漫画](https://godamh.com)
+- [瓜子漫画](https://www.guazimanhua.com)
 - [古风漫画](https://www.gufengmh.com)
 - [Hanime1.me](https://hanime1.me/comics)
 - [嗨皮漫画](https://m.happymh.com)

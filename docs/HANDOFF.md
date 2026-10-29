@@ -4,6 +4,20 @@
 
 ## 当前状态
 
+- 更新时间：2026-10-29 19:24（北京时间）。
+- 当前任务：按用户提供的网址新增瓜子漫画 `zh.guazimanhua` v1，代码、图标、安装包和两份索引已在本地完成；**用户已授权推送，本次提交待推送并由 Actions 校验发布**。原逐源审计已由远程其他提交完成，本轮只新增瓜子漫画。
+- 本轮关键文件：`src/rust/zh.guazimanhua/`、`tools/source-check/guazimanhua.test.mjs`、`tools/source-check/host.mjs`、`public/` 对应资源及 README 图源列表。宿主补齐漫画分类、状态和阅读方向的 ABI 参数解析，便于真实 WASM 测试这些字段。
+- 实现：解析网站公开网页，支持列表分页、标题搜索、题材/地区/状态/排序筛选、详情、完整目录和正文图片；避免重复收录移动端目录与最新章节入口，正文过滤广告，缺失目录或图片返回错误，图片请求设置 Referer。
+- 自动化验证：release 构建通过；`node --test tools/source-check/*.test.mjs` 33 组通过（同步远程后重新运行，瓜子漫画新增 5 组，覆盖特殊字符搜索、分页、筛选、元数据、目录、页序和异常输入）；包子漫画 2 另 6 组通过；25 个包的索引、元数据、图标、ZIP 和 WASM 一致性通过，瓜子包与当前构建、资源逐字节一致；Rustfmt 和 `git diff --check` 通过。
+- 实站验证：最终 WASM 完整请求链路通过《从姑获鸟开始》列表 36 项、搜索 1 项、详情、341 章目录、首章 12 页，首图为 HTTP 206 / JPEG。其他抽查结果见下方本轮记录。未覆盖全部作品和所有筛选组合，未做用户 Aidoku 设备实测。
+- 发布：本轮 `public/` 已同步瓜子漫画 v1，用户已明确授权推送；本次提交包含发布产物，推送和 Actions 结果待确认。最近已确认发布为 zero v9（`5192214`，[Actions 成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40797580302)）；漫小肆 v7、绅士漫画 v5 的包和索引均保留。
+- 环境：新增源锁定旧 Aidoku SDK `bae338b` 和 `nightly-2025-01-01`，工具链配置见该源 `rust-toolchain.toml`；当前最新 nightly 2026-10-29 与旧 SDK 链接 `abort` 失败，因此使用较早工具链而未升级 SDK。Rust、Cargo 和 npm 缓存位于外置硬盘，通过环境变量指定，见下方构建方法。
+- 远程同步：推送前发现远程领先 21 个提交，已接续至 `2e08b30`，保留漫小肆 v7、绅士漫画 v5、zero v9 等全部修复。原审计已完成 32 / 32（PASS 4 / FIXED 6 / SKIP 22），无待检查源，详见下方保留的远程交接及审计记录。
+- 下一步：完成本次推送并核对 Actions；发布后由用户在 Aidoku 刷新图源列表、安装瓜子漫画并实测。原逐源审计无待办，不自动重启。
+
+
+## 已完成的原逐源审计（保留远程最终交接）
+
 - 更新时间：2026-10-29 09:02（北京时间）。
 - 任务状态：**本轮全部图源审计已完成**。33 个源码图源中，包子漫画 2（`zh.baozimh2` v7）按用户要求排除，其余 **32 / 32** 均已处理；结果为 PASS 4 / FIXED 6 / SKIP 22，无待检查源。
 - 结果说明：PASS/FIXED 均有代表性完整阅读证据；SKIP 为已调查并记录无法恢复的访问、认证、地区或上游异常，不代表可用，也不一概认定永久关闭。每项证据和未验证范围见 [逐源审计记录](SOURCE_AUDIT.md)。
@@ -31,7 +45,27 @@
 | `public/index.json`、`public/index.min.json` | 两种格式的图源索引，解析后内容必须一致               |
 | `.github/workflows/build.yml`                | 校验发布文件、测试包子漫画 2 插件、部署到 `gh-pages` |
 
-当前有 33 个图源源码目录，其中 24 个未弃用、9 个弃用；发布索引包含 24 个图源。动漫狂经核实已跳转域名出售页，本轮新增弃用并移出当前索引。这是本次检查时的状态，后续增减时同步更新。
+当前有 34 个图源源码目录，其中 25 个未弃用、9 个弃用；本次提交的发布索引包含 25 个图源（新增瓜子漫画 v1，部署结果待确认）。动漫狂经核实已跳转域名出售页，本轮新增弃用并移出当前索引。这是本次检查时的状态，后续增减时同步更新。
+
+## 瓜子漫画 v1 本轮记录
+
+
+- 2026-10-29：根据用户指定网站新增 `zh.guazimanhua`，仅执行本次接入；同步远程后确认原逐源审计已完成。图标取自站点公开 favicon。
+- 《从姑获鸟开始》（ID `14109`）的实际 WASM 完整链路通过；图片扩展名虽为 `.webp`，实站返回 JPEG，验证依据真实字节而非扩展名。
+- 额外实站抽查：第二页 36 项、热血/更新组合筛选和《一人之下》搜索/详情通过；其目录为 812 个不重复章节，首章 18 页、最新章 19 页，两章首图均 HTTP 206 / JPEG。首次扩展抽查的图片 CDN 出现一次 TLS 连接错误，随后定向重试成功；这属于网络波动，不能保证所有网络环境稳定。
+- 本次待推送：安装包为 `public/sources/zh.guazimanhua-v1.aix`，图标和两份索引均已同步。用户已授权推送，本次提交包含交接更新及全部发布产物；提交主题为 `feat: add Guazi Manga source`，推送和远程 Actions 结果以实际状态为准，设备验证待用户进行。
+- 新源编译使用 `nightly-2025-01-01`；不要直接套用下文其他源的滚动 nightly 命令。设置好外置盘 `CARGO_HOME` / `RUSTUP_HOME` 并将 Cargo 的 `bin` 加入 PATH 后，在仓库根目录执行：
+
+```sh
+RUSTC="$(rustup which --toolchain nightly-2025-01-01 rustc)" \
+    cargo +nightly-2025-01-01 build \
+    --manifest-path src/rust/zh.guazimanhua/Cargo.toml \
+    --target wasm32-unknown-unknown --release --locked
+node --test tools/source-check/guazimanhua.test.mjs
+node tools/source-check/audit.mjs zh.guazimanhua
+```
+
+回归测试和默认实站检查读取 `public/` 的包；修改后需要先重新打包，避免误测旧产物。正式新版本用 `tools/source-check/package.py` 同步版本、安装包、图标和索引。
 
 ## 包子漫画 2 修复背景
 
