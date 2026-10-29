@@ -1,6 +1,6 @@
 # 全部漫画源健康检测
 
-更新时间：2026-10-29 22:38（北京时间）。已完成 35 / 35。
+更新时间：2026-10-29 22:39（北京时间）。已完成 35 / 35。
 
 本轮仅检测并标注原因，修复留待后续统一安排。覆盖当前 26 个发布源和 9 个已弃用源；使用实际发布包、仓库默认地址及匿名配置，不读取用户设备凭据。顶漫画用户已确认可用，包子漫画 2 也有既往设备确认；本轮依然复查。
 
@@ -40,7 +40,7 @@
 | [NoyAcg](source-health/2026-10-29/zh.noy1.json) | v3 | 是 | 需登录验证 | 现有源要求账号/会话；未使用默认示例账号或用户凭据，登录后的完整阅读未验证 |
 | [韩漫库](source-health/2026-10-29/zh.se8.json) | v3 | 是 | 站点暂停 | 站点暂停 |
 | [vomic漫画](source-health/2026-10-29/zh.vomicmh.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP 200  |
-| [绅士漫画](source-health/2026-10-29/zh.wnacg.json) | v5 | 是 | 网络受限，未验证 | sample1.oldest: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成；sample2.oldest: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成 |
+| [绅士漫画](source-health/2026-10-29/zh.wnacg.json) | v5 | 是 | 访问防护拦截 | 访问防护/Cloudflare 验证 |
 | [言耽社](source-health/2026-10-29/zh.yandanshe.json) | v1 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to yandanshe.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
 | [野蛮漫画](source-health/2026-10-29/zh.yemancomic.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP 200  |
 | [再漫画](source-health/2026-10-29/zh.zaimanhua.json) | v1 | 是 | 可读 | 代表性列表、搜索、详情、目录与真实图片通过 |
@@ -57,6 +57,6 @@
 ## 当前接续位置
 
 - 已处理：35 / 35。
-- 最近完成：`zh.mxshm`。
+- 最近完成：`zh.wnacg`。
 - 下一项：无。
-- 汇总：已弃用/未发布 9；访问防护拦截 4；网络受限，未验证 12；可读 3；链路失败，待排查 2；需登录验证 3；站点暂停 1；部分可读 1。
+- 汇总：已弃用/未发布 9；访问防护拦截 5；网络受限，未验证 11；可读 3；链路失败，待排查 2；需登录验证 3；站点暂停 1；部分可读 1。

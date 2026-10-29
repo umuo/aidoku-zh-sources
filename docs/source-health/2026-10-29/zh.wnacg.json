@@ -5,7 +5,7 @@
   "version": 5,
   "published": true,
   "deprecated": false,
-  "checkedAt": "2026-10-29T14:27:18.007Z",
+  "checkedAt": "2026-10-29T14:39:04.095Z",
   "checks": {
     "list": {
       "status": "PASS",
@@ -28,7 +28,7 @@
     },
     "sample1.oldest": {
       "status": "FAILED",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成"
+      "error": "非有效漫画图片：HTTP 403"
     },
     "sample2.details": {
       "status": "PASS",
@@ -42,7 +42,7 @@
     },
     "sample2.oldest": {
       "status": "FAILED",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成"
+      "error": "非有效漫画图片：HTTP 403"
     }
   },
   "requests": [
@@ -70,6 +70,8 @@
     {
       "method": "GET",
       "url": "https://www.wnacg.buzz/photos-gallery-aid-399735.html",
+      "curlError": "HTTP request failed: curl: (28) Operation timed out after 25011 milliseconds with 0 bytes received",
+      "transport": "Python/OpenSSL (curl 失败后的交叉复查)",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
       "hints": []
@@ -77,8 +79,11 @@
     {
       "method": "GET",
       "url": "https://img5.wnimg2.cfd/data/3997/35/0001.webp?verify=1793275200-yuJ_T_1skpzPcG8odBefy7cB67NBRIZrUf5P35CV_cA",
-      "curlError": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成"
+      "status": 403,
+      "contentType": "text/html; charset=UTF-8",
+      "hints": [
+        "访问防护/Cloudflare 验证"
+      ]
     },
     {
       "method": "GET",
@@ -97,14 +102,127 @@
     {
       "method": "GET",
       "url": "https://img5.wnimg2.cfd/data/3997/34/0001.jpg?verify=1793275200-HVZTWVDbgoqkhW5l6_OgzyxtU63y3in5dgR1Abt-f_4",
-      "curlError": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成"
+      "status": 403,
+      "contentType": "text/html; charset=UTF-8",
+      "hints": [
+        "访问防护/Cloudflare 验证"
+      ]
     }
   ],
   "package": {
     "file": "zh.wnacg-v5.aix",
     "sha256": "10fc3bf10b515a9c1c27232fbd84fe3f1858f66651a72776362601c94631c050"
   },
-  "result": "NETWORK_UNVERIFIED",
-  "reason": "sample1.oldest: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成；sample2.oldest: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成"
+  "result": "ACCESS_BLOCKED",
+  "reason": "访问防护/Cloudflare 验证",
+  "priorAttempt": {
+    "source": "zh.wnacg",
+    "directory": "zh.wnacg",
+    "name": "绅士漫画",
+    "version": 5,
+    "published": true,
+    "deprecated": false,
+    "checkedAt": "2026-10-29T14:27:18.007Z",
+    "checks": {
+      "list": {
+        "status": "PASS",
+        "count": 20
+      },
+      "search": {
+        "status": "PASS",
+        "count": 1,
+        "keyword": "COMIC 快楽天 2026年12月号 [DL版]"
+      },
+      "sample1.details": {
+        "status": "PASS",
+        "id": "399735",
+        "title": "COMIC 快楽天 2026年12月号 [DL版]",
+        "hasCover": true
+      },
+      "sample1.chapters": {
+        "status": "PASS",
+        "count": 1
+      },
+      "sample1.oldest": {
+        "status": "FAILED",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成"
+      },
+      "sample2.details": {
+        "status": "PASS",
+        "id": "399734",
+        "title": "[南浜屋 (南浜よりこ)] 種付ライセンス〜女上司わからせ編〜 [angle345个人汉化]",
+        "hasCover": true
+      },
+      "sample2.chapters": {
+        "status": "PASS",
+        "count": 1
+      },
+      "sample2.oldest": {
+        "status": "FAILED",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成"
+      }
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://www.wnacg.buzz/albums-index-page-1-cate-.html",
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hints": []
+      },
+      {
+        "method": "GET",
+        "url": "https://www.wnacg.buzz/search/index.php?q=COMIC%20%E5%BF%AB%E6%A5%BD%E5%A4%A9%202026%E5%B9%B412%E6%9C%88%E5%8F%B7%20%5BDL%E7%89%88%5D&s=create_time_DESC&syn=yes&p=1",
+        "status": 200,
+        "contentType": "text/html; charset=UTF-8",
+        "hints": []
+      },
+      {
+        "method": "GET",
+        "url": "https://www.wnacg.buzz/photos-index-aid-399735.html",
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hints": []
+      },
+      {
+        "method": "GET",
+        "url": "https://www.wnacg.buzz/photos-gallery-aid-399735.html",
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hints": []
+      },
+      {
+        "method": "GET",
+        "url": "https://img5.wnimg2.cfd/data/3997/35/0001.webp?verify=1793275200-yuJ_T_1skpzPcG8odBefy7cB67NBRIZrUf5P35CV_cA",
+        "curlError": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成"
+      },
+      {
+        "method": "GET",
+        "url": "https://www.wnacg.buzz/photos-index-aid-399734.html",
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hints": []
+      },
+      {
+        "method": "GET",
+        "url": "https://www.wnacg.buzz/photos-gallery-aid-399734.html",
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hints": []
+      },
+      {
+        "method": "GET",
+        "url": "https://img5.wnimg2.cfd/data/3997/34/0001.jpg?verify=1793275200-HVZTWVDbgoqkhW5l6_OgzyxtU63y3in5dgR1Abt-f_4",
+        "curlError": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成"
+      }
+    ],
+    "package": {
+      "file": "zh.wnacg-v5.aix",
+      "sha256": "10fc3bf10b515a9c1c27232fbd84fe3f1858f66651a72776362601c94631c050"
+    },
+    "result": "NETWORK_UNVERIFIED",
+    "reason": "sample1.oldest: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成；sample2.oldest: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to img5.wnimg2.cfd:443; OpenSSL 复查未完成"
+  }
 }
