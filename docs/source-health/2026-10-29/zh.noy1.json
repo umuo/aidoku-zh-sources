@@ -1,0 +1,31 @@
+{
+  "source": "zh.noy1",
+  "directory": "zh.noy1",
+  "name": "NoyAcg",
+  "version": 3,
+  "published": true,
+  "deprecated": false,
+  "checkedAt": "2026-10-29T14:26:25.124Z",
+  "checks": {
+    "anonymous": {
+      "status": "PASS",
+      "httpStatus": 200,
+      "hints": [
+        "要求登录/认证"
+      ]
+    }
+  },
+  "requests": [
+    {
+      "method": "POST",
+      "url": "https://noy1.top/api/booklist_v2",
+      "status": 200,
+      "contentType": "application/json;charset=utf-8",
+      "hints": [
+        "要求登录/认证"
+      ]
+    }
+  ],
+  "result": "AUTH_REQUIRED",
+  "reason": "现有源要求账号/会话；未使用默认示例账号或用户凭据，登录后的完整阅读未验证"
+}
