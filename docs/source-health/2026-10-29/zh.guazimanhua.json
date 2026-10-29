@@ -1,0 +1,110 @@
+{
+  "source": "zh.guazimanhua",
+  "directory": "zh.guazimanhua",
+  "name": "瓜子漫画",
+  "version": 1,
+  "published": true,
+  "deprecated": false,
+  "checkedAt": "2026-10-29T14:22:10.006Z",
+  "checks": {
+    "list": {
+      "status": "PASS",
+      "count": 36
+    },
+    "search": {
+      "status": "PASS",
+      "count": 1,
+      "keyword": "从姑获鸟开始"
+    },
+    "sample1.details": {
+      "status": "PASS",
+      "id": "14109",
+      "title": "从姑获鸟开始",
+      "hasCover": true
+    },
+    "sample1.chapters": {
+      "status": "PASS",
+      "count": 341
+    },
+    "sample1.oldest": {
+      "status": "PASS",
+      "chapter": "封面、人物档案",
+      "pages": 12,
+      "httpStatus": 206,
+      "contentType": "image/jpeg",
+      "signature": "ffd8ffe000104a464946000101000001"
+    },
+    "sample1.latest": {
+      "status": "PASS",
+      "chapter": "334 鬼梦貘",
+      "pages": 3,
+      "httpStatus": 206,
+      "contentType": "image/webp",
+      "signature": "52494646406800005745425056503820"
+    }
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://www.guazimanhua.com/category.php?page=1",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://www.guazimanhua.com/category.php?page=1&keyword=%5Bredacted%5D",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://www.guazimanhua.com/comic.php?id=14109",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://www.guazimanhua.com/comic.php?id=14109",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://www.guazimanhua.com/chapter.php?id=1624326",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://img.guazicdn.com/th/comics/chapters/2345/260424/1_1.webp",
+      "status": 206,
+      "contentType": "image/jpeg",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://www.guazimanhua.com/chapter.php?id=1633768",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://img.guazicdn.com/th/comics/chapters/2345/260424/343_1.webp",
+      "status": 206,
+      "contentType": "image/webp",
+      "hints": []
+    }
+  ],
+  "package": {
+    "file": "zh.guazimanhua-v1.aix",
+    "sha256": "7a61190b5c3b948ed08751dea41cf724040ac11f56a0faa901941126757a8cba"
+  },
+  "result": "PASS",
+  "reason": "代表性列表、搜索、详情、目录与真实图片通过"
+}
