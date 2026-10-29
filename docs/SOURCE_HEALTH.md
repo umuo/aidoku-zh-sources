@@ -1,6 +1,6 @@
 # 全部漫画源健康检测
 
-更新时间：2026-10-29 22:31（北京时间）。已完成 35 / 35。
+更新时间：2026-10-29 22:32（北京时间）。已完成 35 / 35。
 
 本轮仅检测并标注原因，修复留待后续统一安排。覆盖当前 26 个发布源和 9 个已弃用源；使用实际发布包、仓库默认地址及匿名配置，不读取用户设备凭据。顶漫画用户已确认可用，包子漫画 2 也有既往设备确认；本轮依然复查。
 
@@ -15,7 +15,7 @@
 | [无敌漫画](source-health/2026-10-29/zh.55dmh.json) | v2 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.55dmh.com:443; OpenSSL 复查：<urlopen error [Errno 54] Connection reset by peer> |
 | [巴卡漫画](source-health/2026-10-29/zh.bakamh.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to bakamh.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
 | [包子漫画1](source-health/2026-10-29/zh.baozimh1.json) | v6 | 是 | 访问防护拦截 | 访问防护/Cloudflare 验证 |
-| [包子漫画2](source-health/2026-10-29/zh.baozimh2.json) | v7 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to baozimh.org:443 |
+| [包子漫画2](source-health/2026-10-29/zh.baozimh2.json) | v7 | 是 | 网络受限，未验证 | search: HTTP request failed: curl: (28) Connection timed out after 25010 milliseconds; OpenSSL 复查：<urlopen error _ssl.c:1064: The handshake operation timed out>；sample1.details: 详情缺少标题或漫画 ID；sample2.chapters: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to baozimh.org:443; OpenSSL 复查：<urlopen error _ssl.c:1064: The handshake operation timed out> |
 | [哔哩漫画](source-health/2026-10-29/zh.bilicomic.json) | v5 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443 |
 | [动漫狂](source-health/2026-10-29/zh.cartoonmad.json) | v2 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.cartoonmad.com:443 |
 | [拷贝漫画](source-health/2026-10-29/zh.copymanga.json) | v13 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to api.mangacopy.com:443 |
@@ -57,6 +57,6 @@
 ## 当前接续位置
 
 - 已处理：35 / 35。
-- 最近完成：`zh.bakamh`。
+- 最近完成：`zh.baozimh2`。
 - 下一项：无。
 - 汇总：已弃用/未发布 9；网络受限，未验证 14；可读 3；链路失败，待排查 2；需登录验证 3；访问防护拦截 2；站点暂停 1；部分可读 1。

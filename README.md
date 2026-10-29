@@ -6,7 +6,7 @@ Aidoku 中文图源
 
 跨电脑接续开发前，请先阅读 [仓库协作规则](AGENTS.md) 和 [当前进度与交接](docs/HANDOFF.md)。每次推送前更新交接文档，并随本次变更一起提交。
 
-当前长期任务及逐源结果见 [图源审计与修复记录](docs/SOURCE_AUDIT.md)。
+最新可用性、不能阅读的原因及待修事项见 [全部图源健康检测](docs/SOURCE_HEALTH.md)；此前修复历史见 [图源审计与修复记录](docs/SOURCE_AUDIT.md)。
 
 ## 如何使用
 

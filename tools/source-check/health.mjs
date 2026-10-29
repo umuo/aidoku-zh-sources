@@ -83,6 +83,9 @@ function markers(response) {
   if (/服务器内部错误/.test(body)) {
     hints.push("业务接口错误：服务器内部错误");
   }
+  if (response.status === 403 && hints.length === 0) {
+    hints.push("HTTP 403 访问被拒绝");
+  }
   return hints;
 }
 function request(req, options) {
@@ -285,7 +288,7 @@ if (!entry) {
     ? failed
       ? "PARTIAL"
       : "PASS"
-    : hints.includes("访问防护/Cloudflare 验证")
+    : hints.includes("访问防护/Cloudflare 验证") || hints.includes("HTTP 403 访问被拒绝")
       ? "ACCESS_BLOCKED"
       : hints.includes("要求登录/认证")
         ? "AUTH_REQUIRED"
