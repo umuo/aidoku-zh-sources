@@ -1,0 +1,31 @@
+{
+  "source": "zh.nicohub",
+  "directory": "zh.nicohub",
+  "name": "Nico",
+  "version": 1,
+  "published": false,
+  "deprecated": true,
+  "checkedAt": "2026-10-29T14:26:13.005Z",
+  "checks": {
+    "homepage": {
+      "status": "PASS",
+      "httpStatus": 401,
+      "hints": [
+        "要求登录/认证"
+      ]
+    }
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://nicohub.cc/index?category=comic",
+      "status": 401,
+      "contentType": "text/html; charset=utf-8",
+      "hints": [
+        "要求登录/认证"
+      ]
+    }
+  ],
+  "result": "UNPUBLISHED",
+  "reason": "已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常"
+}
