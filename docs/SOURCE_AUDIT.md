@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：15 / 32（PASS 0 / FIXED 3 / SKIP 12）；排除：1。
-- 当前：第 17 项 `zh.komiic`。
-- 下一项：`zh.manhuabika`；先完成当前源再继续。
+- 已处理：16 / 32（PASS 1 / FIXED 3 / SKIP 12）；排除：1。
+- 当前：第 18 项 `zh.manhuabika`。
+- 下一项：`zh.manhuadb`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -38,8 +38,8 @@
 | 14   | 嗨皮漫画   | `src/rust/zh.happymh`         | 未弃用 | SKIP     | 列表 API、移动站与主站均连接超时，未取得当前有效响应                                     |
 | 15   | HO5HO      | `src/rust/zh.ho5ho`           | 未弃用 | FIXED    | v2 兼容新列表卡片与详情结构；实际 WASM 全链路、首张 JPEG 响应及 3 组回归通过             |
 | 16   | ISEKAI     | `src/as/zh.isekai`            | 已弃用 | SKIP | 原列表为域名停放/出售页，历史备用域名 TLS 失败，无可靠官方迁移 |
-| 17   | Komiic漫画 | `src/rust/zh.komiic`          | 未弃用 | IN_PROGRESS | 正在排查 |
-| 18   | 哔咔漫画   | `src/rust/zh.manhuabika`      | 未弃用 | PENDING  | 待检查                                                                                   |
+| 17   | Komiic漫画 | `src/rust/zh.komiic`          | 未弃用 | PASS | v3 实际 WASM 列表、短关键词搜索、详情、44 章、51 页及首张 WebP 均通过 |
+| 18   | 哔咔漫画   | `src/rust/zh.manhuabika`      | 未弃用 | IN_PROGRESS | 正在排查 |
 | 19   | 漫画DB     | `src/rust/zh.manhuadb`        | 未弃用 | PENDING  | 待检查                                                                                   |
 | 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | PENDING  | 待检查                                                                                   |
 | 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | PENDING  | 待检查                                                                                   |
@@ -173,6 +173,14 @@
 - 核对原首页和实现依赖的 `/comic/page/1`：HTTP 200，但列表响应仅 980 字节，正文明确为 `This domain may be for sale`，加载 abovedomains 的 forsale 脚本，无原 `.card` 漫画结构。没有把 200 当成可用。
 - 历史资料曾提到 `isekai.ee` 备用域名；请求同一路径在 TLS 建连阶段失败。没有取得原站官方迁移公告或当前可信入口，不替换到同名其他站。
 - 结论：SKIP（原域名已停放，无法在本仓库恢复上游内容）。保留 deprecated 和原版本，不安装无助于恢复上游的编译依赖，不重新发布；搜索、详情和图片均无法验证。
+
+### 17. Komiic漫画 — PASS
+
+- 起始版本 3。实际发布 WASM 使用默认分类和排序，列表返回 20 项，GraphQL HTTP 200，无业务错误。
+- 自动入口使用列表首项完整标题搜索时返回空；进一步以同一插件使用标题前两个字符及另一个普通关键词，分别返回 100、49 项。核对现站前端 `searchComicsAndAuthors` 查询与插件相同；完整标题空结果是当前上游搜索表现，不能直接判定插件不可用。
+- 同一实际 WASM 代表性样本 `11368` 详情有标题与封面，目录 44 章，选取首章得到 51 个零基页序图片地址，图片修改请求正常生成站点阅读 Referer。
+- 未配置 Cookie 的首图请求 HTTP 200，虽然响应 Content-Type 声称 image/jpeg，真实文件头为 RIFF/WEBP，是合法 WebP 图片；没有将 MIME 名称不一致误判为图片损坏。未批量读取全章。
+- 结论：PASS（代表性列表、搜索、详情、章节和图片链路可用），无需修改源码、版本或 `public/`。未做用户设备测试，Cookie 配置及账号阅读额度未测试；保留用户现有设置，不读取或保存其凭据。
 
 ## 可复用检查工具
 

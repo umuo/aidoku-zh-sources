@@ -4,13 +4,13 @@
 
 ## 当前状态
 
-- 更新时间：2026-10-29 08:23（北京时间）。
+- 更新时间：2026-10-29 08:25（北京时间）。
 - 任务状态：已按最新继续指令恢复逐源检查；每项完成后更新记录、提交并推送。
 - 审计范围：33 个源码图源，包含已弃用源；排除用户已实测可用的包子漫画 2（`zh.baozimh2` v7），其余 32 个逐源处理，详见 [逐源审计记录](SOURCE_AUDIT.md)。
-- 已处理：15 / 32（PASS 0 / FIXED 3 / SKIP 12），剩余 17 个；当前 `zh.komiic`，下一项 `zh.manhuabika`。
-- 最近完成：ISEKAI（`zh.isekai`）记录 SKIP；原列表为域名停放/出售页，历史备用域名 TLS 失败，无可靠官方迁移。详情与验证证据见 SOURCE_AUDIT.md。
-- 验证：release 构建、3 组实际 WASM 回归、24 个发布包一致性校验通过；真实 WASM 请求通过列表 16 项、搜索 1 项、详情、目录 1 章、60 个图片地址，首图 Range 为 JPEG / HTTP 206。未逐一覆盖所有筛选及作品，未做用户设备复测。
-- 发布：HO5HO v2 已随 `9a3ec02` 推送，`public/` 已同步，[Actions 发布成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40655056360)。G站 v10 部分修复 `c203232` 也已发布成功，但章节 API Cloudflare 403，仍为 SKIP，不能声称整体可读。
+- 已处理：16 / 32（PASS 1 / FIXED 3 / SKIP 12），剩余 16 个；当前 `zh.manhuabika`，下一项 `zh.manhuadb`。
+- 最近完成：Komiic漫画（`zh.komiic`）记录 PASS；v3 实际 WASM 列表、短关键词搜索、详情、44 章、51 页及首张 WebP 均通过。详情与验证证据见 SOURCE_AUDIT.md。
+- 本项验证：Komiic v3 实际发布 WASM 列表 20 项，短关键词搜索 100 / 49 项，详情、44 章、51 页与首张 WebP / HTTP 200 通过；未配置 Cookie。完整标题搜索空结果经现站协议核对，不作为插件失败；无源码或发布包变更，未做设备测试。
+- 发布：HO5HO v2 已随 `9a3ec02` 推送，`public/` 已同步，[Actions 发布成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40655056360)。ISEKAI 停放记录已推送为 `57e3d64`；G站 v10 部分修复 `c203232` 也已发布成功，但章节 API Cloudflare 403，仍为 SKIP，不能声称整体可读。
 - 已知限制：若干源受 Cloudflare、连接超时或上游关闭影响；SKIP 的证据与未验证项见审计记录。当前普通浏览器工具不可用；构建仍需旧 SDK、nightly wasm 目标和完整仓库检出，命令见下文。
 - 接续约定：按审计表串行处理当前源；每完成一个源立即更新交接、提交并推送。不得把仅首页可访问或离线测试通过记为整体可用。
 - 本轮更新排查：用户确认使用本仓库 jsDelivr 订阅。远程 main/public、gh-pages 及标准 CDN `@main` 的两份索引均有 HO5HO v2、G站 v10；不能将用户问题归因于订阅上游。CDN 响应头为 `max-age=604800, s-maxage=43200`，客户端/其他节点旧缓存或实际 URL 固定旧引用仍待核实。两份标准 CDN 索引的 purge 请求均返回 finished、CF/FY 成功；刷新后复查 min 索引版本正确。清理 CDN 不等于清除 App 本地缓存。README 已补正确仓库链接及缓存说明；用户已确认完整地址为本仓库标准 CDN `@main/public/`，地址正确；具体受影响图源和设备刷新结果仍待反馈。
