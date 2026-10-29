@@ -1,6 +1,6 @@
 # 全部漫画源健康检测
 
-更新时间：2026-10-29 22:22（北京时间）。已完成 13 / 35。
+更新时间：2026-10-29 22:22（北京时间）。已完成 14 / 35。
 
 本轮仅检测并标注原因，修复留待后续统一安排。覆盖当前 26 个发布源和 9 个已弃用源；使用实际发布包、仓库默认地址及匿名配置，不读取用户设备凭据。顶漫画用户已确认可用，包子漫画 2 也有既往设备确认；本轮依然复查。
 
@@ -23,7 +23,7 @@
 | [漫画狗](source-health/2026-10-29/zh.dogemanga.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to dogemanga.com:443 |
 | [G站漫画](source-health/2026-10-29/zh.godamanga.json) | v10 | 是 | 网络受限，未验证 | sample1.chapters: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to v2.apikk.top:443；sample2.chapters: get_chapter_list returned an error |
 | [瓜子漫画](source-health/2026-10-29/zh.guazimanhua.json) | v1 | 是 | 可读 | 代表性列表、搜索、详情、目录与真实图片通过 |
-| 古风漫画 | v3 | 是 | 待检测 |  |
+| [古风漫画](source-health/2026-10-29/zh.gufengmh.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443 |
 | Hanime1.me | v3 | 是 | 待检测 |  |
 | 嗨皮漫画 | v1 | 是 | 待检测 |  |
 | HO5HO | v2 | 是 | 待检测 |  |
@@ -56,7 +56,7 @@
 
 ## 当前接续位置
 
-- 已处理：13 / 35。
-- 最近完成：`zh.guazimanhua`。
-- 下一项：`zh.gufengmh`。
-- 汇总：网络受限，未验证 6；可读 2；已弃用/未发布 4；访问防护拦截 1。
+- 已处理：14 / 35。
+- 最近完成：`zh.gufengmh`。
+- 下一项：`zh.hanime1`。
+- 汇总：网络受限，未验证 7；可读 2；已弃用/未发布 4；访问防护拦截 1。
