@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：25 / 32（PASS 3 / FIXED 4 / SKIP 18）；排除：1。
-- 当前：第 27 项 `zh.se8`。
-- 下一项：`zh.vomicmh`；先完成当前源再继续。
+- 已处理：26 / 32（PASS 3 / FIXED 4 / SKIP 19）；排除：1。
+- 当前：第 28 项 `zh.vomicmh`。
+- 下一项：`zh.wnacg`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -48,8 +48,8 @@
 | 24   | Nico       | `src/rust/zh.nicohub`         | 已弃用 | SKIP        | 原漫画入口与搜索 API TLS 超时；历史发布页证书域名不匹配，维持弃用                        |
 | 25   | MYCOMIC    | `src/rust/zh.mycomic`         | 未弃用 | SKIP        | 普通浏览器列表30项正常，但搜索/详情均停留 Cloudflare；完整阅读未验证                     |
 | 26   | NoyAcg     | `src/rust/zh.noy1`            | 未弃用 | SKIP        | 匿名 API 明确返回 [login]，缺少有效账号/会话无法验证阅读                                 |
-| 27   | 韩漫库     | `src/rust/zh.se8`             | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 28   | vomic漫画  | `src/rust/zh.vomicmh`         | 已弃用 | PENDING     | 待检查                                                                                   |
+| 27   | 韩漫库     | `src/rust/zh.se8`             | 未弃用 | SKIP        | 原站显示“抱歉，站点已暂停”，列表无漫画内容，无法在本仓库恢复上游                         |
+| 28   | vomic漫画  | `src/rust/zh.vomicmh`         | 已弃用 | IN_PROGRESS | 正在排查                                                                                 |
 | 29   | 绅士漫画   | `src/rust/zh.wnacg`           | 未弃用 | PENDING     | 待检查                                                                                   |
 | 30   | 言耽社     | `src/rust/zh.yandanshe`       | 未弃用 | PENDING     | 待检查                                                                                   |
 | 31   | 野蛮漫画   | `src/rust/zh.yemancomic`      | 已弃用 | PENDING     | 待检查                                                                                   |
@@ -248,6 +248,12 @@
 - 独立按原协议匿名 POST `/api/booklist_v2`，HTTP 200、application/json，正文只有 `["login"]`，不是漫画列表，证明当前内容要求认证。首页可响应并不等于登录后阅读可用。
 - 没有使用用户账号、尝试示例密码、创建账号或绕过会话验证；当前没有有效登录条件，无法核对登录后的列表/搜索、详情和图片服务。
 - 结论：SKIP（认证条件缺失）。维持 v3 与原发布状态，不仅凭编译或伪造离线响应宣称恢复。空凭据路径的旧 unwrap 行为已记录，但未在缺少可验收账号条件下盲目发布未经完整验证的登录重构。
+
+### 27. 韩漫库 — SKIP
+
+- 起始版本 3。实际发布 WASM 请求 `/index.php/category/order/hits/page/1` 返回 HTTP 200 但没有任何漫画列表项。
+- 原首页复查 HTTP 200，页面标题明确为“抱歉，站点已暂停”，响应为站点暂停模板，不是正常漫画首页。没有站内迁移链接，Cloudflare 附加脚本也不代表漫画服务仍正常。
+- 结论：SKIP（上游站点暂停，无法靠解析修复恢复内容）。保留 v3 与现有状态，不将“暂停”推断为永久关闭而擅自弃用；没有验证搜索、详情、章节和图片，不替换成同名第三方站。
 
 ## 可复用检查工具
 
