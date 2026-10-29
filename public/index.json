@@ -54,6 +54,15 @@
     "icon": "zh.copymanga-v13.png"
   },
   {
+    "id": "zh.dingmanhua",
+    "name": "顶漫画",
+    "lang": "zh",
+    "version": 1,
+    "nsfw": 0,
+    "file": "zh.dingmanhua-v1.aix",
+    "icon": "zh.dingmanhua-v1.png"
+  },
+  {
     "id": "zh.godamanga",
     "name": "G站漫画",
     "lang": "zh",
