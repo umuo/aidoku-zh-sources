@@ -7,9 +7,9 @@
 - 更新时间：2026-10-29 08:36（北京时间）。
 - 任务状态：已按最新继续指令恢复逐源检查；每项完成后更新记录、提交并推送。
 - 审计范围：33 个源码图源，包含已弃用源；排除用户已实测可用的包子漫画 2（`zh.baozimh2` v7），其余 32 个逐源处理，详见 [逐源审计记录](SOURCE_AUDIT.md)。
-- 已处理：22 / 32（PASS 3 / FIXED 4 / SKIP 15），剩余 10 个；当前 `zh.nicohub`，下一项 `zh.mycomic`。
-- 最近完成：漫小肆韩漫（`zh.mxshm`）记录 FIXED；v7 修复新详情结构；实站列表28/搜索20、5章、143页及首图 JPEG 通过。详情与验证证据见 SOURCE_AUDIT.md。
-- 本项验证：漫小肆 v7 release 构建、2 组新旧详情 WASM 回归、24 包一致性、格式检查通过；实站列表28/搜索20、详情、5章、143页与首图 JPEG / HTTP 200 通过。同步 `public/` v7（实际 ID `zh.msxhm` 不变），本轮推送及部署待实际确认；设备端未复测。漫客栈 PASS 已推送为 `a058044`。
+- 已处理：23 / 32（PASS 3 / FIXED 4 / SKIP 16），剩余 9 个；当前 `zh.mycomic`，下一项 `zh.noy1`。
+- 最近完成：Nico（`zh.nicohub`）记录 SKIP；原漫画入口与搜索 API TLS 超时；历史发布页证书域名不匹配，维持弃用。详情与验证证据见 SOURCE_AUDIT.md。
+- 本项验证：Nico 原漫画入口和 POST 搜索 API TLS 超时，历史发布页证书域名不匹配，维持弃用和 SKIP；源码与发布包不变。漫小肆 v7 已推送为 `b51cb4a`，其 Actions 结果待后续核对。
 - 发布：HO5HO v2 已随 `9a3ec02` 推送，`public/` 已同步，[Actions 发布成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40655056360)。ISEKAI 停放记录已推送为 `57e3d64`；G站 v10 部分修复 `c203232` 也已发布成功，但章节 API Cloudflare 403，仍为 SKIP，不能声称整体可读。
 - 已知限制：若干源受 Cloudflare、连接超时或上游关闭影响；SKIP 的证据与未验证项见审计记录。当前普通浏览器工具不可用；构建仍需旧 SDK、nightly wasm 目标和完整仓库检出，命令见下文。
 - 接续约定：按审计表串行处理当前源；每完成一个源立即更新交接、提交并推送。不得把仅首页可访问或离线测试通过记为整体可用。

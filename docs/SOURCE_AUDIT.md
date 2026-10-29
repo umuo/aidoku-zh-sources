@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：22 / 32（PASS 3 / FIXED 4 / SKIP 15）；排除：1。
-- 当前：第 24 项 `zh.nicohub`。
-- 下一项：`zh.mycomic`；先完成当前源再继续。
+- 已处理：23 / 32（PASS 3 / FIXED 4 / SKIP 16）；排除：1。
+- 当前：第 25 项 `zh.mycomic`。
+- 下一项：`zh.noy1`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -45,8 +45,8 @@
 | 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | SKIP        | 原首页和列表 TLS 失败，HTTP 空响应，未发现可信迁移；维持弃用                             |
 | 22   | 漫客栈     | `src/rust/zh.mkzhan`          | 未弃用 | PASS        | v1 列表15/搜索1、972章、免费首章14页及首图 WebP 206 实测通过                             |
 | 23   | 漫小肆韩漫 | `src/rust/zh.mxshm`           | 未弃用 | FIXED       | v7 修复新详情结构；实站列表28/搜索20、5章、143页及首图 JPEG 通过                         |
-| 24   | Nico       | `src/rust/zh.nicohub`         | 已弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 25   | MYCOMIC    | `src/rust/zh.mycomic`         | 未弃用 | PENDING     | 待检查                                                                                   |
+| 24   | Nico       | `src/rust/zh.nicohub`         | 已弃用 | SKIP        | 原漫画入口与搜索 API TLS 超时；历史发布页证书域名不匹配，维持弃用                        |
+| 25   | MYCOMIC    | `src/rust/zh.mycomic`         | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
 | 26   | NoyAcg     | `src/rust/zh.noy1`            | 未弃用 | PENDING     | 待检查                                                                                   |
 | 27   | 韩漫库     | `src/rust/zh.se8`             | 未弃用 | PENDING     | 待检查                                                                                   |
 | 28   | vomic漫画  | `src/rust/zh.vomicmh`         | 已弃用 | PENDING     | 待检查                                                                                   |
@@ -226,6 +226,13 @@
 - 实际 v7 发布 WASM 网络检查全部通过：列表 28 项、搜索 20 项、代表性详情 `1257` 标题/封面有效、目录 5 章、首章解析 143 个图片地址；仅探测首张，HTTP 200、image/jpeg、JPEG 文件头有效，没有下载整章。
 - Rust release 构建、2 组新旧详情实际 WASM 回归、24 个发布包一致性校验、Rustfmt 和差异检查通过。同步 v7 包、图标和两份索引，不修改用户自定义地址设置。
 - 结论：FIXED（代表性完整链路通过），没有设备端复测，不声称所有作品或网络环境已验证。元信息中的 freexcomic 页面是地址发布页，未擅自替换到第三方同名站。
+
+### 24. Nico — SKIP
+
+- 起始状态：已弃用，版本 1。原 `/index?category=comic` 入口和源码依赖的 POST `/api/search/` 均在 TLS 建连超时，未得到正常列表数据。
+- 历史资料提到 `nicohub.net` 地址发布页，复查其证书与域名不匹配，未取得可信迁移内容。不关闭 TLS 校验、不凭同名第三方网站替换源。
+- 搜索资料互有矛盾，域名注册记录和导航缓存不能代替原站运行证据，未将其视为可恢复服务或永久关闭的确证。
+- 结论：SKIP（当前入口不可验证，无可靠官方迁移）。保留 deprecated、v1 和源码，不重新发布；搜索结果、详情、章节和图片链路未验证。
 
 ## 可复用检查工具
 
