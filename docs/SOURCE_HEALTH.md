@@ -1,6 +1,6 @@
 # 全部漫画源健康检测
 
-更新时间：2026-10-29 22:24（北京时间）。已完成 21 / 35。
+更新时间：2026-10-29 22:25（北京时间）。已完成 22 / 35。
 
 本轮仅检测并标注原因，修复留待后续统一安排。覆盖当前 26 个发布源和 9 个已弃用源；使用实际发布包、仓库默认地址及匿名配置，不读取用户设备凭据。顶漫画用户已确认可用，包子漫画 2 也有既往设备确认；本轮依然复查。
 
@@ -31,7 +31,7 @@
 | [Komiic漫画](source-health/2026-10-29/zh.komiic.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to komiic.com:443 |
 | [哔咔漫画](source-health/2026-10-29/zh.manhuabika.json) | v1 | 是 | 需登录验证 | 现有源要求账号/会话；未使用默认示例账号或用户凭据，登录后的完整阅读未验证 |
 | [漫画DB](source-health/2026-10-29/zh.manhuadb.json) | v1 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443 |
-| 漫画人 | v2 | 是 | 待检测 |  |
+| [漫画人](source-health/2026-10-29/zh.manhuaren.json) | v2 | 是 | 链路失败，待排查 | list: get_manga_list returned an error |
 | 喵上漫画 | v5 | 否 | 待检测 |  |
 | 漫客栈 | v1 | 是 | 待检测 |  |
 | 漫小肆韩漫 | v7 | 是 | 待检测 |  |
@@ -56,7 +56,7 @@
 
 ## 当前接续位置
 
-- 已处理：21 / 35。
-- 最近完成：`zh.manhuadb`。
-- 下一项：`zh.manhuaren`。
-- 汇总：已弃用/未发布 5；网络受限，未验证 12；可读 2；需登录验证 1；访问防护拦截 1。
+- 已处理：22 / 35。
+- 最近完成：`zh.manhuaren`。
+- 下一项：`zh.miaoshangmanhua`。
+- 汇总：已弃用/未发布 5；网络受限，未验证 12；可读 2；链路失败，待排查 1；需登录验证 1；访问防护拦截 1。
