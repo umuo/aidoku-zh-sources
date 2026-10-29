@@ -17,7 +17,7 @@
 | [包子漫画1](source-health/2026-10-29/zh.baozimh1.json) | v6 | 是 | 访问防护拦截 | 访问防护/Cloudflare 验证 |
 | [包子漫画2](source-health/2026-10-29/zh.baozimh2.json) | v7 | 是 | 网络受限，未验证 | search: HTTP request failed: curl: (28) Connection timed out after 25010 milliseconds; OpenSSL 复查：<urlopen error _ssl.c:1064: The handshake operation timed out>；sample1.details: 详情缺少标题或漫画 ID；sample2.chapters: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to baozimh.org:443; OpenSSL 复查：<urlopen error _ssl.c:1064: The handshake operation timed out> |
 | [哔哩漫画](source-health/2026-10-29/zh.bilicomic.json) | v5 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [动漫狂](source-health/2026-10-29/zh.cartoonmad.json) | v2 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.cartoonmad.com:443 |
+| [动漫狂](source-health/2026-10-29/zh.cartoonmad.json) | v2 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.cartoonmad.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
 | [拷贝漫画](source-health/2026-10-29/zh.copymanga.json) | v13 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to api.mangacopy.com:443 |
 | [顶漫画](source-health/2026-10-29/zh.dingmanhua.json) | v1 | 是 | 可读 | 代表性列表、搜索、详情、目录与真实图片通过 |
 | [漫画狗](source-health/2026-10-29/zh.dogemanga.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to dogemanga.com:443 |
@@ -57,6 +57,6 @@
 ## 当前接续位置
 
 - 已处理：35 / 35。
-- 最近完成：`zh.bilicomic`。
+- 最近完成：`zh.cartoonmad`。
 - 下一项：无。
 - 汇总：已弃用/未发布 9；网络受限，未验证 14；可读 3；链路失败，待排查 2；需登录验证 3；访问防护拦截 2；站点暂停 1；部分可读 1。
