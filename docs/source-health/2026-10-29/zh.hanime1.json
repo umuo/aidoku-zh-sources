@@ -5,24 +5,58 @@
   "version": 3,
   "published": true,
   "deprecated": false,
-  "checkedAt": "2026-10-29T14:22:54.307Z",
+  "checkedAt": "2026-10-29T14:35:39.088Z",
   "checks": {
     "list": {
       "status": "FAILED",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to hanime1.me:443"
+      "error": "漫画列表为空"
     }
   },
   "requests": [
     {
       "method": "GET",
       "url": "https://hanime1.me/comics/search?query=&page=1",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to hanime1.me:443"
+      "curlError": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to hanime1.me:443",
+      "transport": "Python/OpenSSL (curl 失败后的交叉复查)",
+      "status": 403,
+      "contentType": "text/html; charset=UTF-8",
+      "hints": [
+        "访问防护/Cloudflare 验证"
+      ]
     }
   ],
   "package": {
     "file": "zh.hanime1-v3.aix",
     "sha256": "bf8ed66b4b1b190c72449d1f1a8196d3a67e685caa6e892971c0c807e4ab4cbd"
   },
-  "result": "NETWORK_UNVERIFIED",
-  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to hanime1.me:443"
+  "result": "ACCESS_BLOCKED",
+  "reason": "访问防护/Cloudflare 验证",
+  "priorAttempt": {
+    "source": "zh.hanime1",
+    "directory": "zh.hanime1",
+    "name": "Hanime1.me",
+    "version": 3,
+    "published": true,
+    "deprecated": false,
+    "checkedAt": "2026-10-29T14:22:54.307Z",
+    "checks": {
+      "list": {
+        "status": "FAILED",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to hanime1.me:443"
+      }
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://hanime1.me/comics/search?query=&page=1",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to hanime1.me:443"
+      }
+    ],
+    "package": {
+      "file": "zh.hanime1-v3.aix",
+      "sha256": "bf8ed66b4b1b190c72449d1f1a8196d3a67e685caa6e892971c0c807e4ab4cbd"
+    },
+    "result": "NETWORK_UNVERIFIED",
+    "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to hanime1.me:443"
+  }
 }
