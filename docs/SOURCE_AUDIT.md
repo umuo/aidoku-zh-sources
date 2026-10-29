@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：17 / 32（PASS 1 / FIXED 3 / SKIP 13）；排除：1。
-- 当前：第 19 项 `zh.manhuadb`。
-- 下一项：`zh.manhuaren`；先完成当前源再继续。
+- 已处理：18 / 32（PASS 1 / FIXED 3 / SKIP 14）；排除：1。
+- 当前：第 20 项 `zh.manhuaren`。
+- 下一项：`zh.miaoshangmanhua`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -40,8 +40,8 @@
 | 16   | ISEKAI     | `src/as/zh.isekai`            | 已弃用 | SKIP        | 原列表为域名停放/出售页，历史备用域名 TLS 失败，无可靠官方迁移                           |
 | 17   | Komiic漫画 | `src/rust/zh.komiic`          | 未弃用 | PASS        | v3 实际 WASM 列表、短关键词搜索、详情、44 章、51 页及首张 WebP 均通过                    |
 | 18   | 哔咔漫画   | `src/rust/zh.manhuabika`      | 未弃用 | SKIP        | API 明确要求认证，缺少有效账号令牌无法验证完整阅读；补齐检查宿主日期 ABI                 |
-| 19   | 漫画DB     | `src/rust/zh.manhuadb`        | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | PENDING     | 待检查                                                                                   |
+| 19   | 漫画DB     | `src/rust/zh.manhuadb`        | 未弃用 | SKIP        | 原 HTTPS TLS 失败，HTTP 仅混淆脚本跳转，无可验证的漫画页面或官方迁移                     |
+| 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
 | 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | PENDING     | 待检查                                                                                   |
 | 22   | 漫客栈     | `src/rust/zh.mkzhan`          | 未弃用 | PENDING     | 待检查                                                                                   |
 | 23   | 漫小肆韩漫 | `src/rust/zh.mxshm`           | 未弃用 | PENDING     | 待检查                                                                                   |
@@ -189,6 +189,13 @@
 - 不使用或提交源码内的示例账号，不读取用户凭据；实际插件生成公开协议请求后移除 Authorization，仅对匿名列表接口发起一次请求，并在收到响应后中止，未触发登录。API 返回 HTTP 401，JSON 明确 `message: unauthorized`。
 - 网页首页 HTTP 200 是 PicaWeb 前端，不能证明需认证 API 的列表/搜索、详情和图片可用。当前没有有效账号令牌，无法完成受认证保护的阅读验证。
 - 结论：SKIP（缺少有效认证条件）。不绕过认证，不将示例凭据作为真实账号尝试；源和 v1 发布包不变，未来需用户自行在 App 配置有效凭据后复测。工具修复单独同步，不声称图源已经恢复。
+
+### 19. 漫画DB — SKIP
+
+- 起始版本 1，原站 `https://www.manhuadb.com`。实际发布 WASM 的列表请求在 TLS 握手失败；www HTTPS 首页与不带 www 的 HTTPS 根域名复查相同失败。
+- HTTP 首页虽然返回 200，但仅约 2.1 KB，没有标题或漫画结构，内容为混淆 JavaScript 构造跳转；没有迁移说明。未执行或跟随该未知跳转，也未把它当作官方新地址。
+- 定向检索未找到可核实的原站迁移公告或可信可用入口；搜索无结果本身不证明永久关闭。
+- 结论：SKIP（原入口在当前环境不可用，没有可验证内容支撑安全修复）。维持源与 v1 未弃用状态，不用猜测域名替换；搜索、详情、章节与图片均未验证，后续需正常访问条件或官方迁移证据。
 
 ## 可复用检查工具
 
