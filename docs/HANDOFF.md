@@ -4,12 +4,12 @@
 
 ## 当前状态
 
-- 更新时间：2026-10-29 08:39（北京时间）。
+- 更新时间：2026-10-29 08:40（北京时间）。
 - 任务状态：已按最新继续指令恢复逐源检查；每项完成后更新记录、提交并推送。
 - 审计范围：33 个源码图源，包含已弃用源；排除用户已实测可用的包子漫画 2（`zh.baozimh2` v7），其余 32 个逐源处理，详见 [逐源审计记录](SOURCE_AUDIT.md)。
-- 已处理：24 / 32（PASS 3 / FIXED 4 / SKIP 17），剩余 8 个；当前 `zh.noy1`，下一项 `zh.se8`。
-- 最近完成：MYCOMIC（`zh.mycomic`）记录 SKIP；普通浏览器列表30项正常，但搜索/详情均停留 Cloudflare；完整阅读未验证。详情与验证证据见 SOURCE_AUDIT.md。
-- 本项验证：MYCOMIC v2 命令行列表 403；普通浏览器列表30项结构正常，但搜索和真实详情均停留 Cloudflare，完整阅读未验证，记录 SKIP。工具补 curl --globoff，5 组宿主回归通过，源及 `public/` 不变。漫小肆 v7 `b51cb4a` [Actions 已成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40795138367)。
+- 已处理：25 / 32（PASS 3 / FIXED 4 / SKIP 18），剩余 7 个；当前 `zh.se8`，下一项 `zh.vomicmh`。
+- 最近完成：NoyAcg（`zh.noy1`）记录 SKIP；匿名 API 明确返回 [login]，缺少有效账号/会话无法验证阅读。详情与验证证据见 SOURCE_AUDIT.md。
+- 本项验证：NoyAcg 匿名列表 API HTTP 200 但明确返回 ["login"]，默认凭据为空，完整阅读缺少认证条件，记录 SKIP；源和 `public/` 不变。MYCOMIC 记录及 URL 宿主兼容已推送为 `b3d0526`。
 - 发布：HO5HO v2 已随 `9a3ec02` 推送，`public/` 已同步，[Actions 发布成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40655056360)。ISEKAI 停放记录已推送为 `57e3d64`；G站 v10 部分修复 `c203232` 也已发布成功，但章节 API Cloudflare 403，仍为 SKIP，不能声称整体可读。
 - 已知限制：若干源受 Cloudflare、连接超时或上游关闭影响；SKIP 的证据与未验证项见审计记录。普通浏览器能力已恢复，可用于后续交叉验证；构建仍需旧 SDK、nightly wasm 目标和完整仓库检出，命令见下文。
 - 接续约定：按审计表串行处理当前源；每完成一个源立即更新交接、提交并推送。不得把仅首页可访问或离线测试通过记为整体可用。
