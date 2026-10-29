@@ -5,20 +5,47 @@
   "version": 1,
   "published": false,
   "deprecated": true,
-  "checkedAt": "2026-10-29T14:21:30.968Z",
+  "checkedAt": "2026-10-29T14:34:14.503Z",
   "checks": {
     "homepage": {
-      "status": "FAILED",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to dogemanga.com:443"
+      "status": "PASS",
+      "httpStatus": 200,
+      "hints": []
     }
   },
   "requests": [
     {
       "method": "GET",
       "url": "https://dogemanga.com/",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to dogemanga.com:443"
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "hints": []
     }
   ],
   "result": "UNPUBLISHED",
-  "reason": "已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常"
+  "reason": "已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常",
+  "priorAttempt": {
+    "source": "zh.dogemanga",
+    "directory": "zh.dogemanga",
+    "name": "漫画狗",
+    "version": 1,
+    "published": false,
+    "deprecated": true,
+    "checkedAt": "2026-10-29T14:21:30.968Z",
+    "checks": {
+      "homepage": {
+        "status": "FAILED",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to dogemanga.com:443"
+      }
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://dogemanga.com/",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to dogemanga.com:443"
+      }
+    ],
+    "result": "UNPUBLISHED",
+    "reason": "已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常"
+  }
 }

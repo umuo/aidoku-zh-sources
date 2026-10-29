@@ -1,6 +1,6 @@
 # 全部漫画源健康检测
 
-更新时间：2026-10-29 22:33（北京时间）。已完成 35 / 35。
+更新时间：2026-10-29 22:34（北京时间）。已完成 35 / 35。
 
 本轮仅检测并标注原因，修复留待后续统一安排。覆盖当前 26 个发布源和 9 个已弃用源；使用实际发布包、仓库默认地址及匿名配置，不读取用户设备凭据。顶漫画用户已确认可用，包子漫画 2 也有既往设备确认；本轮依然复查。
 
@@ -20,7 +20,7 @@
 | [动漫狂](source-health/2026-10-29/zh.cartoonmad.json) | v2 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.cartoonmad.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
 | [拷贝漫画](source-health/2026-10-29/zh.copymanga.json) | v13 | 是 | 网络受限，未验证 | sample1.details: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.mangacopy.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>；sample2.details: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.mangacopy.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
 | [顶漫画](source-health/2026-10-29/zh.dingmanhua.json) | v1 | 是 | 可读 | 代表性列表、搜索、详情、目录与真实图片通过 |
-| [漫画狗](source-health/2026-10-29/zh.dogemanga.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to dogemanga.com:443 |
+| [漫画狗](source-health/2026-10-29/zh.dogemanga.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP 200  |
 | [G站漫画](source-health/2026-10-29/zh.godamanga.json) | v10 | 是 | 网络受限，未验证 | sample1.chapters: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to v2.apikk.top:443；sample2.chapters: get_chapter_list returned an error |
 | [瓜子漫画](source-health/2026-10-29/zh.guazimanhua.json) | v1 | 是 | 可读 | 代表性列表、搜索、详情、目录与真实图片通过 |
 | [古风漫画](source-health/2026-10-29/zh.gufengmh.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443 |
@@ -57,6 +57,6 @@
 ## 当前接续位置
 
 - 已处理：35 / 35。
-- 最近完成：`zh.copymanga`。
+- 最近完成：`zh.dogemanga`。
 - 下一项：无。
 - 汇总：已弃用/未发布 9；网络受限，未验证 14；可读 3；链路失败，待排查 2；需登录验证 3；访问防护拦截 2；站点暂停 1；部分可读 1。
