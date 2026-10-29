@@ -71,8 +71,8 @@
     "file": "zh.baozimh2-v7.aix",
     "sha256": "5175d7ff947539ec47c5eadfe88c02ad2f6746838cbb93ff831cb1a9c7a1d2c5"
   },
-  "result": "NETWORK_UNVERIFIED",
-  "reason": "search: HTTP request failed: curl: (28) Connection timed out after 25010 milliseconds; OpenSSL 复查：<urlopen error _ssl.c:1064: The handshake operation timed out>；sample1.details: 详情缺少标题或漫画 ID；sample2.chapters: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to baozimh.org:443; OpenSSL 复查：<urlopen error _ssl.c:1064: The handshake operation timed out>",
+  "result": "ACCESS_BLOCKED",
+  "reason": "列表能返回，但搜索/目录连接超时，第一部作品详情 HTTP 403；两个样本均未到真实图片。保留此前用户设备可读反馈，本轮受网络与访问拒绝影响。",
   "priorAttempt": {
     "source": "zh.baozimh2",
     "directory": "zh.baozimh2",
@@ -100,5 +100,6 @@
     },
     "result": "NETWORK_UNVERIFIED",
     "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to baozimh.org:443"
-  }
+  },
+  "userFeedback": "此前用户已确认 v7 可读；本轮 Mac 检测受访问拒绝及网络影响，不能反推用户设备不可读。"
 }

@@ -27,5 +27,9 @@
     }
   ],
   "result": "AUTH_REQUIRED",
-  "reason": "现有源要求账号/会话；未使用默认示例账号或用户凭据，登录后的完整阅读未验证"
+  "reason": "匿名 POST 列表 API 返回 [\"login\"]；需有效账号/会话，未配置凭据，登录后的阅读未验证。",
+  "package": {
+    "file": "zh.noy1-v3.aix",
+    "sha256": "e76bd588283287e3989b2af0e698c0c8cee84d688903098db635545f5a15df18"
+  }
 }

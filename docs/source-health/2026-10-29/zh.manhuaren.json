@@ -28,7 +28,7 @@
     "sha256": "4aa8304145958a44d26608b9f3c2a0894f78dfdeee3e12209c09550746856399"
   },
   "result": "FAILED",
-  "reason": "业务接口错误：服务器内部错误",
+  "reason": "上游列表接口虽然 HTTP 200，但业务码 50000、消息“服务器内部错误”；两轮一致，尚未进入详情/阅读。",
   "priorAttempt": {
     "source": "zh.manhuaren",
     "directory": "zh.manhuaren",

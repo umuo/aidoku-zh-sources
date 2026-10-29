@@ -58,7 +58,7 @@
     "sha256": "42c2db16fa487390b51c16e4bbc0702c8a32d2ce3780cd35757108bd17d87a4a"
   },
   "result": "NETWORK_UNVERIFIED",
-  "reason": "sample1.details: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.mangacopy.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>；sample2.details: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.mangacopy.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>",
+  "reason": "列表、搜索可用；详情请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。",
   "priorAttempt": {
     "source": "zh.copymanga",
     "directory": "zh.copymanga",

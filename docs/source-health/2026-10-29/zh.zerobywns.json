@@ -146,7 +146,7 @@
     "sha256": "526cd38cf888af00dfef928a8f49a460d8fbf66552209c02fbe3518e304365ff"
   },
   "result": "AUTH_REQUIRED",
-  "reason": "要求登录/认证",
+  "reason": "列表、搜索、详情及目录可用；抽查最新章节跳转登录页，旧章图片服务器空响应。补测此前可读作品仍在图片服务器失败，存在认证和图片连接双重问题。",
   "priorAttempt": {
     "source": "zh.zerobywns",
     "directory": "zh.zerobywns",
@@ -306,5 +306,19 @@
     },
     "result": "AUTH_REQUIRED",
     "reason": "要求登录/认证"
+  },
+  "knownSampleProbe": {
+    "checkedAt": "2026-10-29T14:41:57.436Z",
+    "id": "23185",
+    "note": "对旧审计已通过的公开样本进行定向交叉检查；不改变源设置或安装包",
+    "title": "逐神骑士【1-67话 16-67是生肉】【カムヤライド】【已完结】",
+    "chapters": 32,
+    "pages": 46,
+    "originalImage": {
+      "error": "HTTP request failed: curl: (52) Empty reply from server; Remote end closed connection without response"
+    },
+    "httpsDiagnostic": {
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to tupa.zerobyw33.com:443; <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
+    }
   }
 }

@@ -29,6 +29,14 @@ const report = {
   checks: {},
   requests: [],
 };
+if (entry) {
+  report.package = {
+    file: entry.file,
+    sha256: createHash("sha256")
+      .update(readFileSync(`public/sources/${entry.file}`))
+      .digest("hex"),
+  };
+}
 const defaults = {};
 if (existsSync(`${directory}/res/settings.json`)) {
   const settings = JSON.parse(readFileSync(`${directory}/res/settings.json`));

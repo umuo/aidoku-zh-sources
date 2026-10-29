@@ -89,7 +89,7 @@
     "sha256": "a8df6f01d542e1159cb9223da34037c80a961c38cbcda9f747ba53d6cecfb97e"
   },
   "result": "ACCESS_BLOCKED",
-  "reason": "HTTP 403 访问被拒绝",
+  "reason": "列表、搜索和详情可用；目录 API 连接被重置，第二部作品的备用目录页面 HTTP 403，阅读未通过。",
   "priorAttempt": {
     "source": "zh.godamanga",
     "directory": "zh.godamanga",

@@ -114,7 +114,7 @@
     "sha256": "10fc3bf10b515a9c1c27232fbd84fe3f1858f66651a72776362601c94631c050"
   },
   "result": "ACCESS_BLOCKED",
-  "reason": "访问防护/Cloudflare 验证",
+  "reason": "列表、搜索、详情、目录和图片地址可解析；两部作品的首图均 HTTP 403 / Cloudflare，当前未验证图片可读。",
   "priorAttempt": {
     "source": "zh.wnacg",
     "directory": "zh.wnacg",

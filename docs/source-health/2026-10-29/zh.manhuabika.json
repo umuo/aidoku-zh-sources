@@ -27,5 +27,9 @@
     }
   ],
   "result": "AUTH_REQUIRED",
-  "reason": "现有源要求账号/会话；未使用默认示例账号或用户凭据，登录后的完整阅读未验证"
+  "reason": "匿名 API 返回 HTTP 401 / unauthorized，需有效账号令牌；未使用示例账号，登录后的阅读未验证。",
+  "package": {
+    "file": "zh.manhuabika-v1.aix",
+    "sha256": "9025a7bf5bdbeb1a048e7e7ff7ea9f298d51578d60adb8341749b0ae706df2b4"
+  }
 }

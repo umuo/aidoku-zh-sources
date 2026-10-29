@@ -28,5 +28,5 @@
     "sha256": "b03aaa093f31f235966d1dbf52a9f06fa50729dd027750c1defcc8fdc10346f4"
   },
   "result": "SITE_PAUSED",
-  "reason": "站点暂停"
+  "reason": "原站明确显示“抱歉，站点已暂停”，列表没有漫画内容；属于上游停站，不能只靠修改解析恢复。"
 }

@@ -1,62 +1,81 @@
 # 全部漫画源健康检测
 
-更新时间：2026-10-29 22:41（北京时间）。已完成 35 / 35。
+更新时间：2026-10-29 22:44（北京时间）。**35 / 35 检查完成，另有 22 项交叉复查及 zero 旧样本定向复测。**
 
-本轮仅检测并标注原因，修复留待后续统一安排。覆盖当前 26 个发布源和 9 个已弃用源；使用实际发布包、仓库默认地址及匿名配置，不读取用户设备凭据。顶漫画用户已确认可用，包子漫画 2 也有既往设备确认；本轮依然复查。
+本轮只检测并标注原因，后续再统一维修。覆盖当前 26 个发布源和 9 个已弃用源；检查以实际发布包、仓库默认地址及匿名配置为准，不读取用户设备凭据。
 
-“可读”表示代表性作品的真实图片响应通过，不代表站内每部作品/付费章节可读。“访问防护拦截”和“网络受限”均不能推断图源逻辑损坏；“已弃用/未发布”仅复查原入口，未重新编译恢复。“部分可读”保留失败步骤，不掩盖搜索或章节限制。
+当前 26 个发布源：**可读 3**；**部分可读 1**；**访问被拒/防护拦截 7**；**登录/认证受限 3**；**上游暂停 1**；**网络受限，未验证 10**；**上游接口异常 1**。另有 9 个已弃用源仅复查原入口，未重新发布。
 
-## 结果总表
+顶漫画有用户本轮明确可用反馈；包子漫画 2 有既往设备可用反馈。它们与本轮 Mac 检测分开记录：网络或防护受限不等于用户设备一定不能看，也不直接证明源逻辑损坏。
 
-| 图源 | 版本 | 发布 | 本轮状态 | 原因与证据 |
-| --- | --- | --- | --- | --- |
-| [139漫画](source-health/2026-10-29/zh.139mh.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP 410  |
-| [18漫画](source-health/2026-10-29/zh.18mh.json) | v1 | 是 | 链路失败，待排查 | list: 漫画列表为空 |
-| [无敌漫画](source-health/2026-10-29/zh.55dmh.json) | v2 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.55dmh.com:443; OpenSSL 复查：<urlopen error [Errno 54] Connection reset by peer> |
-| [巴卡漫画](source-health/2026-10-29/zh.bakamh.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to bakamh.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [包子漫画1](source-health/2026-10-29/zh.baozimh1.json) | v6 | 是 | 访问防护拦截 | 访问防护/Cloudflare 验证 |
-| [包子漫画2](source-health/2026-10-29/zh.baozimh2.json) | v7 | 是 | 网络受限，未验证 | search: HTTP request failed: curl: (28) Connection timed out after 25010 milliseconds; OpenSSL 复查：<urlopen error _ssl.c:1064: The handshake operation timed out>；sample1.details: 详情缺少标题或漫画 ID；sample2.chapters: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to baozimh.org:443; OpenSSL 复查：<urlopen error _ssl.c:1064: The handshake operation timed out> |
-| [哔哩漫画](source-health/2026-10-29/zh.bilicomic.json) | v5 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [动漫狂](source-health/2026-10-29/zh.cartoonmad.json) | v2 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.cartoonmad.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [拷贝漫画](source-health/2026-10-29/zh.copymanga.json) | v13 | 是 | 网络受限，未验证 | sample1.details: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.mangacopy.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>；sample2.details: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.mangacopy.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [顶漫画](source-health/2026-10-29/zh.dingmanhua.json) | v1 | 是 | 可读 | 代表性列表、搜索、详情、目录与真实图片通过 |
-| [漫画狗](source-health/2026-10-29/zh.dogemanga.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP 200  |
-| [G站漫画](source-health/2026-10-29/zh.godamanga.json) | v10 | 是 | 访问防护拦截 | HTTP 403 访问被拒绝 |
-| [瓜子漫画](source-health/2026-10-29/zh.guazimanhua.json) | v1 | 是 | 可读 | 代表性列表、搜索、详情、目录与真实图片通过 |
-| [古风漫画](source-health/2026-10-29/zh.gufengmh.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [Hanime1.me](source-health/2026-10-29/zh.hanime1.json) | v3 | 是 | 访问防护拦截 | 访问防护/Cloudflare 验证 |
-| [嗨皮漫画](source-health/2026-10-29/zh.happymh.json) | v1 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to m.happymh.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [HO5HO](source-health/2026-10-29/zh.ho5ho.json) | v2 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443; OpenSSL 复查：<urlopen error [Errno 54] Connection reset by peer> |
-| [ISEKAI](source-health/2026-10-29/zh.isekai.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to isekai.ch:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [Komiic漫画](source-health/2026-10-29/zh.komiic.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to komiic.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [哔咔漫画](source-health/2026-10-29/zh.manhuabika.json) | v1 | 是 | 需登录验证 | 现有源要求账号/会话；未使用默认示例账号或用户凭据，登录后的完整阅读未验证 |
-| [漫画DB](source-health/2026-10-29/zh.manhuadb.json) | v1 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [漫画人](source-health/2026-10-29/zh.manhuaren.json) | v2 | 是 | 链路失败，待排查 | 业务接口错误：服务器内部错误 |
-| [喵上漫画](source-health/2026-10-29/zh.miaoshangmanhua.json) | v5 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.miaoshangmanhua.cc:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [漫客栈](source-health/2026-10-29/zh.mkzhan.json) | v1 | 是 | 部分可读 | 部分阅读通过，存在失败步骤，详见记录 |
-| [漫小肆韩漫](source-health/2026-10-29/zh.mxshm.json) | v7 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.mxs13.cc:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [MYCOMIC](source-health/2026-10-29/zh.mycomic.json) | v2 | 是 | 访问防护拦截 | 访问防护/Cloudflare 验证 |
-| [Nico](source-health/2026-10-29/zh.nicohub.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP 401 要求登录/认证 |
-| [NoyAcg](source-health/2026-10-29/zh.noy1.json) | v3 | 是 | 需登录验证 | 现有源要求账号/会话；未使用默认示例账号或用户凭据，登录后的完整阅读未验证 |
-| [韩漫库](source-health/2026-10-29/zh.se8.json) | v3 | 是 | 站点暂停 | 站点暂停 |
-| [vomic漫画](source-health/2026-10-29/zh.vomicmh.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP 200  |
-| [绅士漫画](source-health/2026-10-29/zh.wnacg.json) | v5 | 是 | 访问防护拦截 | 访问防护/Cloudflare 验证 |
-| [言耽社](source-health/2026-10-29/zh.yandanshe.json) | v1 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to yandanshe.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [野蛮漫画](source-health/2026-10-29/zh.yemancomic.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP 200  |
-| [再漫画](source-health/2026-10-29/zh.zaimanhua.json) | v1 | 是 | 可读 | 代表性列表、搜索、详情、目录与真实图片通过 |
-| [zero搬运网](source-health/2026-10-29/zh.zerobywns.json) | v9 | 是 | 需登录验证 | 要求登录/认证 |
+## 逐源结果
 
-## 证据与维修安排
+| 图源 | ID | 版本 | 发布 | 本轮状态 | 原因与证据 |
+| --- | --- | --- | --- | --- | --- |
+| [139漫画](source-health/2026-10-29/zh.139mh.json) | `zh.139mh` | v1 | 否 | 已弃用/未发布 | 已弃用且不在当前安装索引中；原入口 HTTP 410。本轮仅检查原入口，未编译恢复，目录和阅读未验证。 |
+| [18漫画](source-health/2026-10-29/zh.18mh.json) | `zh.18mh` | v1 | 是 | 访问被拒/防护拦截 | 默认列表被拒绝：HTTP 403，正文为 error code: 1010；未进入目录与阅读。OpenSSL 取得拒绝响应，不能当作解析器损坏。 |
+| [无敌漫画](source-health/2026-10-29/zh.55dmh.json) | `zh.55dmh` | v2 | 否 | 已弃用/未发布 | 已弃用且不在当前安装索引中；原入口 TLS/连接失败（已交叉复查）。本轮仅检查原入口，未编译恢复，目录和阅读未验证。 |
+| [巴卡漫画](source-health/2026-10-29/zh.bakamh.json) | `zh.bakamh` | v3 | 是 | 网络受限，未验证 | 列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
+| [包子漫画1](source-health/2026-10-29/zh.baozimh1.json) | `zh.baozimh1` | v6 | 是 | 访问被拒/防护拦截 | 默认列表返回 Gatekeeper 的 challenge_required；当前匿名请求无法进入列表及阅读。 |
+| [包子漫画2](source-health/2026-10-29/zh.baozimh2.json) | `zh.baozimh2` | v7 | 是 | 访问被拒/防护拦截 | 列表能返回，但搜索/目录连接超时，第一部作品详情 HTTP 403；两个样本均未到真实图片。保留此前用户设备可读反馈，本轮受网络与访问拒绝影响。 |
+| [哔哩漫画](source-health/2026-10-29/zh.bilicomic.json) | `zh.bilicomic` | v5 | 是 | 网络受限，未验证 | 列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
+| [动漫狂](source-health/2026-10-29/zh.cartoonmad.json) | `zh.cartoonmad` | v2 | 否 | 已弃用/未发布 | 已弃用且不在当前安装索引中；原入口 TLS/连接失败（已交叉复查）。本轮仅检查原入口，未编译恢复，目录和阅读未验证。 |
+| [拷贝漫画](source-health/2026-10-29/zh.copymanga.json) | `zh.copymanga` | v13 | 是 | 网络受限，未验证 | 列表、搜索可用；详情请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
+| [顶漫画](source-health/2026-10-29/zh.dingmanhua.json) | `zh.dingmanhua` | v1 | 是 | 可读 | 列表、搜索、详情、目录通过；目录两端章节各探测一张真实图片通过（HTTP 206），未批量读取漫画。 |
+| [漫画狗](source-health/2026-10-29/zh.dogemanga.json) | `zh.dogemanga` | v1 | 否 | 已弃用/未发布 | 已弃用且不在当前安装索引中；原入口 HTTP 200。本轮仅检查原入口，未编译恢复，目录和阅读未验证。 |
+| [G站漫画](source-health/2026-10-29/zh.godamanga.json) | `zh.godamanga` | v10 | 是 | 访问被拒/防护拦截 | 列表、搜索和详情可用；目录 API 连接被重置，第二部作品的备用目录页面 HTTP 403，阅读未通过。 |
+| [瓜子漫画](source-health/2026-10-29/zh.guazimanhua.json) | `zh.guazimanhua` | v1 | 是 | 可读 | 列表、搜索、详情、目录通过；目录两端章节各探测一张真实图片通过（HTTP 206），未批量读取漫画。 |
+| [古风漫画](source-health/2026-10-29/zh.gufengmh.json) | `zh.gufengmh` | v3 | 是 | 网络受限，未验证 | 列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
+| [Hanime1.me](source-health/2026-10-29/zh.hanime1.json) | `zh.hanime1` | v3 | 是 | 访问被拒/防护拦截 | 默认列表 HTTP 403，返回 Cloudflare 防护页面；目录及图片未验证。 |
+| [嗨皮漫画](source-health/2026-10-29/zh.happymh.json) | `zh.happymh` | v1 | 是 | 网络受限，未验证 | 列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
+| [HO5HO](source-health/2026-10-29/zh.ho5ho.json) | `zh.ho5ho` | v2 | 是 | 网络受限，未验证 | 列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
+| [ISEKAI](source-health/2026-10-29/zh.isekai.json) | `zh.isekai` | v1 | 否 | 已弃用/未发布 | 已弃用且不在当前安装索引中；原入口 TLS/连接失败（已交叉复查）。本轮仅检查原入口，未编译恢复，目录和阅读未验证。 |
+| [Komiic漫画](source-health/2026-10-29/zh.komiic.json) | `zh.komiic` | v3 | 是 | 网络受限，未验证 | 列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
+| [哔咔漫画](source-health/2026-10-29/zh.manhuabika.json) | `zh.manhuabika` | v1 | 是 | 登录/认证受限 | 匿名 API 返回 HTTP 401 / unauthorized，需有效账号令牌；未使用示例账号，登录后的阅读未验证。 |
+| [漫画DB](source-health/2026-10-29/zh.manhuadb.json) | `zh.manhuadb` | v1 | 是 | 网络受限，未验证 | 列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
+| [漫画人](source-health/2026-10-29/zh.manhuaren.json) | `zh.manhuaren` | v2 | 是 | 上游接口异常 | 上游列表接口虽然 HTTP 200，但业务码 50000、消息“服务器内部错误”；两轮一致，尚未进入详情/阅读。 |
+| [喵上漫画](source-health/2026-10-29/zh.miaoshangmanhua.json) | `zh.miaoshangmanhua` | v5 | 否 | 已弃用/未发布 | 已弃用且不在当前安装索引中；原入口 TLS/连接失败（已交叉复查）。本轮仅检查原入口，未编译恢复，目录和阅读未验证。 |
+| [漫客栈](source-health/2026-10-29/zh.mkzhan.json) | `zh.mkzhan` | v1 | 是 | 部分可读 | 《妖神记》972 章目录和免费首章 14 页通过，首图 HTTP 206 / WebP；最新章接口返回 code 302“用户未登录”，匿名无法读最新章。 |
+| [漫小肆韩漫](source-health/2026-10-29/zh.mxshm.json) | `zh.msxhm` | v7 | 是 | 网络受限，未验证 | 列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
+| [MYCOMIC](source-health/2026-10-29/zh.mycomic.json) | `zh.mycomic` | v2 | 是 | 访问被拒/防护拦截 | 默认筛选列表请求 HTTP 403，Cloudflare 防护拦截；当前包的搜索、详情和阅读未验证。 |
+| [Nico](source-health/2026-10-29/zh.nicohub.json) | `zh.nicohub` | v1 | 否 | 已弃用/未发布 | 已弃用且不在当前安装索引中；原入口 HTTP 401。本轮仅检查原入口，未编译恢复，目录和阅读未验证。 |
+| [NoyAcg](source-health/2026-10-29/zh.noy1.json) | `zh.noy1` | v3 | 是 | 登录/认证受限 | 匿名 POST 列表 API 返回 ["login"]；需有效账号/会话，未配置凭据，登录后的阅读未验证。 |
+| [韩漫库](source-health/2026-10-29/zh.se8.json) | `zh.se8` | v3 | 是 | 上游暂停 | 原站明确显示“抱歉，站点已暂停”，列表没有漫画内容；属于上游停站，不能只靠修改解析恢复。 |
+| [vomic漫画](source-health/2026-10-29/zh.vomicmh.json) | `zh.vomicmh` | v1 | 否 | 已弃用/未发布 | 已弃用且不在当前安装索引中；原入口 HTTP 200。本轮仅检查原入口，未编译恢复，目录和阅读未验证。 |
+| [绅士漫画](source-health/2026-10-29/zh.wnacg.json) | `zh.wnacg` | v5 | 是 | 访问被拒/防护拦截 | 列表、搜索、详情、目录和图片地址可解析；两部作品的首图均 HTTP 403 / Cloudflare，当前未验证图片可读。 |
+| [言耽社](source-health/2026-10-29/zh.yandanshe.json) | `zh.yandanshe` | v1 | 是 | 网络受限，未验证 | 列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
+| [野蛮漫画](source-health/2026-10-29/zh.yemancomic.json) | `zh.yemancomic` | v1 | 否 | 已弃用/未发布 | 已弃用且不在当前安装索引中；原入口 HTTP 200。本轮仅检查原入口，未编译恢复，目录和阅读未验证。 |
+| [再漫画](source-health/2026-10-29/zh.zaimanhua.json) | `zh.zaimanhua` | v1 | 是 | 可读 | 列表、搜索、详情、目录通过；目录两端章节各探测一张真实图片通过（HTTP 206），未批量读取漫画。 |
+| [zero搬运网](source-health/2026-10-29/zh.zerobywns.json) | `zh.zerobywns` | v9 | 是 | 登录/认证受限 | 列表、搜索、详情及目录可用；抽查最新章节跳转登录页，旧章图片服务器空响应。补测此前可读作品仍在图片服务器失败，存在认证和图片连接双重问题。 |
 
-- 逐源 JSON 保存检查时间、当前包 SHA-256、每个步骤结果和脱敏请求信息；网络异常时不伪造成功。
-- 可安装源从列表和搜索推进到详情、完整目录、首章/最新章及真实图片。首个样本失败时最多换第二部作品；图片只做小范围探测，不下载整章。
-- 无账号条件的哔咔、NoyAcg 仅作匿名接口检查，认证后的阅读待用户在 App 配置有效账号后复测。
-- 维修优先级：先处理有正常站点响应但解析/目录/图片失败的源；认证、访问防护、网络和上游停站分别处理，勿用猜测域名替换。
-- 旧审计及修复历史保留在 [SOURCE_AUDIT.md](SOURCE_AUDIT.md)，不把旧 PASS 直接当作本轮检测结果。
+## 后续统一维修清单
 
-## 当前接续位置
+1. **上游错误与停站**：漫画人先复核 API 业务码 50000 与请求协议；韩漫库等待上游恢复内容。两者均不能靠首页返回 200 判作正常。
+2. **目录、图片访问条件**：包子漫画 1、包子漫画 2、18 漫画、G 站、Hanime1、MYCOMIC、绅士漫画分别处理已记录的防护或 403。G 站卡目录、绅士漫画卡图片，不要混成同一种解析故障。
+3. **认证与图片服务**：哔咔、NoyAcg 需要用户在 App 配置有效账号后复测；漫客栈免费首章可读、最新章需登录；zero 同时存在最新章登录限制和旧图片服务器断连，不能只解决登录就认定恢复。
+4. **网络受限项**：巴卡、哔哩、拷贝、古风、嗨皮、HO5HO、Komiic、漫画 DB、漫小肆、言耽社先恢复实际接口/网站访问，再检查解析与图片。保留此前已修复/通过的历史，不仅凭本次 TLS 异常回滚已有修复。
+5. **9 个已弃用源**：维持弃用；需要可信原站迁移或完整可用协议证据后再考虑恢复，不能仅替换同名域名。
 
-- 已处理：35 / 35。
-- 最近完成：`zh.zerobywns`。
-- 下一项：无。
-- 汇总：已弃用/未发布 9；访问防护拦截 5；网络受限，未验证 11；可读 3；链路失败，待排查 2；需登录验证 3；站点暂停 1；部分可读 1。
+## 验证方法与边界
+
+- 使用安装索引对应的 `.aix` 内实际 WASM；报告 JSON 保存包 SHA-256、检查时间、逐步结果和脱敏请求信息，`priorAttempt` 保留首轮结果。
+- 当前发布源依次检查默认列表、搜索、详情、完整目录、目录两端章节和真实图片字节。搜索失败后仍继续检测阅读，首个样本没有可读图片时最多再取第二部作品。
+- 图片仅做小范围请求并验证 JPEG/PNG/GIF/WebP/AVIF 文件头，不将 URL 存在、HTTP 200、编译或离线回归单独算作阅读通过，不下载整章。
+- 系统 curl 的连接错误用 Python/OpenSSL 交叉复查，保持正常 TLS 证书校验。检查工具自身的 Python 文件命名冲突已修正并经过 3 组传输测试，受影响项已复查；全部工具回归 42 组通过。
+- 浏览器交叉验证受当前 Work 设置禁用浏览器使用的限制，未执行；网络受限项保持未验证，不与明确上游错误混淆。未在用户 Aidoku 设备逐源测试，未验证付费权限、全部作品与全部章节。
+- 哔咔、NoyAcg 仅验证匿名接口拒绝/登录要求，不使用源中示例账号，不自动登录。弃用源只检查原入口，入口 HTTP 状态不代表漫画可读。
+- 本轮未修改任何图源实现、版本、图标、安装包或双索引；历史修复记录保留在 [SOURCE_AUDIT.md](SOURCE_AUDIT.md)。
+
+在仓库根目录重新检查单个源：
+
+```sh
+node tools/source-check/health.mjs zh.source
+```
+
+需要 Node.js 22、Python 3.11+ 和 `tools/source-check` 的 npm 依赖。可用 `AIDOKU_HEALTH_CACHE` 指定外置硬盘响应缓存，缓存不提交。`zh.source` 使用源码目录名，例如漫小肆使用 `zh.mxshm`，报告里的实际图源 ID 保持 `zh.msxhm`。
+
+## 接续状态
+
+- 本轮检测：完成；待检测源：无。
+- 维修：尚未开始，按用户要求留待后续统一安排；上方清单为待办。
+- 汇总：可读 3；部分可读 1；访问被拒/防护拦截 7；登录/认证受限 3；上游暂停 1；网络受限，未验证 10；上游接口异常 1；已弃用/未发布 9。

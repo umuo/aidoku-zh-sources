@@ -97,7 +97,7 @@
     "sha256": "3ff70700c2677ecd4f5f184b29ff8aa4d696f2c4343c3dc4b2d4586d598bb013"
   },
   "result": "PARTIAL",
-  "reason": "部分阅读通过，存在失败步骤，详见记录",
+  "reason": "《妖神记》972 章目录和免费首章 14 页通过，首图 HTTP 206 / WebP；最新章接口返回 code 302“用户未登录”，匿名无法读最新章。",
   "priorAttempt": {
     "source": "zh.mkzhan",
     "directory": "zh.mkzhan",

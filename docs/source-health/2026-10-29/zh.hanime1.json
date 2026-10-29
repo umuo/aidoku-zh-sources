@@ -30,7 +30,7 @@
     "sha256": "bf8ed66b4b1b190c72449d1f1a8196d3a67e685caa6e892971c0c807e4ab4cbd"
   },
   "result": "ACCESS_BLOCKED",
-  "reason": "访问防护/Cloudflare 验证",
+  "reason": "默认列表 HTTP 403，返回 Cloudflare 防护页面；目录及图片未验证。",
   "priorAttempt": {
     "source": "zh.hanime1",
     "directory": "zh.hanime1",

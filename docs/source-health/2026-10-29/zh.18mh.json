@@ -27,8 +27,8 @@
     "file": "zh.18mh-v1.aix",
     "sha256": "a9f48f31fafb179684cb2cab1cf1f84ee7b8414ac46e9395670dd9e1ea022134"
   },
-  "result": "FAILED",
-  "reason": "list: 漫画列表为空",
+  "result": "ACCESS_BLOCKED",
+  "reason": "默认列表被拒绝：HTTP 403，正文为 error code: 1010；未进入目录与阅读。OpenSSL 取得拒绝响应，不能当作解析器损坏。",
   "priorAttempt": {
     "source": "zh.18mh",
     "directory": "zh.18mh",

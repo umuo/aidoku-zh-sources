@@ -28,5 +28,5 @@
     "sha256": "dc8b388d347629bf6fc17ab6118870ae6dacf8f75e709c1d7b112c9a9d807984"
   },
   "result": "ACCESS_BLOCKED",
-  "reason": "访问防护/Cloudflare 验证"
+  "reason": "默认列表返回 Gatekeeper 的 challenge_required；当前匿名请求无法进入列表及阅读。"
 }

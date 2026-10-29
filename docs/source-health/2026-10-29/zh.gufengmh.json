@@ -25,7 +25,7 @@
     "sha256": "49554eb1e7ea2ca96f0fd33920e7cf8240e8e95bafd367be7708609bf59dbf49"
   },
   "result": "NETWORK_UNVERIFIED",
-  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>",
+  "reason": "列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。",
   "priorAttempt": {
     "source": "zh.gufengmh",
     "directory": "zh.gufengmh",

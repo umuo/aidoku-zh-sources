@@ -25,7 +25,7 @@
     "sha256": "d78570c391144c595ea22d26612b329b16238f0efbbccf2f2d2190864ca8041e"
   },
   "result": "NETWORK_UNVERIFIED",
-  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>",
+  "reason": "列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。",
   "priorAttempt": {
     "source": "zh.bilicomic",
     "directory": "zh.bilicomic",

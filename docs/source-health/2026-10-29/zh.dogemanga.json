@@ -23,7 +23,7 @@
     }
   ],
   "result": "UNPUBLISHED",
-  "reason": "已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常",
+  "reason": "已弃用且不在当前安装索引中；原入口 HTTP 200。本轮仅检查原入口，未编译恢复，目录和阅读未验证。",
   "priorAttempt": {
     "source": "zh.dogemanga",
     "directory": "zh.dogemanga",

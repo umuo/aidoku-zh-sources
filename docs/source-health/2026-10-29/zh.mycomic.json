@@ -28,5 +28,5 @@
     "sha256": "75fbeb7f59dc23f67d234039ab1d8c8750717d087f6fa19c41f74cae681702ea"
   },
   "result": "ACCESS_BLOCKED",
-  "reason": "访问防护/Cloudflare 验证"
+  "reason": "默认筛选列表请求 HTTP 403，Cloudflare 防护拦截；当前包的搜索、详情和阅读未验证。"
 }
