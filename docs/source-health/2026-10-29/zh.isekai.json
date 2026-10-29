@@ -5,20 +5,45 @@
   "version": 1,
   "published": false,
   "deprecated": true,
-  "checkedAt": "2026-10-29T14:23:44.984Z",
+  "checkedAt": "2026-10-29T14:36:35.222Z",
   "checks": {
     "homepage": {
       "status": "FAILED",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to isekai.ch:443"
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to isekai.ch:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
     }
   },
   "requests": [
     {
       "method": "GET",
       "url": "https://isekai.ch/",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to isekai.ch:443"
+      "curlError": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to isekai.ch:443",
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to isekai.ch:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
     }
   ],
   "result": "UNPUBLISHED",
-  "reason": "已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常"
+  "reason": "已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常",
+  "priorAttempt": {
+    "source": "zh.isekai",
+    "directory": "zh.isekai",
+    "name": "ISEKAI",
+    "version": 1,
+    "published": false,
+    "deprecated": true,
+    "checkedAt": "2026-10-29T14:23:44.984Z",
+    "checks": {
+      "homepage": {
+        "status": "FAILED",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to isekai.ch:443"
+      }
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://isekai.ch/",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to isekai.ch:443"
+      }
+    ],
+    "result": "UNPUBLISHED",
+    "reason": "已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常"
+  }
 }
