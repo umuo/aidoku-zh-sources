@@ -1,0 +1,110 @@
+{
+  "source": "zh.dingmanhua",
+  "directory": "zh.dingmanhua",
+  "name": "顶漫画",
+  "version": 1,
+  "published": true,
+  "deprecated": false,
+  "checkedAt": "2026-10-29T14:21:04.022Z",
+  "checks": {
+    "list": {
+      "status": "PASS",
+      "count": 24
+    },
+    "search": {
+      "status": "PASS",
+      "count": 23,
+      "keyword": "二人巴士"
+    },
+    "sample1.details": {
+      "status": "PASS",
+      "id": "11501",
+      "title": "二人巴士",
+      "hasCover": true
+    },
+    "sample1.chapters": {
+      "status": "PASS",
+      "count": 52
+    },
+    "sample1.oldest": {
+      "status": "PASS",
+      "chapter": "第01話",
+      "pages": 27,
+      "httpStatus": 206,
+      "contentType": "image/webp",
+      "signature": "5249464696ac05005745425056503820"
+    },
+    "sample1.latest": {
+      "status": "PASS",
+      "chapter": "第51話",
+      "pages": 18,
+      "httpStatus": 206,
+      "contentType": "image/webp",
+      "signature": "524946461e4501005745425056503820"
+    }
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://www.dingmanhua.com/sort?category=0&tag=0&page=1",
+      "status": 200,
+      "contentType": "text/html",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://www.dingmanhua.com/search?query=%E4%BA%8C%E4%BA%BA%E5%B7%B4%E5%A3%AB&page=1",
+      "status": 200,
+      "contentType": "text/html",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://www.dingmanhua.com/comic/11501.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "hints": []
+    },
+    {
+      "method": "POST",
+      "url": "https://www.dingmanhua.com/comic/11501",
+      "status": 200,
+      "contentType": "application/json",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://www.dingmanhua.com/chapter/11501-2364024.html",
+      "status": 200,
+      "contentType": "text/html",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://image1.dingmanhua.com/mh/1edf0b10e4254dcfbedcba985e506a96/20bd7ac3-daa2-4868-a6f5-2a9ee91255d1/1.webp",
+      "status": 206,
+      "contentType": "image/webp",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://www.dingmanhua.com/chapter/11501-2380412.html",
+      "status": 200,
+      "contentType": "text/html",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://image1.dingmanhua.com/mh/1edf0b10e4254dcfbedcba985e506a96/388d1fbd-80aa-4b85-b911-389d659c0e60/1.webp",
+      "status": 206,
+      "contentType": "image/webp",
+      "hints": []
+    }
+  ],
+  "package": {
+    "file": "zh.dingmanhua-v1.aix",
+    "sha256": "808a73b0e9d2918e2ca3bbb476b205af8cd728a91f75b63033c48ea9440d2c36"
+  },
+  "result": "PASS",
+  "reason": "代表性列表、搜索、详情、目录与真实图片通过"
+}
