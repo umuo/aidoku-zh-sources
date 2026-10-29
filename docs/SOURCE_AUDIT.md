@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：29 / 32（PASS 3 / FIXED 5 / SKIP 21）；排除：1。
-- 当前：第 31 项 `zh.yemancomic`。
-- 下一项：`zh.zaimanhua`；先完成当前源再继续。
+- 已处理：30 / 32（PASS 3 / FIXED 5 / SKIP 22）；排除：1。
+- 当前：第 32 项 `zh.zaimanhua`。
+- 下一项：`zh.zerobywns`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -52,8 +52,8 @@
 | 28   | vomic漫画  | `src/rust/zh.vomicmh`         | 已弃用 | SKIP        | 站点仍运营但旧 API 404，新版阅读明确要求登录，缺少认证条件无法恢复弃用源                  |
 | 29   | 绅士漫画   | `src/rust/zh.wnacg`           | 未弃用 | FIXED       | v5 更新发布页列出的可用域名；插件链路及浏览器真实首图加载通过，CLI 图片被 Cloudflare 阻止 |
 | 30   | 言耽社     | `src/rust/zh.yandanshe`       | 未弃用 | SKIP        | 原站 HTTPS 握手失败/超时，浏览器连接关闭，HTTP 空响应，无可信迁移                         |
-| 31   | 野蛮漫画   | `src/rust/zh.yemancomic`      | 已弃用 | IN_PROGRESS | 正在排查                                                                                  |
-| 32   | 再漫画     | `src/rust/zh.zaimanhua`       | 未弃用 | PENDING     | 待检查                                                                                    |
+| 31   | 野蛮漫画   | `src/rust/zh.yemancomic`      | 已弃用 | SKIP        | 原首页及搜索 API 均明确 403 地区拒绝，缺少正常访问条件，维持弃用                          |
+| 32   | 再漫画     | `src/rust/zh.zaimanhua`       | 未弃用 | IN_PROGRESS | 正在排查                                                                                  |
 | 33   | zero搬运网 | `src/rust/zh.zerobywns`       | 未弃用 | PENDING     | 待检查                                                                                    |
 
 ## 详细记录
@@ -278,6 +278,13 @@
 - 普通浏览器交叉验证相同原站，明确报 ERR_CONNECTION_CLOSED，而非正常页面。HTTP 首页返回 Empty reply from server，没有给出可信迁移重定向。
 - 定向检索未发现可核实的原站官方迁移信息；不能因存在同名网站就改域名。当前没有证据可核对原选择器或确认完整阅读正常。
 - 结论：SKIP（当前原站不可连接）。保持原版本和未弃用状态，不将网络失败断言为永久停站；列表/搜索、详情、章节与图片均未验证，不盲目发布未经实站验证的修复。
+
+### 31. 野蛮漫画 — SKIP
+
+- 起始状态：已弃用，版本 1。原首页与源码搜索 POST `/api/front/index/search` 均返回 HTTP 403，小型响应正文明确 `The region has been denied.`，不是空漫画数据或普通解析失败。
+- 不记录响应中的访问 IP 或请求标识；未修改用户代理、系统网络或证书设置来绕过地区限制。普通浏览器交叉验证调用未能可靠导航，不能将工具失败当作浏览器同样被网站拒绝的证据。
+- 定向资料出现第三方维护的别名/镜像列表，但没有取得原站可信迁移声明，不仅因第三方列出域名就更换原图源。
+- 结论：SKIP（当前访问地区被上游拒绝）。保留 deprecated、v1 和源码，不重新发布；列表/搜索结果、详情、章节及真实图片尚未验证，需正常访问条件后重试。
 
 ## 可复用检查工具
 
