@@ -1,0 +1,28 @@
+{
+  "source": "zh.copymanga",
+  "directory": "zh.copymanga",
+  "name": "拷贝漫画",
+  "version": 13,
+  "published": true,
+  "deprecated": false,
+  "checkedAt": "2026-10-29T14:20:54.983Z",
+  "checks": {
+    "list": {
+      "status": "FAILED",
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to api.mangacopy.com:443"
+    }
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://api.mangacopy.com/api/v3/comics?theme=&top=&ordering=-popular&limit=50&offset=0",
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to api.mangacopy.com:443"
+    }
+  ],
+  "package": {
+    "file": "zh.copymanga-v13.aix",
+    "sha256": "42c2db16fa487390b51c16e4bbc0702c8a32d2ce3780cd35757108bd17d87a4a"
+  },
+  "result": "NETWORK_UNVERIFIED",
+  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to api.mangacopy.com:443"
+}
