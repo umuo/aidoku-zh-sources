@@ -12,7 +12,7 @@
 | --- | --- | --- | --- | --- |
 | [139漫画](source-health/2026-10-29/zh.139mh.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP 410  |
 | [18漫画](source-health/2026-10-29/zh.18mh.json) | v1 | 是 | 链路失败，待排查 | list: 漫画列表为空 |
-| [无敌漫画](source-health/2026-10-29/zh.55dmh.json) | v2 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.55dmh.com:443 |
+| [无敌漫画](source-health/2026-10-29/zh.55dmh.json) | v2 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.55dmh.com:443; OpenSSL 复查：<urlopen error [Errno 54] Connection reset by peer> |
 | [巴卡漫画](source-health/2026-10-29/zh.bakamh.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to bakamh.com:443 |
 | [包子漫画1](source-health/2026-10-29/zh.baozimh1.json) | v6 | 是 | 访问防护拦截 | 访问防护/Cloudflare 验证 |
 | [包子漫画2](source-health/2026-10-29/zh.baozimh2.json) | v7 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to baozimh.org:443 |
@@ -57,6 +57,6 @@
 ## 当前接续位置
 
 - 已处理：35 / 35。
-- 最近完成：`zh.18mh`。
+- 最近完成：`zh.55dmh`。
 - 下一项：无。
 - 汇总：已弃用/未发布 9；网络受限，未验证 14；可读 3；链路失败，待排查 2；需登录验证 3；访问防护拦截 2；站点暂停 1；部分可读 1。
