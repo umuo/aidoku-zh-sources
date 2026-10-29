@@ -5,18 +5,19 @@
   "version": 5,
   "published": true,
   "deprecated": false,
-  "checkedAt": "2026-10-29T14:20:26.711Z",
+  "checkedAt": "2026-10-29T14:32:58.550Z",
   "checks": {
     "list": {
       "status": "FAILED",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443"
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
     }
   },
   "requests": [
     {
       "method": "GET",
       "url": "https://www.bilimanga.net/filter/lastupdate_0_0_0_0_0_0_0_1_0_0_0.html",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443"
+      "curlError": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443",
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
     }
   ],
   "package": {
@@ -24,5 +25,33 @@
     "sha256": "d78570c391144c595ea22d26612b329b16238f0efbbccf2f2d2190864ca8041e"
   },
   "result": "NETWORK_UNVERIFIED",
-  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443"
+  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>",
+  "priorAttempt": {
+    "source": "zh.bilicomic",
+    "directory": "zh.bilicomic",
+    "name": "哔哩漫画",
+    "version": 5,
+    "published": true,
+    "deprecated": false,
+    "checkedAt": "2026-10-29T14:20:26.711Z",
+    "checks": {
+      "list": {
+        "status": "FAILED",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443"
+      }
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://www.bilimanga.net/filter/lastupdate_0_0_0_0_0_0_0_1_0_0_0.html",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443"
+      }
+    ],
+    "package": {
+      "file": "zh.bilicomic-v5.aix",
+      "sha256": "d78570c391144c595ea22d26612b329b16238f0efbbccf2f2d2190864ca8041e"
+    },
+    "result": "NETWORK_UNVERIFIED",
+    "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443"
+  }
 }
