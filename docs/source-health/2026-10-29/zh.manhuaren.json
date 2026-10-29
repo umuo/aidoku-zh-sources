@@ -5,7 +5,7 @@
   "version": 2,
   "published": true,
   "deprecated": false,
-  "checkedAt": "2026-10-29T14:25:00.792Z",
+  "checkedAt": "2026-10-29T14:37:32.758Z",
   "checks": {
     "list": {
       "status": "FAILED",
@@ -18,7 +18,9 @@
       "url": "https://mangaapi.manhuaren.com/v2/manga/getCategoryMangas?subCategoryType=0&subCategoryId=0&status=0&sort=0&start=0&limit=20&gak=ios_manhuaren2&gft=json&gui=%5Bredacted%5D&gsn=%5Bredacted%5D",
       "status": 200,
       "contentType": "application/json; charset=utf-8",
-      "hints": []
+      "hints": [
+        "业务接口错误：服务器内部错误"
+      ]
     }
   ],
   "package": {
@@ -26,5 +28,35 @@
     "sha256": "4aa8304145958a44d26608b9f3c2a0894f78dfdeee3e12209c09550746856399"
   },
   "result": "FAILED",
-  "reason": "list: get_manga_list returned an error"
+  "reason": "业务接口错误：服务器内部错误",
+  "priorAttempt": {
+    "source": "zh.manhuaren",
+    "directory": "zh.manhuaren",
+    "name": "漫画人",
+    "version": 2,
+    "published": true,
+    "deprecated": false,
+    "checkedAt": "2026-10-29T14:25:00.792Z",
+    "checks": {
+      "list": {
+        "status": "FAILED",
+        "error": "get_manga_list returned an error"
+      }
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://mangaapi.manhuaren.com/v2/manga/getCategoryMangas?subCategoryType=0&subCategoryId=0&status=0&sort=0&start=0&limit=20&gak=ios_manhuaren2&gft=json&gui=%5Bredacted%5D&gsn=%5Bredacted%5D",
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "hints": []
+      }
+    ],
+    "package": {
+      "file": "zh.manhuaren-v2.aix",
+      "sha256": "4aa8304145958a44d26608b9f3c2a0894f78dfdeee3e12209c09550746856399"
+    },
+    "result": "FAILED",
+    "reason": "list: get_manga_list returned an error"
+  }
 }
