@@ -94,7 +94,7 @@ function request(req, options) {
       response = curlRequest(req, options);
     } catch (error) {
       record.curlError = error.message;
-      const fallback = spawnSync("python3", ["tools/source-check/http.py"], {
+      const fallback = spawnSync("python3", ["tools/source-check/http-probe.py"], {
         input: JSON.stringify({
           ...req,
           body: req.body ? Buffer.from(req.body).toString("base64") : undefined,
