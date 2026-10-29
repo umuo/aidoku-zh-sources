@@ -1,6 +1,6 @@
 # 全部漫画源健康检测
 
-更新时间：2026-10-29 22:25（北京时间）。已完成 24 / 35。
+更新时间：2026-10-29 22:25（北京时间）。已完成 25 / 35。
 
 本轮仅检测并标注原因，修复留待后续统一安排。覆盖当前 26 个发布源和 9 个已弃用源；使用实际发布包、仓库默认地址及匿名配置，不读取用户设备凭据。顶漫画用户已确认可用，包子漫画 2 也有既往设备确认；本轮依然复查。
 
@@ -34,7 +34,7 @@
 | [漫画人](source-health/2026-10-29/zh.manhuaren.json) | v2 | 是 | 链路失败，待排查 | list: get_manga_list returned an error |
 | [喵上漫画](source-health/2026-10-29/zh.miaoshangmanhua.json) | v5 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.miaoshangmanhua.cc:443; OpenSSL 复查未完成 |
 | [漫客栈](source-health/2026-10-29/zh.mkzhan.json) | v1 | 是 | 部分可读 | 部分阅读通过，存在失败步骤，详见记录 |
-| 漫小肆韩漫 | v7 | 是 | 待检测 |  |
+| [漫小肆韩漫](source-health/2026-10-29/zh.mxshm.json) | v7 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.mxs13.cc:443; OpenSSL 复查未完成 |
 | MYCOMIC | v2 | 是 | 待检测 |  |
 | Nico | v1 | 否 | 待检测 |  |
 | NoyAcg | v3 | 是 | 待检测 |  |
@@ -56,7 +56,7 @@
 
 ## 当前接续位置
 
-- 已处理：24 / 35。
-- 最近完成：`zh.mkzhan`。
-- 下一项：`zh.mxshm`。
-- 汇总：已弃用/未发布 6；网络受限，未验证 12；可读 2；链路失败，待排查 1；需登录验证 1；访问防护拦截 1；部分可读 1。
+- 已处理：25 / 35。
+- 最近完成：`zh.mxshm`。
+- 下一项：`zh.mycomic`。
+- 汇总：已弃用/未发布 6；网络受限，未验证 13；可读 2；链路失败，待排查 1；需登录验证 1；访问防护拦截 1；部分可读 1。
