@@ -1,0 +1,99 @@
+{
+  "source": "zh.mkzhan",
+  "directory": "zh.mkzhan",
+  "name": "漫客栈",
+  "version": 1,
+  "published": true,
+  "deprecated": false,
+  "checkedAt": "2026-10-29T14:25:26.293Z",
+  "checks": {
+    "list": {
+      "status": "PASS",
+      "count": 15
+    },
+    "search": {
+      "status": "PASS",
+      "count": 1,
+      "keyword": "妖神记"
+    },
+    "sample1.details": {
+      "status": "PASS",
+      "id": "207622",
+      "title": "妖神记",
+      "hasCover": true
+    },
+    "sample1.chapters": {
+      "status": "PASS",
+      "count": 972
+    },
+    "sample1.oldest": {
+      "status": "PASS",
+      "chapter": "第1话 重生",
+      "pages": 14,
+      "httpStatus": 206,
+      "contentType": "image/webp",
+      "signature": "5249464606d501005745425056503858"
+    },
+    "sample1.latest": {
+      "status": "FAILED",
+      "error": "get_page_list returned an error"
+    }
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://comic.mkzcdn.com/search/filter/?theme_id=0&order=3&page_num=1&page_size=15",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://comic.mkzcdn.com/search/keyword/?keyword=%5Bredacted%5D&page_num=1&page_size=20",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://www.mkzhan.com/207622/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://comic.mkzcdn.com/chapter/v1/?comic_id=207622",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://comic.mkzcdn.com/chapter/content/v1/?comic_id=207622&chapter_id=476064&format=1&quality=1&type=1&uid=%5Bredacted%5D&sign=%5Bredacted%5D",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "http://content.mkzcdn.com/image/20220420/625f8325dbfde-800x1168.jpg!page-800-x?auth_key=%5Bredacted%5D",
+      "status": 206,
+      "contentType": "image/webp",
+      "hints": []
+    },
+    {
+      "method": "GET",
+      "url": "https://comic.mkzcdn.com/chapter/content/v1/?comic_id=207622&chapter_id=1070704&format=1&quality=1&type=1&uid=%5Bredacted%5D&sign=%5Bredacted%5D",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "hints": []
+    }
+  ],
+  "package": {
+    "file": "zh.mkzhan-v1.aix",
+    "sha256": "3ff70700c2677ecd4f5f184b29ff8aa4d696f2c4343c3dc4b2d4586d598bb013"
+  },
+  "result": "PARTIAL",
+  "reason": "部分阅读通过，存在失败步骤，详见记录"
+}
