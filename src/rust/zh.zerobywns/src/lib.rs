@@ -332,5 +332,5 @@ fn get_page_list(_: String, chapter_id: String) -> Result<Vec<Page>> {
 
 #[modify_image_request]
 fn modify_image_request(request: Request) {
-	request.header("Referer", &helper::get_url());
+	helper::apply_image_headers(request);
 }

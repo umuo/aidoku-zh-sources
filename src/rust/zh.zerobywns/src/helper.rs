@@ -10,10 +10,14 @@ use aidoku::{
 };
 use alloc::{string::String, vec::Vec};
 
-const UA: &str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36";
-
 fn gen_request(url: String, method: HttpMethod) -> Request {
-	Request::new(url, method).header("User-Agent", UA)
+	Request::new(url, method)
+}
+
+// 页面和图片均沿用 Aidoku 的浏览器 UA/Cookie，不覆盖客户端验证状态。
+pub fn apply_image_headers(request: Request) {
+	let referer = format!("{}/", get_url().trim_end_matches('/'));
+	request.header("Referer", &referer);
 }
 
 fn handle_cookie_header(cookie_header: String) -> String {

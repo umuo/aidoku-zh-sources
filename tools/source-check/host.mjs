@@ -339,8 +339,8 @@ export function createHost(wasm, { transport = curlRequest, defaults = {} } = {}
       }
       return get(result);
     },
-    imageRequest(url) {
-      const request = { method: "GET", url, headers: {} };
+    imageRequest(url, headers = {}) {
+      const request = { method: "GET", url, headers: { ...headers } };
       if (instance.exports.modify_image_request) {
         instance.exports.modify_image_request(put(request));
       }

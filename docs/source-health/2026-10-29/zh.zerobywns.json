@@ -146,7 +146,7 @@
     "sha256": "526cd38cf888af00dfef928a8f49a460d8fbf66552209c02fbe3518e304365ff"
   },
   "result": "READING_FAILED",
-  "reason": "用户反馈任意作品首章无法加载；当前 v9 对官网实际首章解析出的 46 张图片地址/页序完全一致，但图片主机 HTTP 断连、HTTPS 握手失败。已复现图片访问失败，尚未修复；部分新章需登录是独立限制。",
+  "reason": "网页可读、Aidoku v9 阅读失败。v10 修正图源强制桌面 UA 与客户端图片 UA 不一致，并规范图片 Referer、保留客户端 Cookie；待用户设备复测。命令行断连不能解释为站点图片服务不可用。",
   "priorAttempt": {
     "source": "zh.zerobywns",
     "directory": "zh.zerobywns",
@@ -325,7 +325,7 @@
     "result": "AUTH_REQUIRED",
     "reason": "列表、搜索、详情及目录可用；抽查最新章节跳转登录页，旧章图片服务器空响应。补测此前可读作品仍在图片服务器失败，存在认证和图片连接双重问题。"
   },
-  "userFeedback": "第一章，随便一部，点击观看后漫画加载不出来。",
+  "userFeedback": "用户确认安装的是 v9；网页打开能看，但 Aidoku 阅读器任意首章加载失败。",
   "userReportedAt": "2026-10-29 23:16 +08:00",
   "readingDiagnostics": {
     "mangaId": "23185",
@@ -350,6 +350,55 @@
     },
     "officialEntryStill": "http://www.zerobyw33.com/",
     "resolution": "未找到可验证的可用图片线路，未发布解析修复或更换域名",
-    "pendingClientCheck": "已向用户询问 Aidoku 内置浏览器同章能否显示，尚未收到结果；用户安装版本未确认。"
+    "pendingClientCheck": "已收到用户确认：网页可正常显示，安装源为 v9；Aidoku App 具体版本未知。"
+  },
+  "followUp": {
+    "updatedAt": "2026-10-29 23:37 +08:00",
+    "sourceVersion": 10,
+    "status": "PENDING_DEVICE_VERIFICATION",
+    "userConfirmedBrowserReadable": true,
+    "userInstalledSourceVersion": 9,
+    "changes": [
+      "移除页面请求写死的桌面 User-Agent，页面和图片均沿用 Aidoku 的浏览器 UA/Cookie",
+      "图片 Referer 补齐结尾斜线，保留自定义地址",
+      "不设置图片 Cookie，保留 Aidoku 对图片域名附带的验证状态"
+    ],
+    "package": {
+      "file": "zh.zerobywns-v10.aix",
+      "sha256": "e04af9227967733bba5c3290593c88a513846f0540ce9f05e49b2d50090a4038"
+    },
+    "regression": {
+      "v9": "原 3 组通过，新 2 组失败，复现 UA 不一致/Referer 格式问题",
+      "v10": "5 组 zero 回归、44 组完整回归通过"
+    },
+    "officialClientReferences": [
+      "https://github.com/Aidoku/Aidoku/blob/main/Aidoku/Core/Sources/Legacy/Wasm/Imports/WasmNet.swift",
+      "https://github.com/Aidoku/Aidoku/blob/main/Aidoku/Core/Sources/Legacy/SourceActor.swift"
+    ],
+    "limitations": "当前 Mac 命令行访问图片受限；尚无 v10 用户设备阅读结果，不标为完全恢复。",
+    "liveProbe": {
+      "version": 10,
+      "mangaId": "23185",
+      "chapterId": "717519",
+      "checkedAt": "2026-10-29T15:36:09.109Z",
+      "responses": [
+        {
+          "status": 200,
+          "title": "逐神骑士【1-67话 16-67是生肉】【カムヤライド】【已完结】-1 _  zero搬运网 -zerobyw",
+          "imageLiterals": 46
+        }
+      ],
+      "anonymousProbe": true,
+      "sourceSuppliedPageUA": false,
+      "pages": 46,
+      "imageRequest": {
+        "url": "http://tupa.zerobyw33.com/manhua/z7u7a7h6dna/1/001.jpg",
+        "referer": "http://www.zerobyw33.com/",
+        "preservesNativeUserAgent": true
+      },
+      "image": {
+        "error": "HTTP request failed: curl: (52) Empty reply from server"
+      }
+    }
   }
 }

@@ -4,16 +4,22 @@ import test from "node:test";
 import { createHost } from "./host.mjs";
 const archive = spawnSync("python3", [
   "-c",
-  'import sys,zipfile;sys.stdout.buffer.write(zipfile.ZipFile("public/sources/zh.zerobywns-v9.aix").read("Payload/main.wasm"))',
+  'import sys,zipfile;sys.stdout.buffer.write(zipfile.ZipFile(sys.argv[1]).read("Payload/main.wasm"))',
+  process.env.ZERO_AIX_PATH ?? "public/sources/zh.zerobywns-v10.aix",
 ]);
 assert.equal(archive.status, 0);
 function hostFor(body, url = "http://www.zerobywav.com") {
-  return createHost(archive.stdout, {
+  const pageUserAgents = [];
+  const host = createHost(archive.stdout, {
     defaults: { url, cookie: "", username: "", password: "" },
     transport(request) {
+      // 对应 Aidoku WasmNet 的默认浏览器 UA 注入，不覆盖图源显式设置。
+      request.headers["User-Agent"] ??= "Fixture iPhone WebView";
+      pageUserAgents.push(request.headers["User-Agent"]);
       return { status: 200, url: request.url, headers: {}, body: Buffer.from(body) };
     },
   });
+  return Object.assign(host, { pageUserAgents });
 }
 test("zero 新列表和详情读取正确字段，旧默认域名自动迁移", () => {
   const host = hostFor(
@@ -66,5 +72,35 @@ test("zero 新旧图片格式、转义和零基页序均有效，不执行 JS", 
     '<script>window.imagelist.push("javascript:alert(1)");</script>',
   ]) {
     assert.throws(() => hostFor(body).call("get_page_list", { id: "10", mangaId: "23185" }), /returned an error/);
+  }
+});
+
+test("zero 图片与页面使用相同 UA、规范 Referer，保留客户端 Cookie", () => {
+  const body = '<script>window.imagelist.push("http://tupa.zerobyw33.com/manhua/test/1/001.jpg");</script>';
+  const host = hostFor(body);
+  const [page] = host.call("get_page_list", { id: "10", mangaId: "23185" });
+  const nativeHeaders = {
+    Cookie: "fixture_browser_session=1",
+    "User-Agent": "Fixture iPhone WebView",
+    "X-Test": "keep",
+  };
+  const image = host.imageRequest(page.url, nativeHeaders);
+  assert.equal(image.url, page.url);
+  assert.equal(image.headers["User-Agent"], host.pageUserAgents[0]);
+  assert.equal(image.headers["User-Agent"], "Fixture iPhone WebView");
+  assert.equal(image.headers.Referer, "http://www.zerobyw33.com/");
+  assert.equal(image.headers.Cookie, nativeHeaders.Cookie);
+  assert.equal(image.headers["X-Test"], "keep");
+  assert.equal(nativeHeaders["User-Agent"], "Fixture iPhone WebView");
+});
+
+test("zero 图片请求保留自定义站点，去除重复斜线且不注入空 Cookie", () => {
+  for (const url of ["https://custom.example/base", "https://custom.example/base/"]) {
+    const request = hostFor("", url).imageRequest("https://images.example/page.jpg", {
+      "User-Agent": "Fixture iPhone WebView",
+    });
+    assert.equal(request.headers.Referer, "https://custom.example/base/");
+    assert.equal(request.headers["User-Agent"], "Fixture iPhone WebView");
+    assert.equal("Cookie" in request.headers, false);
   }
 });
