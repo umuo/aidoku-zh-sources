@@ -26,7 +26,7 @@
 | [古风漫画](source-health/2026-10-29/zh.gufengmh.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
 | [Hanime1.me](source-health/2026-10-29/zh.hanime1.json) | v3 | 是 | 访问防护拦截 | 访问防护/Cloudflare 验证 |
 | [嗨皮漫画](source-health/2026-10-29/zh.happymh.json) | v1 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to m.happymh.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
-| [HO5HO](source-health/2026-10-29/zh.ho5ho.json) | v2 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443 |
+| [HO5HO](source-health/2026-10-29/zh.ho5ho.json) | v2 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443; OpenSSL 复查：<urlopen error [Errno 54] Connection reset by peer> |
 | [ISEKAI](source-health/2026-10-29/zh.isekai.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to isekai.ch:443 |
 | [Komiic漫画](source-health/2026-10-29/zh.komiic.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to komiic.com:443 |
 | [哔咔漫画](source-health/2026-10-29/zh.manhuabika.json) | v1 | 是 | 需登录验证 | 现有源要求账号/会话；未使用默认示例账号或用户凭据，登录后的完整阅读未验证 |
@@ -57,6 +57,6 @@
 ## 当前接续位置
 
 - 已处理：35 / 35。
-- 最近完成：`zh.happymh`。
+- 最近完成：`zh.ho5ho`。
 - 下一项：无。
 - 汇总：已弃用/未发布 9；访问防护拦截 4；网络受限，未验证 12；可读 3；链路失败，待排查 2；需登录验证 3；站点暂停 1；部分可读 1。

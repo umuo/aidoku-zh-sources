@@ -5,18 +5,19 @@
   "version": 2,
   "published": true,
   "deprecated": false,
-  "checkedAt": "2026-10-29T14:23:24.526Z",
+  "checkedAt": "2026-10-29T14:36:09.493Z",
   "checks": {
     "list": {
       "status": "FAILED",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443"
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443; OpenSSL 复查：<urlopen error [Errno 54] Connection reset by peer>"
     }
   },
   "requests": [
     {
       "method": "GET",
       "url": "https://www.ho5ho.com/page/1/?m_orderby=latest",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443"
+      "curlError": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443",
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443; OpenSSL 复查：<urlopen error [Errno 54] Connection reset by peer>"
     }
   ],
   "package": {
@@ -24,5 +25,33 @@
     "sha256": "adbf06aafd782ca01583ab56e392372b1abd0764cc107ca480c1ff84d3243c08"
   },
   "result": "NETWORK_UNVERIFIED",
-  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443"
+  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443; OpenSSL 复查：<urlopen error [Errno 54] Connection reset by peer>",
+  "priorAttempt": {
+    "source": "zh.ho5ho",
+    "directory": "zh.ho5ho",
+    "name": "HO5HO",
+    "version": 2,
+    "published": true,
+    "deprecated": false,
+    "checkedAt": "2026-10-29T14:23:24.526Z",
+    "checks": {
+      "list": {
+        "status": "FAILED",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443"
+      }
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://www.ho5ho.com/page/1/?m_orderby=latest",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443"
+      }
+    ],
+    "package": {
+      "file": "zh.ho5ho-v2.aix",
+      "sha256": "adbf06aafd782ca01583ab56e392372b1abd0764cc107ca480c1ff84d3243c08"
+    },
+    "result": "NETWORK_UNVERIFIED",
+    "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443"
+  }
 }
