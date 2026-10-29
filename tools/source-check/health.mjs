@@ -89,7 +89,33 @@ function request(req, options) {
   const record = { method: req.method ?? "GET", url: safeUrl(req.url) };
   report.requests.push(record);
   try {
-    const response = curlRequest(req, options);
+    let response;
+    try {
+      response = curlRequest(req, options);
+    } catch (error) {
+      record.curlError = error.message;
+      const fallback = spawnSync("python3", ["tools/source-check/http.py"], {
+        input: JSON.stringify({
+          ...req,
+          body: req.body ? Buffer.from(req.body).toString("base64") : undefined,
+          imageProbe: Boolean(options?.imageProbe),
+        }),
+        encoding: "utf8",
+        timeout: 30000,
+        maxBuffer: 30 * 1024 * 1024,
+      });
+      let parsed;
+      try {
+        parsed = JSON.parse(fallback.stdout);
+      } catch {
+        throw new Error(`${error.message}; OpenSSL 复查未完成`);
+      }
+      if (parsed.error || fallback.status !== 0) {
+        throw new Error(`${error.message}; OpenSSL 复查：${parsed.error ?? "传输失败"}`);
+      }
+      record.transport = "Python/OpenSSL (curl 失败后的交叉复查)";
+      response = { ...parsed, body: Buffer.from(parsed.body, "base64") };
+    }
     Object.assign(record, {
       status: response.status,
       contentType: response.headers["content-type"],
