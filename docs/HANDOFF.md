@@ -4,14 +4,14 @@
 
 ## 当前状态
 
-- 更新时间：2026-10-29 08:36（北京时间）。
+- 更新时间：2026-10-29 08:39（北京时间）。
 - 任务状态：已按最新继续指令恢复逐源检查；每项完成后更新记录、提交并推送。
 - 审计范围：33 个源码图源，包含已弃用源；排除用户已实测可用的包子漫画 2（`zh.baozimh2` v7），其余 32 个逐源处理，详见 [逐源审计记录](SOURCE_AUDIT.md)。
-- 已处理：23 / 32（PASS 3 / FIXED 4 / SKIP 16），剩余 9 个；当前 `zh.mycomic`，下一项 `zh.noy1`。
-- 最近完成：Nico（`zh.nicohub`）记录 SKIP；原漫画入口与搜索 API TLS 超时；历史发布页证书域名不匹配，维持弃用。详情与验证证据见 SOURCE_AUDIT.md。
-- 本项验证：Nico 原漫画入口和 POST 搜索 API TLS 超时，历史发布页证书域名不匹配，维持弃用和 SKIP；源码与发布包不变。漫小肆 v7 已推送为 `b51cb4a`，其 Actions 结果待后续核对。
+- 已处理：24 / 32（PASS 3 / FIXED 4 / SKIP 17），剩余 8 个；当前 `zh.noy1`，下一项 `zh.se8`。
+- 最近完成：MYCOMIC（`zh.mycomic`）记录 SKIP；普通浏览器列表30项正常，但搜索/详情均停留 Cloudflare；完整阅读未验证。详情与验证证据见 SOURCE_AUDIT.md。
+- 本项验证：MYCOMIC v2 命令行列表 403；普通浏览器列表30项结构正常，但搜索和真实详情均停留 Cloudflare，完整阅读未验证，记录 SKIP。工具补 curl --globoff，5 组宿主回归通过，源及 `public/` 不变。漫小肆 v7 `b51cb4a` [Actions 已成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40795138367)。
 - 发布：HO5HO v2 已随 `9a3ec02` 推送，`public/` 已同步，[Actions 发布成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40655056360)。ISEKAI 停放记录已推送为 `57e3d64`；G站 v10 部分修复 `c203232` 也已发布成功，但章节 API Cloudflare 403，仍为 SKIP，不能声称整体可读。
-- 已知限制：若干源受 Cloudflare、连接超时或上游关闭影响；SKIP 的证据与未验证项见审计记录。当前普通浏览器工具不可用；构建仍需旧 SDK、nightly wasm 目标和完整仓库检出，命令见下文。
+- 已知限制：若干源受 Cloudflare、连接超时或上游关闭影响；SKIP 的证据与未验证项见审计记录。普通浏览器能力已恢复，可用于后续交叉验证；构建仍需旧 SDK、nightly wasm 目标和完整仓库检出，命令见下文。
 - 接续约定：按审计表串行处理当前源；每完成一个源立即更新交接、提交并推送。不得把仅首页可访问或离线测试通过记为整体可用。
 - 本轮更新排查：用户确认使用本仓库 jsDelivr 订阅。远程 main/public、gh-pages 及标准 CDN `@main` 的两份索引均有 HO5HO v2、G站 v10；不能将用户问题归因于订阅上游。CDN 响应头为 `max-age=604800, s-maxage=43200`，客户端/其他节点旧缓存或实际 URL 固定旧引用仍待核实。两份标准 CDN 索引的 purge 请求均返回 finished、CF/FY 成功；刷新后复查 min 索引版本正确。清理 CDN 不等于清除 App 本地缓存。README 已补正确仓库链接及缓存说明；用户已确认完整地址为本仓库标准 CDN `@main/public/`，地址正确；具体受影响图源和设备刷新结果仍待反馈。
 

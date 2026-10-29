@@ -13,6 +13,7 @@ export function curlRequest(request, { imageProbe = false } = {}) {
     const args = [
       "--silent",
       "--show-error",
+      "--globoff",
       "--location",
       "--compressed",
       "--max-time",
