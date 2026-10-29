@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-- 更新时间：2026-10-28 16:12（北京时间）。
+- 更新时间：2026-10-29 08:20（北京时间）。
 - 任务状态：**已按用户要求暂停**。用户因额度不足，要求完成当前 HO5HO 后结束本轮；不得自动继续检查下一个源，等待用户重新授权接续。
 - 审计范围：33 个源码图源，包含已弃用源；排除用户已实测可用的包子漫画 2（`zh.baozimh2` v7），其余 32 个逐源处理，详见 [逐源审计记录](SOURCE_AUDIT.md)。
 - 已处理：14 / 32（PASS 0 / FIXED 3 / SKIP 11），剩余 18 个；下一待处理源为 `src/as/zh.isekai`，尚未开始检查。
@@ -13,7 +13,7 @@
 - 发布：HO5HO v2 已随 `9a3ec02` 推送，`public/` 已同步，[Actions 发布成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40655056360)。G站 v10 部分修复 `c203232` 也已发布成功，但章节 API Cloudflare 403，仍为 SKIP，不能声称整体可读。
 - 已知限制：若干源受 Cloudflare、连接超时或上游关闭影响；SKIP 的证据与未验证项见审计记录。当前普通浏览器工具不可用；构建仍需旧 SDK、nightly wasm 目标和完整仓库检出，命令见下文。
 - 接续约定：仅在用户要求继续后，从 ISEKAI 开始串行处理；每完成一个源立即更新交接、提交并推送。不得把仅首页可访问或离线测试通过记为整体可用。
-- 本轮收尾：只记录停止位置和已确认发布结果，不新增源检查或功能修改。
+- 本轮更新排查：用户反馈 App 检测不到新版本，核对远程 main/public 与 gh-pages 索引均有 HO5HO v2、G站 v10，且 `4cbe3b0` 部署成功。README 原添加链接仍指向上游，上游对应版本为 v1、v9；已修正 README 为本仓库入口并说明已有订阅不会自动迁移。用户实际订阅地址尚待核实，不能把这一原因当成设备端已确认结论。
 
 ## 项目地图
 
@@ -75,7 +75,7 @@
 - [添加本仓库图源](https://aidoku.app/add-source-list/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fumuo%2Faidoku-zh-sources%2Fmain%2Fpublic%2F)。
 - [公开图源索引](https://raw.githubusercontent.com/umuo/aidoku-zh-sources/main/public/index.min.json)。
 
-README 原有“如何使用”链接仍指向上游 `suiyuran` 仓库。排查用户收不到本仓库更新时，先确认其订阅地址，不能把上游订阅当成本仓库发布地址。
+README 的“如何使用”已更正为本仓库 `umuo` 的添加链接和手动订阅地址。此前链接指向上游 `suiyuran`，已添加的旧订阅仍需在 App 中自行切换；不能把上游订阅当成本仓库发布地址。
 
 ## 新电脑上的验证方式
 

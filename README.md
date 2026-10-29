@@ -10,9 +10,15 @@ Aidoku 中文图源
 
 ## 如何使用
 
-点击 [这里](https://aidoku.app/add-source-list/?url=https://raw.githubusercontent.com/suiyuran/aidoku-zh-sources/main/public/) 将图源添加到 Aidoku 中。
+点击 [添加本仓库图源](https://aidoku.app/add-source-list/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fumuo%2Faidoku-zh-sources%2Fmain%2Fpublic%2F) 将图源列表添加到 Aidoku。
 
-如果添加不了，可以点击 [这里](https://aidoku.app/add-source-list/?url=https://cdn.jsdelivr.net/gh/suiyuran/aidoku-zh-sources@main/public/) 试试。
+也可以在 App 的图源列表管理中手动添加：
+
+```text
+https://raw.githubusercontent.com/umuo/aidoku-zh-sources/main/public/
+```
+
+本仓库的修复发布在 `umuo/aidoku-zh-sources`。如果之前订阅的是上游 `suiyuran` 或其 CDN 地址，需要添加上面的本仓库地址并刷新列表，原订阅不会自动切换到本仓库。
 
 ## 图源列表
 
