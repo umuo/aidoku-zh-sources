@@ -5,24 +5,56 @@
   "version": 1,
   "published": true,
   "deprecated": false,
-  "checkedAt": "2026-10-29T14:19:02.755Z",
+  "checkedAt": "2026-10-29T14:30:27.612Z",
   "checks": {
     "list": {
       "status": "FAILED",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to 18mh.org:443"
+      "error": "漫画列表为空"
     }
   },
   "requests": [
     {
       "method": "GET",
       "url": "https://18mh.org/manga/page/1",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to 18mh.org:443"
+      "curlError": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to 18mh.org:443",
+      "transport": "Python/OpenSSL (curl 失败后的交叉复查)",
+      "status": 403,
+      "contentType": "text/plain; charset=UTF-8",
+      "hints": []
     }
   ],
   "package": {
     "file": "zh.18mh-v1.aix",
     "sha256": "a9f48f31fafb179684cb2cab1cf1f84ee7b8414ac46e9395670dd9e1ea022134"
   },
-  "result": "NETWORK_UNVERIFIED",
-  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to 18mh.org:443"
+  "result": "FAILED",
+  "reason": "list: 漫画列表为空",
+  "priorAttempt": {
+    "source": "zh.18mh",
+    "directory": "zh.18mh",
+    "name": "18漫画",
+    "version": 1,
+    "published": true,
+    "deprecated": false,
+    "checkedAt": "2026-10-29T14:19:02.755Z",
+    "checks": {
+      "list": {
+        "status": "FAILED",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to 18mh.org:443"
+      }
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://18mh.org/manga/page/1",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to 18mh.org:443"
+      }
+    ],
+    "package": {
+      "file": "zh.18mh-v1.aix",
+      "sha256": "a9f48f31fafb179684cb2cab1cf1f84ee7b8414ac46e9395670dd9e1ea022134"
+    },
+    "result": "NETWORK_UNVERIFIED",
+    "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to 18mh.org:443"
+  }
 }

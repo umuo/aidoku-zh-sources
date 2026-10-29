@@ -77,7 +77,7 @@ function markers(response) {
   if (/region has been denied/i.test(body)) {
     hints.push("地区拒绝");
   }
-  if (/\[\s*"login"\s*\]|"message"\s*:\s*"unauthorized"|请先登录|用户未登录/i.test(body) || response.status === 401) {
+  if (/\[\s*"login"\s*\]|"message"\s*:\s*"unauthorized"|用户未登录|<title[^>]*>[^<]*(?:登录|登入|Sign in|Log in)/i.test(body) || response.status === 401) {
     hints.push("要求登录/认证");
   }
   if (/服务器内部错误/.test(body)) {
