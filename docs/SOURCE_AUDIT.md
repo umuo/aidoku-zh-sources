@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：28 / 32（PASS 3 / FIXED 5 / SKIP 20）；排除：1。
-- 当前：第 30 项 `zh.yandanshe`。
-- 下一项：`zh.yemancomic`；先完成当前源再继续。
+- 已处理：29 / 32（PASS 3 / FIXED 5 / SKIP 21）；排除：1。
+- 当前：第 31 项 `zh.yemancomic`。
+- 下一项：`zh.zaimanhua`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -51,8 +51,8 @@
 | 27   | 韩漫库     | `src/rust/zh.se8`             | 未弃用 | SKIP        | 原站显示“抱歉，站点已暂停”，列表无漫画内容，无法在本仓库恢复上游                          |
 | 28   | vomic漫画  | `src/rust/zh.vomicmh`         | 已弃用 | SKIP        | 站点仍运营但旧 API 404，新版阅读明确要求登录，缺少认证条件无法恢复弃用源                  |
 | 29   | 绅士漫画   | `src/rust/zh.wnacg`           | 未弃用 | FIXED       | v5 更新发布页列出的可用域名；插件链路及浏览器真实首图加载通过，CLI 图片被 Cloudflare 阻止 |
-| 30   | 言耽社     | `src/rust/zh.yandanshe`       | 未弃用 | IN_PROGRESS | 正在排查                                                                                  |
-| 31   | 野蛮漫画   | `src/rust/zh.yemancomic`      | 已弃用 | PENDING     | 待检查                                                                                    |
+| 30   | 言耽社     | `src/rust/zh.yandanshe`       | 未弃用 | SKIP        | 原站 HTTPS 握手失败/超时，浏览器连接关闭，HTTP 空响应，无可信迁移                         |
+| 31   | 野蛮漫画   | `src/rust/zh.yemancomic`      | 已弃用 | IN_PROGRESS | 正在排查                                                                                  |
 | 32   | 再漫画     | `src/rust/zh.zaimanhua`       | 未弃用 | PENDING     | 待检查                                                                                    |
 | 33   | zero搬运网 | `src/rust/zh.zerobywns`       | 未弃用 | PENDING     | 待检查                                                                                    |
 
@@ -271,6 +271,13 @@
 - 实际新包检查：列表 20 项、搜索 1 项、详情/封面、单章目录和 27 个图片地址解析通过，页面 API 均 200。命令行首图即使使用真实阅读 Referer，仍返回 Cloudflare 403 / Attention Required，不能把该请求宣称为通过。
 - 普通浏览器按详情中真实单页阅读链接交叉验证，`#picarea` 的实际首图路径与插件首图一致，最终 complete=true、naturalWidth=1456、naturalHeight=2054，确认加载了真实漫画图片；没有将占位图或图片地址存在当作加载成功，也没有截图输出图片或下载整章。
 - 结论：FIXED（实际插件解析与正常浏览器代表性阅读共同验证）。命令行图片 CDN 访问限制仍存在，没有用户设备复测，不声称所有环境或全部作品可用。
+
+### 30. 言耽社 — SKIP
+
+- 起始版本 1。实际发布 WASM 默认列表请求在 TLS 握手失败；独立首页复查 TLS 建连超时，没有收到漫画 HTML。
+- 普通浏览器交叉验证相同原站，明确报 ERR_CONNECTION_CLOSED，而非正常页面。HTTP 首页返回 Empty reply from server，没有给出可信迁移重定向。
+- 定向检索未发现可核实的原站官方迁移信息；不能因存在同名网站就改域名。当前没有证据可核对原选择器或确认完整阅读正常。
+- 结论：SKIP（当前原站不可连接）。保持原版本和未弃用状态，不将网络失败断言为永久停站；列表/搜索、详情、章节与图片均未验证，不盲目发布未经实站验证的修复。
 
 ## 可复用检查工具
 
