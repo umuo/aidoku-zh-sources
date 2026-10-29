@@ -1,6 +1,6 @@
 # 全部漫画源健康检测
 
-更新时间：2026-10-29 22:23（北京时间）。已完成 17 / 35。
+更新时间：2026-10-29 22:23（北京时间）。已完成 18 / 35。
 
 本轮仅检测并标注原因，修复留待后续统一安排。覆盖当前 26 个发布源和 9 个已弃用源；使用实际发布包、仓库默认地址及匿名配置，不读取用户设备凭据。顶漫画用户已确认可用，包子漫画 2 也有既往设备确认；本轮依然复查。
 
@@ -27,7 +27,7 @@
 | [Hanime1.me](source-health/2026-10-29/zh.hanime1.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to hanime1.me:443 |
 | [嗨皮漫画](source-health/2026-10-29/zh.happymh.json) | v1 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to m.happymh.com:443 |
 | [HO5HO](source-health/2026-10-29/zh.ho5ho.json) | v2 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443 |
-| ISEKAI | v1 | 否 | 待检测 |  |
+| [ISEKAI](source-health/2026-10-29/zh.isekai.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to isekai.ch:443 |
 | Komiic漫画 | v3 | 是 | 待检测 |  |
 | 哔咔漫画 | v1 | 是 | 待检测 |  |
 | 漫画DB | v1 | 是 | 待检测 |  |
@@ -56,7 +56,7 @@
 
 ## 当前接续位置
 
-- 已处理：17 / 35。
-- 最近完成：`zh.ho5ho`。
-- 下一项：`zh.isekai`。
-- 汇总：网络受限，未验证 10；可读 2；已弃用/未发布 4；访问防护拦截 1。
+- 已处理：18 / 35。
+- 最近完成：`zh.isekai`。
+- 下一项：`zh.komiic`。
+- 汇总：已弃用/未发布 5；网络受限，未验证 10；可读 2；访问防护拦截 1。
