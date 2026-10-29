@@ -145,8 +145,8 @@
     "file": "zh.zerobywns-v9.aix",
     "sha256": "526cd38cf888af00dfef928a8f49a460d8fbf66552209c02fbe3518e304365ff"
   },
-  "result": "AUTH_REQUIRED",
-  "reason": "列表、搜索、详情及目录可用；抽查最新章节跳转登录页，旧章图片服务器空响应。补测此前可读作品仍在图片服务器失败，存在认证和图片连接双重问题。",
+  "result": "READING_FAILED",
+  "reason": "用户反馈任意作品首章无法加载；当前 v9 对官网实际首章解析出的 46 张图片地址/页序完全一致，但图片主机 HTTP 断连、HTTPS 握手失败。已复现图片访问失败，尚未修复；部分新章需登录是独立限制。",
   "priorAttempt": {
     "source": "zh.zerobywns",
     "directory": "zh.zerobywns",
@@ -320,5 +320,36 @@
     "httpsDiagnostic": {
       "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to tupa.zerobyw33.com:443; <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
     }
+  },
+  "automatedAssessment": {
+    "result": "AUTH_REQUIRED",
+    "reason": "列表、搜索、详情及目录可用；抽查最新章节跳转登录页，旧章图片服务器空响应。补测此前可读作品仍在图片服务器失败，存在认证和图片连接双重问题。"
+  },
+  "userFeedback": "第一章，随便一部，点击观看后漫画加载不出来。",
+  "userReportedAt": "2026-10-29 23:16 +08:00",
+  "readingDiagnostics": {
+    "mangaId": "23185",
+    "chapterId": "717519",
+    "pageCount": 46,
+    "websiteAndPluginMatch": true,
+    "zeroBasedIndexes": true,
+    "firstImage": "http://tupa.zerobyw33.com/manhua/z7u7a7h6dna/1/001.jpg",
+    "lastImage": "http://tupa.zerobyw33.com/manhua/z7u7a7h6dna/1/046.jpg",
+    "checkedAt": "2026-10-29 23:16 +08:00",
+    "testedPackageVersion": 9,
+    "detailUrl": "http://www.zerobyw33.com/Android2/details/?kuid=23185",
+    "websiteChapterUrl": "http://www.zerobyw33.com/Android2/view/?zjid=717519",
+    "legacyChapterUrl": "http://www.zerobyw33.com/plugin.php?id=jameson_manhua&a=read&zjid=717519",
+    "bothChapterEntrypointsAgree": true,
+    "imageProbes": {
+      "httpRange": "Empty reply from server",
+      "httpFullGet": "Empty reply from server",
+      "https": "SSL_ERROR_SYSCALL",
+      "refererVariants": "站点根路径、真实章节路径与无 Referer 均未取到图片",
+      "mainSiteSamePath": 404
+    },
+    "officialEntryStill": "http://www.zerobyw33.com/",
+    "resolution": "未找到可验证的可用图片线路，未发布解析修复或更换域名",
+    "pendingClientCheck": "已向用户询问 Aidoku 内置浏览器同章能否显示，尚未收到结果；用户安装版本未确认。"
   }
 }
