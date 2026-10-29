@@ -23,7 +23,7 @@
 | [漫画狗](source-health/2026-10-29/zh.dogemanga.json) | v1 | 否 | 已弃用/未发布 | 已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常；原入口 HTTP 200  |
 | [G站漫画](source-health/2026-10-29/zh.godamanga.json) | v10 | 是 | 访问防护拦截 | HTTP 403 访问被拒绝 |
 | [瓜子漫画](source-health/2026-10-29/zh.guazimanhua.json) | v1 | 是 | 可读 | 代表性列表、搜索、详情、目录与真实图片通过 |
-| [古风漫画](source-health/2026-10-29/zh.gufengmh.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443 |
+| [古风漫画](source-health/2026-10-29/zh.gufengmh.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)> |
 | [Hanime1.me](source-health/2026-10-29/zh.hanime1.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to hanime1.me:443 |
 | [嗨皮漫画](source-health/2026-10-29/zh.happymh.json) | v1 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to m.happymh.com:443 |
 | [HO5HO](source-health/2026-10-29/zh.ho5ho.json) | v2 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.ho5ho.com:443 |
@@ -57,6 +57,6 @@
 ## 当前接续位置
 
 - 已处理：35 / 35。
-- 最近完成：`zh.godamanga`。
+- 最近完成：`zh.gufengmh`。
 - 下一项：无。
 - 汇总：已弃用/未发布 9；网络受限，未验证 13；可读 3；链路失败，待排查 2；需登录验证 3；访问防护拦截 3；站点暂停 1；部分可读 1。

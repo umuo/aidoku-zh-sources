@@ -5,18 +5,19 @@
   "version": 3,
   "published": true,
   "deprecated": false,
-  "checkedAt": "2026-10-29T14:22:38.298Z",
+  "checkedAt": "2026-10-29T14:35:24.747Z",
   "checks": {
     "list": {
       "status": "FAILED",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443"
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
     }
   },
   "requests": [
     {
       "method": "GET",
       "url": "https://www.gufengmh.com/list/--/click/1/",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443"
+      "curlError": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443",
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
     }
   ],
   "package": {
@@ -24,5 +25,33 @@
     "sha256": "49554eb1e7ea2ca96f0fd33920e7cf8240e8e95bafd367be7708609bf59dbf49"
   },
   "result": "NETWORK_UNVERIFIED",
-  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443"
+  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>",
+  "priorAttempt": {
+    "source": "zh.gufengmh",
+    "directory": "zh.gufengmh",
+    "name": "古风漫画",
+    "version": 3,
+    "published": true,
+    "deprecated": false,
+    "checkedAt": "2026-10-29T14:22:38.298Z",
+    "checks": {
+      "list": {
+        "status": "FAILED",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443"
+      }
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://www.gufengmh.com/list/--/click/1/",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443"
+      }
+    ],
+    "package": {
+      "file": "zh.gufengmh-v3.aix",
+      "sha256": "49554eb1e7ea2ca96f0fd33920e7cf8240e8e95bafd367be7708609bf59dbf49"
+    },
+    "result": "NETWORK_UNVERIFIED",
+    "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.gufengmh.com:443"
+  }
 }
