@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：26 / 32（PASS 3 / FIXED 4 / SKIP 19）；排除：1。
-- 当前：第 28 项 `zh.vomicmh`。
-- 下一项：`zh.wnacg`；先完成当前源再继续。
+- 已处理：27 / 32（PASS 3 / FIXED 4 / SKIP 20）；排除：1。
+- 当前：第 29 项 `zh.wnacg`。
+- 下一项：`zh.yandanshe`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -49,8 +49,8 @@
 | 25   | MYCOMIC    | `src/rust/zh.mycomic`         | 未弃用 | SKIP        | 普通浏览器列表30项正常，但搜索/详情均停留 Cloudflare；完整阅读未验证                     |
 | 26   | NoyAcg     | `src/rust/zh.noy1`            | 未弃用 | SKIP        | 匿名 API 明确返回 [login]，缺少有效账号/会话无法验证阅读                                 |
 | 27   | 韩漫库     | `src/rust/zh.se8`             | 未弃用 | SKIP        | 原站显示“抱歉，站点已暂停”，列表无漫画内容，无法在本仓库恢复上游                         |
-| 28   | vomic漫画  | `src/rust/zh.vomicmh`         | 已弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 29   | 绅士漫画   | `src/rust/zh.wnacg`           | 未弃用 | PENDING     | 待检查                                                                                   |
+| 28   | vomic漫画  | `src/rust/zh.vomicmh`         | 已弃用 | SKIP        | 站点仍运营但旧 API 404，新版阅读明确要求登录，缺少认证条件无法恢复弃用源                 |
+| 29   | 绅士漫画   | `src/rust/zh.wnacg`           | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
 | 30   | 言耽社     | `src/rust/zh.yandanshe`       | 未弃用 | PENDING     | 待检查                                                                                   |
 | 31   | 野蛮漫画   | `src/rust/zh.yemancomic`      | 已弃用 | PENDING     | 待检查                                                                                   |
 | 32   | 再漫画     | `src/rust/zh.zaimanhua`       | 未弃用 | PENDING     | 待检查                                                                                   |
@@ -254,6 +254,14 @@
 - 起始版本 3。实际发布 WASM 请求 `/index.php/category/order/hits/page/1` 返回 HTTP 200 但没有任何漫画列表项。
 - 原首页复查 HTTP 200，页面标题明确为“抱歉，站点已暂停”，响应为站点暂停模板，不是正常漫画首页。没有站内迁移链接，Cloudflare 附加脚本也不代表漫画服务仍正常。
 - 结论：SKIP（上游站点暂停，无法靠解析修复恢复内容）。保留 v3 与现有状态，不将“暂停”推断为永久关闭而擅自弃用；没有验证搜索、详情、章节和图片，不替换成同名第三方站。
+
+### 28. vomic漫画 — SKIP
+
+- 起始状态：已弃用，版本 1。原 HTTP 首页 301 到 HTTPS 正常 Next.js 网站，不能将本站认定为关闭；原默认列表 API `/api/v1/rank/rank-data` 返回 404。
+- 按当前首页真实链接核对 `/detail/26573`，详情存在，公开章节入口为 `/chapter/26573/22636`。当前协议与旧版列表/详情/图片 API 已显著不同。
+- 检查现站实际引用脚本，当前图片/用户请求采用 `https://api.vomicmh.com/pics/` 等新路径，与旧源码协议不同；未尝试注册、登录或绕过图片认证。
+- 原始阅读 HTML 只有“请先登录”等提示、无有效漫画图片；普通浏览器打开相同真实章节，再次明确显示“请先登录”。当前无账号可完成新协议阅读验收。
+- 结论：SKIP（上游协议重做且阅读需要认证）。原已弃用源只有完整验证后才能恢复，本轮不发布仅首页可用的重写，保留 deprecated 和 v1。新版搜索、登录后章节和实际图片尚未验证。
 
 ## 可复用检查工具
 
