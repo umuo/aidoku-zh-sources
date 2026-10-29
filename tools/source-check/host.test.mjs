@@ -99,3 +99,23 @@ test("日期 ABI 为实际哔咔插件生成秒级签名时间，测试不发起
   assert.equal(host.call("get_manga_list", []).manga.length, 0);
   assert.equal(host.requests.length, 1);
 });
+
+test("报告隐藏账号和签名查询参数，真实请求仍保持原值", () => {
+  const archive = spawnSync("python3", [
+    "-c",
+    'import sys,zipfile;sys.stdout.buffer.write(zipfile.ZipFile("public/sources/zh.manhuaren-v2.aix").read("Payload/main.wasm"))',
+  ]);
+  assert.equal(archive.status, 0);
+  const host = createHost(archive.stdout, {
+    defaults: { uid: "fixture-user", token: "fixture-token" },
+    transport(request) {
+      assert.equal(new URL(request.url).searchParams.get("gui"), "fixture-user");
+      return { status: 200, url: request.url, headers: {}, body: Buffer.from('{"response":{"mangas":[]}}') };
+    },
+  });
+  host.call("get_manga_list", []);
+  const url = new URL(host.requests[0].url);
+  assert.equal(url.searchParams.get("gui"), "[redacted]");
+  assert.equal(url.searchParams.get("gsn"), "[redacted]");
+  assert.ok(!host.requests[0].url.includes("fixture-user"));
+});

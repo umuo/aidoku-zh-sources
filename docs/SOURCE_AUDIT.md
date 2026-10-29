@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：20 / 32（PASS 2 / FIXED 3 / SKIP 15）；排除：1。
-- 当前：第 22 项 `zh.mkzhan`。
-- 下一项：`zh.mxshm`；先完成当前源再继续。
+- 已处理：21 / 32（PASS 3 / FIXED 3 / SKIP 15）；排除：1。
+- 当前：第 23 项 `zh.mxshm`。
+- 下一项：`zh.nicohub`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -43,8 +43,8 @@
 | 19   | 漫画DB     | `src/rust/zh.manhuadb`        | 未弃用 | SKIP        | 原 HTTPS TLS 失败，HTTP 仅混淆脚本跳转，无可验证的漫画页面或官方迁移                     |
 | 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | PASS        | v2 实际列表/搜索各 20 项、180 章、39 页及首图 JPEG 206 通过                              |
 | 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | SKIP        | 原首页和列表 TLS 失败，HTTP 空响应，未发现可信迁移；维持弃用                             |
-| 22   | 漫客栈     | `src/rust/zh.mkzhan`          | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 23   | 漫小肆韩漫 | `src/rust/zh.mxshm`           | 未弃用 | PENDING     | 待检查                                                                                   |
+| 22   | 漫客栈     | `src/rust/zh.mkzhan`          | 未弃用 | PASS        | v1 列表15/搜索1、972章、免费首章14页及首图 WebP 206 实测通过                             |
+| 23   | 漫小肆韩漫 | `src/rust/zh.mxshm`           | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
 | 24   | Nico       | `src/rust/zh.nicohub`         | 已弃用 | PENDING     | 待检查                                                                                   |
 | 25   | MYCOMIC    | `src/rust/zh.mycomic`         | 未弃用 | PENDING     | 待检查                                                                                   |
 | 26   | NoyAcg     | `src/rust/zh.noy1`            | 未弃用 | PENDING     | 待检查                                                                                   |
@@ -210,6 +210,13 @@
 - 起始状态：已弃用，版本 5。原首页与源码实际列表 `/category/list/1/order/hits/page/1` 均在 TLS 握手阶段失败，没有漫画 HTML。
 - HTTP 原首页复查为 Empty reply from server，未返回官方迁移地址；定向检索未得到可信原站迁移公告。
 - 结论：SKIP（当前原站不可访问，缺少内容支撑恢复验证）。不盲改旧选择器或随意更换同名域名，维持 deprecated 和原版本，不重新发布。完整列表/搜索、详情、章节和图片均未验证；没有将网络失败断言为永久关闭。
+
+### 22. 漫客栈 — PASS
+
+- 起始版本 1，实际发布 WASM 默认列表返回 15 项、搜索代表性漫画返回 1 项；详情 `207622` 标题/封面有效，章节 API 返回 972 项，所有请求 HTTP 200。
+- 选取免费首章，图片接口返回 14 页，首张图片 Range 为 HTTP 206、image/webp，RIFF/WEBP 文件头正确。不批量下载图片，不尝试付费或受限章节。
+- 源使用仓库既有默认设置，没有读取用户 App 配置或登录；保留原源码、版本、设置和发布包，结论 PASS（代表性免费阅读链路通过），不声称付费章节可读或所有作品均正常。
+- 本项发现 URL 查询可能含设置中的账号标识与签名，检查工具报告现已对相应参数脱敏；真实请求不变，新增实际 WASM 测试确认日志隐藏值而网络请求保留值。宿主 5 组回归通过，不在文档公开设置内容。
 
 ## 可复用检查工具
 

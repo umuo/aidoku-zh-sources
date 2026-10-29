@@ -117,9 +117,15 @@ export function createHost(wasm, { transport = curlRequest, defaults = {} } = {}
     const request = get(id);
     if (!request.response) {
       request.response = transport(request);
+      const reportUrl = new URL(request.url);
+      for (const key of reportUrl.searchParams.keys()) {
+        if (/^(uid|gui|sign|gsn|token|authorization|password|email|username|api[-_]?key)$/i.test(key)) {
+          reportUrl.searchParams.set(key, "[redacted]");
+        }
+      }
       requests.push({
         method: request.method,
-        url: request.url,
+        url: reportUrl.toString(),
         status: request.response.status,
         contentType: request.response.headers["content-type"],
         challenge: request.response.headers["cf-mitigated"],
