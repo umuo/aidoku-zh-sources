@@ -5,18 +5,19 @@
   "version": 1,
   "published": true,
   "deprecated": false,
-  "checkedAt": "2026-10-29T14:24:46.554Z",
+  "checkedAt": "2026-10-29T14:37:11.487Z",
   "checks": {
     "list": {
       "status": "FAILED",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443"
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
     }
   },
   "requests": [
     {
       "method": "GET",
       "url": "https://www.manhuadb.com/manhua/list-r--a--s--c--page-1.html",
-      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443"
+      "curlError": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443",
+      "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>"
     }
   ],
   "package": {
@@ -24,5 +25,33 @@
     "sha256": "4da0602e15bc438bb0b75bdd80bedcf1312a96483f5dc0904edf7cbf8f3c1a4b"
   },
   "result": "NETWORK_UNVERIFIED",
-  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443"
+  "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443; OpenSSL 复查：<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)>",
+  "priorAttempt": {
+    "source": "zh.manhuadb",
+    "directory": "zh.manhuadb",
+    "name": "漫画DB",
+    "version": 1,
+    "published": true,
+    "deprecated": false,
+    "checkedAt": "2026-10-29T14:24:46.554Z",
+    "checks": {
+      "list": {
+        "status": "FAILED",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443"
+      }
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://www.manhuadb.com/manhua/list-r--a--s--c--page-1.html",
+        "error": "HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443"
+      }
+    ],
+    "package": {
+      "file": "zh.manhuadb-v1.aix",
+      "sha256": "4da0602e15bc438bb0b75bdd80bedcf1312a96483f5dc0904edf7cbf8f3c1a4b"
+    },
+    "result": "NETWORK_UNVERIFIED",
+    "reason": "list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.manhuadb.com:443"
+  }
 }
