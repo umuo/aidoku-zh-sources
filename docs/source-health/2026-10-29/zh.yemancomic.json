@@ -1,0 +1,27 @@
+{
+  "source": "zh.yemancomic",
+  "directory": "zh.yemancomic",
+  "name": "野蛮漫画",
+  "version": 1,
+  "published": false,
+  "deprecated": true,
+  "checkedAt": "2026-10-29T14:28:09.574Z",
+  "checks": {
+    "homepage": {
+      "status": "PASS",
+      "httpStatus": 200,
+      "hints": []
+    }
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://yemancomic.com/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "hints": []
+    }
+  ],
+  "result": "UNPUBLISHED",
+  "reason": "已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常"
+}
