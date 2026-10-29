@@ -209,10 +209,10 @@
   {
     "id": "zh.zerobywns",
     "name": "zero搬运网",
-    "file": "zh.zerobywns-v8.aix",
-    "icon": "zh.zerobywns-v8.png",
     "lang": "zh",
-    "version": 8,
-    "nsfw": 0
+    "version": 9,
+    "nsfw": 0,
+    "file": "zh.zerobywns-v9.aix",
+    "icon": "zh.zerobywns-v9.png"
   }
 ]

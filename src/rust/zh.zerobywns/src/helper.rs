@@ -31,7 +31,13 @@ fn get_default(key: &str) -> Result<String, AidokuError> {
 }
 
 pub fn get_url() -> String {
-	get_default("url").unwrap()
+	let url = get_default("url").unwrap();
+	match url.trim_end_matches('/') {
+		"http://www.zerobywav.com" | "https://www.zerobywav.com" => {
+			String::from("http://www.zerobyw33.com")
+		}
+		_ => url,
+	}
 }
 
 pub fn get_html(url: String) -> Result<Node, AidokuError> {

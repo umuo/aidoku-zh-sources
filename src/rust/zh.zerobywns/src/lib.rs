@@ -2,7 +2,7 @@
 extern crate alloc;
 
 use aidoku::{
-	error::Result,
+	error::{AidokuError, AidokuErrorKind, Result},
 	helpers::{substring::Substring, uri::encode_uri},
 	prelude::*,
 	std::{json, net::Request, String, Vec},
@@ -12,6 +12,12 @@ use aidoku::{
 use alloc::string::ToString;
 
 mod helper;
+
+fn parse_error() -> AidokuError {
+	AidokuError {
+		reason: AidokuErrorKind::JsonParseError,
+	}
+}
 
 const FILTER_CATEGORY_ID: [&str; 15] = [
 	"", "1", "15", "32", "6", "13", "28", "31", "22", "23", "26", "29", "34", "35", "36",
@@ -100,13 +106,16 @@ fn get_manga_list(filters: Vec<Filter>, page: i32) -> Result<MangaPageResult> {
 
 		let html = helper::get_html(url)?;
 
-		for item in html.select(".uk-card").array() {
+		for item in html
+			.select(".uk-card, .col-50:has(a[href*='kuid='])")
+			.array()
+		{
 			let item = match item.as_node() {
 				Ok(node) => node,
 				Err(_) => continue,
 			};
 			let id = item
-				.select("div:nth-child(1)>a")
+				.select("div:nth-child(1)>a, a[href*='kuid=']")
 				.attr("href")
 				.read()
 				.split("=")
@@ -114,9 +123,9 @@ fn get_manga_list(filters: Vec<Filter>, page: i32) -> Result<MangaPageResult> {
 				.collect::<Vec<String>>()
 				.pop()
 				.unwrap();
-			let cover = item.select("div:nth-child(1)>a>img").attr("src").read();
+			let cover = item.select("img").attr("src").read();
 			let title = item
-				.select("div:nth-child(2)>p>a")
+				.select("div:nth-child(2)>p>a, .image-title")
 				.text()
 				.read()
 				.trim()
@@ -180,10 +189,16 @@ fn get_manga_details(id: String) -> Result<Manga> {
 		id.clone()
 	);
 	let html = helper::get_html(url.clone())?;
-	let cover = html.select(".uk-width-medium>img").attr("src").read();
-	let title = html.select(".uk-margin-left>ul>li>h3").text().read();
+	let cover = html
+		.select(".uk-width-medium>img, .col-33>img")
+		.attr("src")
+		.read();
+	let title = html
+		.select(".uk-margin-left>ul>li>h3, .col-66 h3")
+		.text()
+		.read();
 	let author = html
-		.select(".uk-margin-left>ul>li>.cl>a[href*='zuozhe']")
+		.select(".uk-margin-left>ul>li>.cl>a[href*='zuozhe'], .shuxinglabel>span:first-child")
 		.text()
 		.read()
 		.replace("作者:", "")
@@ -193,18 +208,18 @@ fn get_manga_details(id: String) -> Result<Manga> {
 		.join(", ");
 	let artist = String::new();
 	let description = html
-		.select(".uk-margin-left>ul>li>.uk-alert")
+		.select(".uk-margin-left>ul>li>.uk-alert, .summary")
 		.text()
 		.read()
 		.trim()
 		.to_string();
 	let categories = html
-		.select(".uk-margin-left>ul>li>.cl>a[href*='category']")
+		.select(".uk-margin-left>ul>li>.cl>a[href*='category'], .shuxinglabel>a[href*='category']")
 		.array()
 		.map(|a| a.as_node().unwrap().text().read())
 		.collect::<Vec<String>>();
 	let status = match html
-		.select(".uk-margin-left>ul>li>.cl>span:nth-child(6)")
+		.select(".uk-margin-left>ul>li>.cl>span:nth-child(6), .shuxinglabel>span:last-of-type")
 		.text()
 		.read()
 		.as_str()
@@ -239,7 +254,7 @@ fn get_chapter_list(id: String) -> Result<Vec<Chapter>> {
 		id.clone()
 	);
 	let html = helper::get_html(url)?;
-	let list = html.select(".muludiv>a").array();
+	let list = html.select(".muludiv>a, .zjlist a[href*='zjid=']").array();
 	let mut chapters: Vec<Chapter> = Vec::new();
 
 	for (index, item) in list.enumerate() {
@@ -284,26 +299,32 @@ fn get_page_list(_: String, chapter_id: String) -> Result<Vec<Page>> {
 	);
 	let html = helper::get_html(url)?;
 	let text = html.html().read();
-	let list = text
-		.substring_after("let listimg=")
-		.unwrap()
-		.substring_before(";")
-		.unwrap();
-	let list = json::parse(list).unwrap().as_array()?;
+	let mut urls: Vec<String> = Vec::new();
+	if let Some(rest) = text.substring_after("let listimg=") {
+		let list = rest.substring_before(";").ok_or_else(parse_error)?;
+		for item in json::parse(list)?.as_array()? {
+			urls.push(item.as_object()?.get("file").as_string()?.read());
+		}
+	} else {
+		// 仅解析页面中的 JSON 字符串字面量，不执行站点 JavaScript。
+		for rest in text.split("window.imagelist.push(").skip(1) {
+			let literal = rest.substring_before(");").ok_or_else(parse_error)?;
+			urls.push(json::parse(literal.trim())?.as_string()?.read());
+		}
+	}
+	if urls.is_empty() {
+		return Err(parse_error());
+	}
 	let mut pages: Vec<Page> = Vec::new();
-
-	for (index, item) in list.enumerate() {
-		let item = match item.as_object() {
-			Ok(node) => node,
-			Err(_) => continue,
-		};
-		let index = index as i32;
-		let url = item.get("file").as_string()?.read();
+	for (index, url) in urls.into_iter().enumerate() {
+		if !url.starts_with("http://") && !url.starts_with("https://") {
+			return Err(parse_error());
+		}
 		pages.push(Page {
-			index,
+			index: index as i32,
 			url,
 			..Default::default()
-		})
+		});
 	}
 
 	Ok(pages)
