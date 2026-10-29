@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：19 / 32（PASS 2 / FIXED 3 / SKIP 14）；排除：1。
-- 当前：第 21 项 `zh.miaoshangmanhua`。
-- 下一项：`zh.mkzhan`；先完成当前源再继续。
+- 已处理：20 / 32（PASS 2 / FIXED 3 / SKIP 15）；排除：1。
+- 当前：第 22 项 `zh.mkzhan`。
+- 下一项：`zh.mxshm`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -42,8 +42,8 @@
 | 18   | 哔咔漫画   | `src/rust/zh.manhuabika`      | 未弃用 | SKIP        | API 明确要求认证，缺少有效账号令牌无法验证完整阅读；补齐检查宿主日期 ABI                 |
 | 19   | 漫画DB     | `src/rust/zh.manhuadb`        | 未弃用 | SKIP        | 原 HTTPS TLS 失败，HTTP 仅混淆脚本跳转，无可验证的漫画页面或官方迁移                     |
 | 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | PASS        | v2 实际列表/搜索各 20 项、180 章、39 页及首图 JPEG 206 通过                              |
-| 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 22   | 漫客栈     | `src/rust/zh.mkzhan`          | 未弃用 | PENDING     | 待检查                                                                                   |
+| 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | SKIP        | 原首页和列表 TLS 失败，HTTP 空响应，未发现可信迁移；维持弃用                             |
+| 22   | 漫客栈     | `src/rust/zh.mkzhan`          | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
 | 23   | 漫小肆韩漫 | `src/rust/zh.mxshm`           | 未弃用 | PENDING     | 待检查                                                                                   |
 | 24   | Nico       | `src/rust/zh.nicohub`         | 已弃用 | PENDING     | 待检查                                                                                   |
 | 25   | MYCOMIC    | `src/rust/zh.mycomic`         | 未弃用 | PENDING     | 待检查                                                                                   |
@@ -204,6 +204,12 @@
 - 首章解析 39 页，首图 Range 请求 HTTP 206、image/jpeg，文件头确认为 JPEG；图片请求沿用原插件 Referer 等必要请求头，没有批量下载。
 - 官网首页仍为漫画人正常页面，与原 API 域名一致，无需猜测迁移或修改接口。
 - 结论：PASS，保持 v2 源码、设置及发布包不变；不把默认配置验证扩大为任意账号权限或用户设备已通过。请求头认证值及设置内容不写入审计文档。
+
+### 21. 喵上漫画 — SKIP
+
+- 起始状态：已弃用，版本 5。原首页与源码实际列表 `/category/list/1/order/hits/page/1` 均在 TLS 握手阶段失败，没有漫画 HTML。
+- HTTP 原首页复查为 Empty reply from server，未返回官方迁移地址；定向检索未得到可信原站迁移公告。
+- 结论：SKIP（当前原站不可访问，缺少内容支撑恢复验证）。不盲改旧选择器或随意更换同名域名，维持 deprecated 和原版本，不重新发布。完整列表/搜索、详情、章节和图片均未验证；没有将网络失败断言为永久关闭。
 
 ## 可复用检查工具
 
