@@ -1,6 +1,6 @@
 # 全部漫画源健康检测
 
-更新时间：2026-10-29 22:20（北京时间）。已完成 6 / 35。
+更新时间：2026-10-29 22:20（北京时间）。已完成 7 / 35。
 
 本轮仅检测并标注原因，修复留待后续统一安排。覆盖当前 26 个发布源和 9 个已弃用源；使用实际发布包、仓库默认地址及匿名配置，不读取用户设备凭据。顶漫画用户已确认可用，包子漫画 2 也有既往设备确认；本轮依然复查。
 
@@ -16,7 +16,7 @@
 | [巴卡漫画](source-health/2026-10-29/zh.bakamh.json) | v3 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to bakamh.com:443 |
 | [包子漫画1](source-health/2026-10-29/zh.baozimh1.json) | v6 | 是 | 访问防护拦截 | 访问防护/Cloudflare 验证 |
 | [包子漫画2](source-health/2026-10-29/zh.baozimh2.json) | v7 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to baozimh.org:443 |
-| 哔哩漫画 | v5 | 是 | 待检测 |  |
+| [哔哩漫画](source-health/2026-10-29/zh.bilicomic.json) | v5 | 是 | 网络受限，未验证 | list: HTTP request failed: curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.bilimanga.net:443 |
 | 动漫狂 | v2 | 否 | 待检测 |  |
 | 拷贝漫画 | v13 | 是 | 待检测 |  |
 | 顶漫画 | v1 | 是 | 待检测 |  |
@@ -56,7 +56,7 @@
 
 ## 当前接续位置
 
-- 已处理：6 / 35。
-- 最近完成：`zh.baozimh2`。
-- 下一项：`zh.bilicomic`。
-- 汇总：已弃用/未发布 2；网络受限，未验证 3；访问防护拦截 1。
+- 已处理：7 / 35。
+- 最近完成：`zh.bilicomic`。
+- 下一项：`zh.cartoonmad`。
+- 汇总：网络受限，未验证 4；已弃用/未发布 2；访问防护拦截 1。
