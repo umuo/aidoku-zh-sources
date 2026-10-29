@@ -1,0 +1,27 @@
+{
+  "source": "zh.vomicmh",
+  "directory": "zh.vomicmh",
+  "name": "vomic漫画",
+  "version": 1,
+  "published": false,
+  "deprecated": true,
+  "checkedAt": "2026-10-29T14:27:02.881Z",
+  "checks": {
+    "homepage": {
+      "status": "PASS",
+      "httpStatus": 200,
+      "hints": []
+    }
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://www.vomicmh.com/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "hints": []
+    }
+  ],
+  "result": "UNPUBLISHED",
+  "reason": "已弃用，当前订阅列表无安装包；仅复查原入口，未将首页可访问视为阅读正常"
+}
