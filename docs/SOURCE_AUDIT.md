@@ -1,6 +1,6 @@
 # 图源逐项审计与修复
 
-更新时间：2026-10-28（北京时间）。用户授权按 README 顺序逐源处理；现按用户因额度不足的要求，在完成 HO5HO 后暂停，等待重新授权。
+更新时间：2026-10-29（北京时间）。已按最新继续指令接续逐源处理，保留此前完成 HO5HO 后暂停的历史。
 
 ## 范围与验收
 
@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：14 / 32（PASS 0 / FIXED 3 / SKIP 11）；排除：1。
-- 当前：已暂停；最后完成第 15 项 HO5HO（`zh.ho5ho`）。
-- 接续位置：第 16 项 `zh.isekai` 尚未开始；用户要求继续后再检查，之后为 `zh.komiic`。
+- 已处理：15 / 32（PASS 0 / FIXED 3 / SKIP 12）；排除：1。
+- 当前：第 17 项 `zh.komiic`。
+- 下一项：`zh.manhuabika`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -37,8 +37,8 @@
 | 13   | Hanime1.me | `src/rust/zh.hanime1`         | 未弃用 | SKIP     | 实际列表及漫画首页均为 Cloudflare 403 拦截页，完整阅读无法验证                           |
 | 14   | 嗨皮漫画   | `src/rust/zh.happymh`         | 未弃用 | SKIP     | 列表 API、移动站与主站均连接超时，未取得当前有效响应                                     |
 | 15   | HO5HO      | `src/rust/zh.ho5ho`           | 未弃用 | FIXED    | v2 兼容新列表卡片与详情结构；实际 WASM 全链路、首张 JPEG 响应及 3 组回归通过             |
-| 16   | ISEKAI     | `src/as/zh.isekai`            | 已弃用 | PENDING  | 尚未开始，按用户要求暂停                                                                 |
-| 17   | Komiic漫画 | `src/rust/zh.komiic`          | 未弃用 | PENDING  | 待检查                                                                                   |
+| 16   | ISEKAI     | `src/as/zh.isekai`            | 已弃用 | SKIP | 原列表为域名停放/出售页，历史备用域名 TLS 失败，无可靠官方迁移 |
+| 17   | Komiic漫画 | `src/rust/zh.komiic`          | 未弃用 | IN_PROGRESS | 正在排查 |
 | 18   | 哔咔漫画   | `src/rust/zh.manhuabika`      | 未弃用 | PENDING  | 待检查                                                                                   |
 | 19   | 漫画DB     | `src/rust/zh.manhuadb`        | 未弃用 | PENDING  | 待检查                                                                                   |
 | 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | PENDING  | 待检查                                                                                   |
@@ -166,6 +166,13 @@
 - release 构建、3 组实际 WASM 回归通过，覆盖新旧卡片、详情、章节/页序/图片 Referer；v2 包、图标和两份索引同步。
 - 发布：提交 `9a3ec02` 已推送，[Actions 发布成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40655056360)。完成本项后按用户要求暂停，未开始 ISEKAI。
 - 结论：FIXED（默认列表、搜索与代表性阅读链路通过）。没有用户设备复测；未逐一覆盖全部筛选与全部作品，不将代表性检查扩大为每个条目可用。后续如出现筛选或个别作品问题应单独复核。
+
+### 16. ISEKAI — SKIP
+
+- 起始状态：已弃用，AssemblyScript 版本 1，原站 `https://isekai.ch`。
+- 核对原首页和实现依赖的 `/comic/page/1`：HTTP 200，但列表响应仅 980 字节，正文明确为 `This domain may be for sale`，加载 abovedomains 的 forsale 脚本，无原 `.card` 漫画结构。没有把 200 当成可用。
+- 历史资料曾提到 `isekai.ee` 备用域名；请求同一路径在 TLS 建连阶段失败。没有取得原站官方迁移公告或当前可信入口，不替换到同名其他站。
+- 结论：SKIP（原域名已停放，无法在本仓库恢复上游内容）。保留 deprecated 和原版本，不安装无助于恢复上游的编译依赖，不重新发布；搜索、详情和图片均无法验证。
 
 ## 可复用检查工具
 
