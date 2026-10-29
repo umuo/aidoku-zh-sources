@@ -73,3 +73,29 @@ test("宿主按页面声明识别 Big5，避免将编码差异误判为图源故
   });
   assert.equal(host.call("get_manga_list", []).manga[0].title, "中文");
 });
+
+test("日期 ABI 为实际哔咔插件生成秒级签名时间，测试不发起登录或真实网络", () => {
+  const archive = spawnSync("python3", [
+    "-c",
+    'import sys,zipfile;sys.stdout.buffer.write(zipfile.ZipFile("public/sources/zh.manhuabika-v1.aix").read("Payload/main.wasm"))',
+  ]);
+  assert.equal(archive.status, 0);
+  const now = Math.floor(Date.now() / 1000);
+  const host = createHost(archive.stdout, {
+    defaults: { token: "fixture-token" },
+    transport(request) {
+      assert.equal(request.method, "GET");
+      assert.equal(new URL(request.url).pathname, "/comics");
+      assert.ok(Math.abs(Number(request.headers.time) - now) < 5);
+      assert.match(request.headers.signature, /^[a-f0-9]{64}$/);
+      return {
+        status: 200,
+        url: request.url,
+        headers: { "content-type": "application/json" },
+        body: Buffer.from(JSON.stringify({ data: { comics: { docs: [], page: 1, pages: 1 } } })),
+      };
+    },
+  });
+  assert.equal(host.call("get_manga_list", []).manga.length, 0);
+  assert.equal(host.requests.length, 1);
+});

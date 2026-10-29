@@ -4,12 +4,12 @@
 
 ## 当前状态
 
-- 更新时间：2026-10-29 08:25（北京时间）。
+- 更新时间：2026-10-29 08:27（北京时间）。
 - 任务状态：已按最新继续指令恢复逐源检查；每项完成后更新记录、提交并推送。
 - 审计范围：33 个源码图源，包含已弃用源；排除用户已实测可用的包子漫画 2（`zh.baozimh2` v7），其余 32 个逐源处理，详见 [逐源审计记录](SOURCE_AUDIT.md)。
-- 已处理：16 / 32（PASS 1 / FIXED 3 / SKIP 12），剩余 16 个；当前 `zh.manhuabika`，下一项 `zh.manhuadb`。
-- 最近完成：Komiic漫画（`zh.komiic`）记录 PASS；v3 实际 WASM 列表、短关键词搜索、详情、44 章、51 页及首张 WebP 均通过。详情与验证证据见 SOURCE_AUDIT.md。
-- 本项验证：Komiic v3 实际发布 WASM 列表 20 项，短关键词搜索 100 / 49 项，详情、44 章、51 页与首张 WebP / HTTP 200 通过；未配置 Cookie。完整标题搜索空结果经现站协议核对，不作为插件失败；无源码或发布包变更，未做设备测试。
+- 已处理：17 / 32（PASS 1 / FIXED 3 / SKIP 13），剩余 15 个；当前 `zh.manhuadb`，下一项 `zh.manhuaren`。
+- 最近完成：哔咔漫画（`zh.manhuabika`）记录 SKIP；API 明确要求认证，缺少有效账号令牌无法验证完整阅读；补齐检查宿主日期 ABI。详情与验证证据见 SOURCE_AUDIT.md。
+- 本项验证：哔咔公开协议匿名列表实际返回 HTTP 401 / unauthorized，未尝试登录，完整阅读未验证。检查器日期 ABI 已按锁定 SDK 补齐，4 组宿主测试通过。源、版本与 `public/` 不变；Komiic PASS 记录已推送为 `b337316`。
 - 发布：HO5HO v2 已随 `9a3ec02` 推送，`public/` 已同步，[Actions 发布成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40655056360)。ISEKAI 停放记录已推送为 `57e3d64`；G站 v10 部分修复 `c203232` 也已发布成功，但章节 API Cloudflare 403，仍为 SKIP，不能声称整体可读。
 - 已知限制：若干源受 Cloudflare、连接超时或上游关闭影响；SKIP 的证据与未验证项见审计记录。当前普通浏览器工具不可用；构建仍需旧 SDK、nightly wasm 目标和完整仓库检出，命令见下文。
 - 接续约定：按审计表串行处理当前源；每完成一个源立即更新交接、提交并推送。不得把仅首页可访问或离线测试通过记为整体可用。

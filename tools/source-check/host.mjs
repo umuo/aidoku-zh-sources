@@ -101,6 +101,9 @@ export function createHost(wasm, { transport = curlRequest, defaults = {} } = {}
     if (Array.isArray(value)) {
       return 5;
     }
+    if (value instanceof Date) {
+      return 7;
+    }
     return nodes.has(value) ? 8 : 6;
   };
   const parseJson = (text) => {
@@ -133,6 +136,7 @@ export function createHost(wasm, { transport = curlRequest, defaults = {} } = {}
       create_int: (value) => put(Number(value)),
       create_float: (value) => put(value),
       create_bool: (value) => put(Boolean(value)),
+      create_date: (value) => put(new Date(value === -1 ? Date.now() : value * 1000)),
       create_array: () => put([]),
       create_object: () => put({}),
       object_get: (id, pointer, length) => put(get(id)?.[read(pointer, length)]),
@@ -154,6 +158,7 @@ export function createHost(wasm, { transport = curlRequest, defaults = {} } = {}
       read_int: (id) => BigInt(Math.trunc(Number(get(id)) || 0)),
       read_float: (id) => Number(get(id)) || 0,
       read_bool: (id) => Boolean(get(id)),
+      read_date: (id) => get(id).getTime() / 1000,
       read_date_string: (id) => Date.parse(get(id)) / 1000 || 0,
     },
     json: { parse: (pointer, length) => parseJson(read(pointer, length)) },
