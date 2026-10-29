@@ -4,12 +4,12 @@
 
 ## 当前状态
 
-- 更新时间：2026-10-29 08:29（北京时间）。
+- 更新时间：2026-10-29 08:30（北京时间）。
 - 任务状态：已按最新继续指令恢复逐源检查；每项完成后更新记录、提交并推送。
 - 审计范围：33 个源码图源，包含已弃用源；排除用户已实测可用的包子漫画 2（`zh.baozimh2` v7），其余 32 个逐源处理，详见 [逐源审计记录](SOURCE_AUDIT.md)。
-- 已处理：18 / 32（PASS 1 / FIXED 3 / SKIP 14），剩余 14 个；当前 `zh.manhuaren`，下一项 `zh.miaoshangmanhua`。
-- 最近完成：漫画DB（`zh.manhuadb`）记录 SKIP；原 HTTPS TLS 失败，HTTP 仅混淆脚本跳转，无可验证的漫画页面或官方迁移。详情与验证证据见 SOURCE_AUDIT.md。
-- 本项验证：漫画DB 实际 WASM 列表、www 与根域名 HTTPS 均 TLS 握手失败；HTTP 仅混淆脚本跳转，无漫画页面。未执行未知脚本，完整阅读未验证。源码与 `public/` 不变；哔咔检查记录和日期宿主修复已推送为 `17be6a8`。
+- 已处理：19 / 32（PASS 2 / FIXED 3 / SKIP 14），剩余 13 个；当前 `zh.miaoshangmanhua`，下一项 `zh.mkzhan`。
+- 最近完成：漫画人（`zh.manhuaren`）记录 PASS；v2 实际列表/搜索各 20 项、180 章、39 页及首图 JPEG 206 通过。详情与验证证据见 SOURCE_AUDIT.md。
+- 本项验证：漫画人 v2 实际发布 WASM 的列表/搜索各 20 项、详情、180 章、39 页与首图 JPEG / HTTP 206 全通过，记录 PASS；无需变更源码或 `public/`。漫画DB 记录已推送为 `7c04838`；设备端未复测。
 - 发布：HO5HO v2 已随 `9a3ec02` 推送，`public/` 已同步，[Actions 发布成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40655056360)。ISEKAI 停放记录已推送为 `57e3d64`；G站 v10 部分修复 `c203232` 也已发布成功，但章节 API Cloudflare 403，仍为 SKIP，不能声称整体可读。
 - 已知限制：若干源受 Cloudflare、连接超时或上游关闭影响；SKIP 的证据与未验证项见审计记录。当前普通浏览器工具不可用；构建仍需旧 SDK、nightly wasm 目标和完整仓库检出，命令见下文。
 - 接续约定：按审计表串行处理当前源；每完成一个源立即更新交接、提交并推送。不得把仅首页可访问或离线测试通过记为整体可用。

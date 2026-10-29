@@ -14,9 +14,9 @@
 
 ## 当前接续位置
 
-- 已处理：18 / 32（PASS 1 / FIXED 3 / SKIP 14）；排除：1。
-- 当前：第 20 项 `zh.manhuaren`。
-- 下一项：`zh.miaoshangmanhua`；先完成当前源再继续。
+- 已处理：19 / 32（PASS 2 / FIXED 3 / SKIP 14）；排除：1。
+- 当前：第 21 项 `zh.miaoshangmanhua`。
+- 下一项：`zh.mkzhan`；先完成当前源再继续。
 
 ## 逐源结果
 
@@ -41,8 +41,8 @@
 | 17   | Komiic漫画 | `src/rust/zh.komiic`          | 未弃用 | PASS        | v3 实际 WASM 列表、短关键词搜索、详情、44 章、51 页及首张 WebP 均通过                    |
 | 18   | 哔咔漫画   | `src/rust/zh.manhuabika`      | 未弃用 | SKIP        | API 明确要求认证，缺少有效账号令牌无法验证完整阅读；补齐检查宿主日期 ABI                 |
 | 19   | 漫画DB     | `src/rust/zh.manhuadb`        | 未弃用 | SKIP        | 原 HTTPS TLS 失败，HTTP 仅混淆脚本跳转，无可验证的漫画页面或官方迁移                     |
-| 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | IN_PROGRESS | 正在排查                                                                                 |
-| 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | PENDING     | 待检查                                                                                   |
+| 20   | 漫画人     | `src/rust/zh.manhuaren`       | 未弃用 | PASS        | v2 实际列表/搜索各 20 项、180 章、39 页及首图 JPEG 206 通过                              |
+| 21   | 喵上漫画   | `src/rust/zh.miaoshangmanhua` | 已弃用 | IN_PROGRESS | 正在排查                                                                                 |
 | 22   | 漫客栈     | `src/rust/zh.mkzhan`          | 未弃用 | PENDING     | 待检查                                                                                   |
 | 23   | 漫小肆韩漫 | `src/rust/zh.mxshm`           | 未弃用 | PENDING     | 待检查                                                                                   |
 | 24   | Nico       | `src/rust/zh.nicohub`         | 已弃用 | PENDING     | 待检查                                                                                   |
@@ -196,6 +196,14 @@
 - HTTP 首页虽然返回 200，但仅约 2.1 KB，没有标题或漫画结构，内容为混淆 JavaScript 构造跳转；没有迁移说明。未执行或跟随该未知跳转，也未把它当作官方新地址。
 - 定向检索未找到可核实的原站迁移公告或可信可用入口；搜索无结果本身不证明永久关闭。
 - 结论：SKIP（原入口在当前环境不可用，没有可验证内容支撑安全修复）。维持源与 v1 未弃用状态，不用猜测域名替换；搜索、详情、章节与图片均未验证，后续需正常访问条件或官方迁移证据。
+
+### 20. 漫画人 — PASS
+
+- 起始版本 2，使用源码现有默认配置与实际发布 WASM；未读取用户 App 设置或新增账号登录。
+- 列表、搜索、详情、章节和图片 API 全部 HTTP 200，返回 application/json；列表 20 项，搜索 20 项，代表性详情 `81521` 标题/封面有效，目录 180 章。
+- 首章解析 39 页，首图 Range 请求 HTTP 206、image/jpeg，文件头确认为 JPEG；图片请求沿用原插件 Referer 等必要请求头，没有批量下载。
+- 官网首页仍为漫画人正常页面，与原 API 域名一致，无需猜测迁移或修改接口。
+- 结论：PASS，保持 v2 源码、设置及发布包不变；不把默认配置验证扩大为任意账号权限或用户设备已通过。请求头认证值及设置内容不写入审计文档。
 
 ## 可复用检查工具
 
