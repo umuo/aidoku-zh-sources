@@ -18,6 +18,8 @@ Aidoku 中文图源
 https://raw.githubusercontent.com/umuo/aidoku-zh-sources/main/public/
 ```
 
+GitHub 原始地址无法访问时，可使用 [本仓库 jsDelivr 备用入口](https://aidoku.app/add-source-list/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fumuo%2Faidoku-zh-sources%40main%2Fpublic%2F)。注意 CDN 与客户端缓存可能延迟显示版本；优先使用上面的原始地址，并检查订阅路径是否固定到旧提交。
+
 本仓库的修复发布在 `umuo/aidoku-zh-sources`。如果之前订阅的是上游 `suiyuran` 或其 CDN 地址，需要添加上面的本仓库地址并刷新列表，原订阅不会自动切换到本仓库。
 
 ## 图源列表

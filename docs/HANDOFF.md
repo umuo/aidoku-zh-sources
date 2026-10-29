@@ -13,7 +13,7 @@
 - 发布：HO5HO v2 已随 `9a3ec02` 推送，`public/` 已同步，[Actions 发布成功](https://github.com/umuo/aidoku-zh-sources/actions/runs/40655056360)。G站 v10 部分修复 `c203232` 也已发布成功，但章节 API Cloudflare 403，仍为 SKIP，不能声称整体可读。
 - 已知限制：若干源受 Cloudflare、连接超时或上游关闭影响；SKIP 的证据与未验证项见审计记录。当前普通浏览器工具不可用；构建仍需旧 SDK、nightly wasm 目标和完整仓库检出，命令见下文。
 - 接续约定：仅在用户要求继续后，从 ISEKAI 开始串行处理；每完成一个源立即更新交接、提交并推送。不得把仅首页可访问或离线测试通过记为整体可用。
-- 本轮更新排查：用户反馈 App 检测不到新版本，核对远程 main/public 与 gh-pages 索引均有 HO5HO v2、G站 v10，且 `4cbe3b0` 部署成功。README 原添加链接仍指向上游，上游对应版本为 v1、v9；已修正 README 为本仓库入口并说明已有订阅不会自动迁移。用户实际订阅地址尚待核实，不能把这一原因当成设备端已确认结论。
+- 本轮更新排查：用户确认使用本仓库 jsDelivr 订阅。远程 main/public、gh-pages 及标准 CDN `@main` 的两份索引均有 HO5HO v2、G站 v10；不能将用户问题归因于订阅上游。CDN 响应头为 `max-age=604800, s-maxage=43200`，客户端/其他节点旧缓存或实际 URL 固定旧引用仍待核实。两份标准 CDN 索引的 purge 请求均返回 finished、CF/FY 成功；刷新后复查 min 索引版本正确。清理 CDN 不等于清除 App 本地缓存。README 已补正确仓库链接及缓存说明；用户完整订阅地址与受影响图源尚待回复。
 
 ## 项目地图
 
