@@ -27,6 +27,14 @@
     "file": "zh.baozimh1-v6.aix",
     "sha256": "dc8b388d347629bf6fc17ab6118870ae6dacf8f75e709c1d7b112c9a9d807984"
   },
-  "result": "ACCESS_BLOCKED",
-  "reason": "默认列表返回 Gatekeeper 的 challenge_required；当前匿名请求无法进入列表及阅读。"
+  "result": "USER_CONFIRMED",
+  "reason": "用户确认：Aidoku 客户端支持手动浏览器验证，完成站点验证后可正常使用；无需图源维修。",
+  "automatedAssessment": {
+    "result": "ACCESS_BLOCKED",
+    "reason": "默认列表返回 Gatekeeper 的 challenge_required；当前匿名请求无法进入列表及阅读。"
+  },
+  "userFeedback": "用户确认：Aidoku 客户端支持手动浏览器验证，完成站点验证后可正常使用；无需图源维修。",
+  "userConfirmedAt": "2026-10-29 23:01 +08:00",
+  "maintenanceStatus": "NOT_REQUIRED",
+  "clientRequirement": "在 Aidoku 中手动完成站点浏览器验证。"
 }

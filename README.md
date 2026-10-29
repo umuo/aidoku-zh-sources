@@ -28,7 +28,7 @@ GitHub 原始地址无法访问时，可使用 [本仓库 jsDelivr 备用入口]
 - ~~[139漫画](https://139mh.com)~~
 - ~~[无敌漫画](https://www.55dmh.com)~~
 - [巴卡漫画](https://bakamh.com)
-- [包子漫画1](https://www.baozimh.com)
+- [包子漫画1](https://www.baozimh.com)（Aidoku 手动完成浏览器验证后可用）
 - [包子漫画2](https://baozimh.org)
 - [哔哩漫画](https://www.bilimanga.net)
 - ~~[动漫狂](https://www.cartoonmad.com)~~
