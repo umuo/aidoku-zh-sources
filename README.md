@@ -52,7 +52,7 @@ GitHub 原始地址无法访问时，可使用 [本仓库 jsDelivr 备用入口]
 - ~~[Nico](https://nicohub.cc/index?category=comic)~~
 - [MYCOMIC](https://mycomic.com/cn)
 - [NoyAcg](https://noy1.top)
-- [韩漫库](https://se8.us)
+- ~~[韩漫库](https://se8.us)~~（站点暂停，已移出索引）
 - ~~[vomic漫画](http://www.vomicmh.com)~~
 - [绅士漫画](https://www.wnacg.com)
 - [言耽社](https://yandanshe.com)
