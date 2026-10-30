@@ -24,7 +24,7 @@
 | [无敌漫画](source-health/2026-10-29/zh.55dmh.json) | `zh.55dmh` | v2 | 否 | 已弃用/未发布 | 已弃用且不在当前安装索引中；原入口 TLS/连接失败（已交叉复查）。本轮仅检查原入口，未编译恢复，目录和阅读未验证。 |
 | [巴卡漫画](source-health/2026-10-29/zh.bakamh.json) | `zh.bakamh` | v3 | 是 | 网络受限，未验证 | 列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
 | [包子漫画1](source-health/2026-10-29/zh.baozimh1.json) | `zh.baozimh1` | v6 | 是 | 用户确认可用（需验证） | Aidoku 支持手动浏览器验证，完成验证后可正常使用；无需维修。CLI 的 Gatekeeper 拦截仅为检测环境限制。 |
-| [包子漫画2](source-health/2026-10-29/zh.baozimh2.json) | `zh.baozimh2` | v7 | 是 | 用户确认可用 | 用户本轮明确确认正常使用，无需维修；保留原 CLI 网络/403 记录，不作为设备端不可用结论。 |
+| [包子漫画2](source-health/2026-10-29/zh.baozimh2.json) | `zh.baozimh2` | v7 → v8 | 是 | 阅读曾确认；目录修复待复测 | 用户反馈所有作品仅 40 章；旧接口只给首尾各 20 章。v8 改用 v2 `mode=all`，《斗破苍穹》由 40 恢复 681 章，另一部 343 章，均通过实际 WASM；待设备更新刷新验证。 |
 | [哔哩漫画](source-health/2026-10-29/zh.bilicomic.json) | `zh.bilicomic` | v5 | 是 | 网络受限，未验证 | 列表请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |
 | [动漫狂](source-health/2026-10-29/zh.cartoonmad.json) | `zh.cartoonmad` | v2 | 否 | 已弃用/未发布 | 已弃用且不在当前安装索引中；原入口 TLS/连接失败（已交叉复查）。本轮仅检查原入口，未编译恢复，目录和阅读未验证。 |
 | [拷贝漫画](source-health/2026-10-29/zh.copymanga.json) | `zh.copymanga` | v13 | 是 | 网络受限，未验证 | 列表、搜索可用；详情请求 TLS 握手失败、连接关闭或超时（curl 与 OpenSSL 均复查）；当前环境未验证到真实图片。 |

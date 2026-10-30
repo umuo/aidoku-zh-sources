@@ -77,7 +77,7 @@ function reader(response, mid = "5") {
       },
       send: () => {},
       close: () => {},
-      json: () => put(response),
+      json: () => put(typeof response === "function" ? response(requests.at(-1)) : response),
       html: () => put({ node: true }),
     },
     html: {
@@ -219,9 +219,32 @@ test("章节列表使用新 API，保留章节 ID、标题、顺序和网页链�
     { id: "102", title: "第二话", chapter: 2, url: "https://baozimh.org/manga/example/chapter-2" },
     { id: "101", title: "第一话", chapter: 1, url: "https://baozimh.org/manga/example/chapter-1" },
   ]);
-  assert.equal(source.requests[0].url, "https://v2.apikk.top/api/manga/get?mid=5");
+  assert.equal(source.requests[0].url, "https://v2.apikk.top/api/v2/manga/get?mid=5&mode=all");
 });
 
 test("图片下载保留站点 Referer", () => {
   assert.equal(reader(response([])).imageRequest().headers.Referer, "https://baozimh.org");
+});
+
+test("目录必须获取全部章节，不能使用只返回首尾共40章的旧接口", () => {
+  const list = Array.from({ length: 85 }, (_, index) => ({
+    id: index + 101,
+    attributes: { title: `第${index + 1}话`, slug: `chapter-${index + 1}` },
+  }));
+  const source = reader((request) => ({
+    data: {
+      chapters:
+        request.url === "https://v2.apikk.top/api/v2/manga/get?mid=5&mode=all"
+          ? list
+          : [...list.slice(0, 20), ...list.slice(-20)],
+    },
+  }));
+  const chapters = source.chapters();
+  assert.equal(source.requests[0].url, "https://v2.apikk.top/api/v2/manga/get?mid=5&mode=all");
+  assert.equal(chapters.length, 85);
+  assert.deepEqual(
+    chapters.map((chapter) => chapter.id),
+    list.map((chapter) => String(chapter.id)).reverse(),
+  );
+  assert.equal(chapters.find((chapter) => chapter.id === "143").title, "第43话");
 });

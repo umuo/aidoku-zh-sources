@@ -72,7 +72,7 @@
     "sha256": "5175d7ff947539ec47c5eadfe88c02ad2f6746838cbb93ff831cb1a9c7a1d2c5"
   },
   "result": "USER_CONFIRMED",
-  "reason": "用户本轮明确确认能够正常使用；无需图源维修。",
+  "reason": "v7 用户此前确认可读，后续发现所有作品目录仅 40 章；v8 修复旧接口截断，待设备复测。",
   "priorAttempt": {
     "source": "zh.baozimh2",
     "directory": "zh.baozimh2",
@@ -107,5 +107,43 @@
     "reason": "列表能返回，但搜索/目录连接超时，第一部作品详情 HTTP 403；两个样本均未到真实图片。保留此前用户设备可读反馈，本轮受网络与访问拒绝影响。"
   },
   "userConfirmedAt": "2026-10-29 23:01 +08:00",
-  "maintenanceStatus": "NOT_REQUIRED"
+  "maintenanceStatus": "CHAPTER_LIST_FIXED_PENDING_USER_RETEST",
+  "followUp": {
+    "reportedAt": "2026-10-30 19:16 +08:00",
+    "userFeedback": "所有的漫画都是，比如斗破苍穹；只显示40章",
+    "sourceVersion": 8,
+    "status": "FIXED_PENDING_USER_RETEST",
+    "cause": "旧 /api/manga/get 仅返回首尾各20章；新版 /api/v2/manga/get 必须加 mode=all。",
+    "liveChecks": [
+      {
+        "mid": "5",
+        "title": "我！天命大反派",
+        "oldCount": 40,
+        "v2DefaultCount": 20,
+        "allCount": 343,
+        "uniqueCount": 343,
+        "wasmIdAndOrderComparison": "PASS"
+      },
+      {
+        "mid": "76",
+        "title": "斗破苍穹",
+        "oldCount": 40,
+        "allCount": 681,
+        "uniqueCount": 681,
+        "wasmIdAndOrderComparison": "PASS",
+        "note": "最初TLS/读取超时，定向重试HTTP200成功。"
+      }
+    ],
+    "validation": {
+      "readerTests": 7,
+      "hostRegressionTests": 44,
+      "packageIndexValidation": 25,
+      "deviceRetest": "PENDING"
+    },
+    "package": {
+      "file": "zh.baozimh2-v8.aix",
+      "sha256": "a0ca1e1f1aad29683c058ead12eb45d64152d7b0e05bb73b6291043eafdbf61d"
+    },
+    "nextStep": "更新图源至v8后刷新漫画详情和目录，复查中间章节；保留旧书架ID。"
+  }
 }

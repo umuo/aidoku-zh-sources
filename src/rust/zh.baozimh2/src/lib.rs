@@ -279,7 +279,12 @@ fn get_manga_details(id: String) -> Result<Manga> {
 #[get_chapter_list]
 fn get_chapter_list(id: String) -> Result<Vec<Chapter>> {
 	let ids = id.split("/").collect::<Vec<&str>>();
-	let url = format!("{}/api/manga/get?mid={}", API_URL, manga_mid(&id)?);
+	// 旧接口仅返回首尾共 40 章，v2 的 mode=all 才返回完整目录。
+	let url = format!(
+		"{}/api/v2/manga/get?mid={}&mode=all",
+		API_URL,
+		manga_mid(&id)?
+	);
 	let json = Request::new(url.clone(), HttpMethod::Get)
 		.header("Origin", &WWW_URL)
 		.header("Referer", &WWW_URL)
